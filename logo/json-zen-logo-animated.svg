@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <!-- Animated gradient for braces -->
+    <linearGradient id="animAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60A5FA">
+        <animate attributeName="stop-color" values="#60A5FA;#3B82F6;#60A5FA" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" style="stop-color:#3B82F6">
+        <animate attributeName="stop-color" values="#3B82F6;#2563EB;#3B82F6" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#2563EB">
+        <animate attributeName="stop-color" values="#2563EB;#1D4ED8;#2563EB" dur="4s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="50%" style="stop-color:#12121a"/>
+      <stop offset="100%" style="stop-color:#1a1a25"/>
+    </linearGradient>
+
+    <!-- Glass effect -->
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff" stop-opacity="0.08"/>
+      <stop offset="50%" style="stop-color:#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" style="stop-color:#ffffff" stop-opacity="0.01"/>
+    </linearGradient>
+
+    <!-- Glow filter -->
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur">
+        <animate attributeName="stdDeviation" values="8;12;8" dur="3s" repeatCount="indefinite"/>
+      </feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Soft shadow filter -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.4"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="512" height="512" rx="96" fill="url(#bgGrad)"/>
+
+  <!-- ==================== LAYERED CARDS WITH ANIMATION ==================== -->
+  <!-- Back layer card - subtle float -->
+  <g transform="translate(256, 256)">
+    <rect x="-140" y="-140" width="280" height="280" rx="52"
+          fill="url(#glassGrad)" stroke="#ffffff" stroke-width="0.5"
+          stroke-opacity="0.08" filter="url(#softShadow)">
+      <animateTransform attributeName="transform" type="translate"
+        values="-140,-140;-140,-142;-140,-140" dur="6s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Middle layer card -->
+  <g transform="translate(256, 256)">
+    <rect x="-135" y="-135" width="270" height="270" rx="50"
+          fill="url(#glassGrad)" stroke="#ffffff" stroke-width="0.8"
+          stroke-opacity="0.12" filter="url(#softShadow)">
+      <animateTransform attributeName="transform" type="translate"
+        values="-135,-135;-135,-137;-135,-135" dur="5s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Main card -->
+  <g transform="translate(256, 256)">
+    <rect x="-130" y="-130" width="260" height="260" rx="48"
+          fill="url(#glassGrad)" stroke="#ffffff" stroke-width="1"
+          stroke-opacity="0.15" filter="url(#softShadow)"/>
+
+    <!-- Animated inner glow -->
+    <rect x="-130" y="-130" width="260" height="260" rx="48"
+          fill="none" stroke="#3B82F6" stroke-width="1.5"
+          stroke-opacity="0.3">
+      <animate attributeName="stroke-opacity" values="0.3;0.5;0.3" dur="4s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- ==================== JSON BRACES WITH ANIMATED GRADIENT ==================== -->
+  <!-- Left brace -->
+  <path d="M156 160v45c0 12-10 22-24 22s-24-10-24-22v-45c0-12 10-22 24-22v0"
+        stroke="url(#animAccentGrad)" stroke-width="14" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+  <!-- Right brace -->
+  <path d="M356 160v45c0 12 10 22 24 22s24-10 24-22v-45c0-12-10-22-24-22v0"
+        stroke="url(#animAccentGrad)" stroke-width="14" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+  <!-- ==================== JSON DATA WITH PULSE EFFECT ==================== -->
+  <!-- Key dots with pulse -->
+  <circle cx="196" cy="183" r="8" fill="#22D3EE" opacity="0.95">
+    <animate attributeName="opacity" values="0.95;0.7;0.95" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="196" cy="208" r="8" fill="#22D3EE" opacity="0.95">
+    <animate attributeName="opacity" values="0.95;0.7;0.95" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Data lines -->
+  <rect x="218" y="172" width="100" height="10" rx="5" fill="#94A3B8" opacity="0.9"/>
+  <rect x="218" y="190" width="65" height="10" rx="5" fill="#64748B" opacity="0.8"/>
+
+  <!-- Nested data -->
+  <rect x="188" y="218" width="120" height="10" rx="5" fill="#94A3B8" opacity="0.7"/>
+  <rect x="202" y="236" width="90" height="10" rx="5" fill="#475569" opacity="0.6"/>
+  <rect x="202" y="254" width="75" height="10" rx="5" fill="#475569" opacity="0.5"/>
+
+  <!-- ==================== ANIMATED ACCENT LINE ==================== -->
+  <path d="M170 300h172" stroke="url(#animAccentGrad)" stroke-width="3"
+        stroke-linecap="round" opacity="0.6"/>
+
+  <!-- ==================== BREATHING ZEN SYMBOL ==================== -->
+  <g transform="translate(256, 360)">
+    <!-- Outer ring with breathing animation -->
+    <circle cx="0" cy="0" r="35" fill="none" stroke="url(#animAccentGrad)"
+            stroke-width="2" opacity="0.4" filter="url(#glow)">
+      <animate attributeName="r" values="35;38;35" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.5;0.4" dur="4s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Middle ring -->
+    <circle cx="0" cy="0" r="26" fill="none" stroke="#3B82F6"
+            stroke-width="1.5" opacity="0.25">
+      <animate attributeName="r" values="26;28;26" dur="4s" begin="0.2s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Inner filled circle with pulse -->
+    <circle cx="0" cy="0" r="16" fill="url(#animAccentGrad)" opacity="0.4">
+      <animate attributeName="r" values="16;18;16" dur="4s" begin="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.5;0.4" dur="4s" begin="0.4s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Center highlight -->
+    <circle cx="-4" cy="-4" r="5" fill="#60A5FA" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- ==================== FLOATING PARTICLES ==================== -->
+  <g>
+    <!-- Particle 1 -->
+    <circle cx="380" cy="140" r="2" fill="#3B82F6" opacity="0.4">
+      <animate attributeName="cy" values="140;130;140" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="5s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Particle 2 -->
+    <circle cx="395" cy="155" r="1.5" fill="#60A5FA" opacity="0.3">
+      <animate attributeName="cy" values="155;145;155" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Particle 3 -->
+    <circle cx="130" cy="380" r="2" fill="#3B82F6" opacity="0.4">
+      <animate attributeName="cy" values="380;370;380" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="6s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Particle 4 -->
+    <circle cx="115" cy="365" r="1" fill="#60A5FA" opacity="0.3">
+      <animate attributeName="cy" values="365;358;365" dur="4.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Particle 5 -->
+    <circle cx="400" cy="380" r="1.5" fill="#22D3EE" opacity="0.4">
+      <animate attributeName="cy" values="380;372;380" dur="5.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="5.5s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Particle 6 - new -->
+    <circle cx="100" cy="120" r="1.5" fill="#8B5CF6" opacity="0.3">
+      <animate attributeName="cy" values="120;112;120" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="100;108;100" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="7s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- ==================== CORNER ACCENTS ==================== -->
+  <g opacity="0.1">
+    <!-- Top left -->
+    <path d="M60 100v-15c0-8 6-14 14-14h15" stroke="#ffffff" stroke-width="2"
+          fill="none" stroke-linecap="round"/>
+    <!-- Bottom right -->
+    <path d="M452 412v15c0 8-6 14-14 14h-15" stroke="#ffffff" stroke-width="2"
+          fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ==================== SUBTLE DATA FLOW LINES ==================== -->
+  <g opacity="0.15" stroke="#3B82F6" stroke-width="1" fill="none">
+    <path d="M150 340 Q180 330 200 340">
+      <animate attributeName="d" values="M150 340 Q180 330 200 340;M150 340 Q180 350 200 340;M150 340 Q180 330 200 340" dur="4s" repeatCount="indefinite"/>
+    </path>
+    <path d="M310 340 Q340 330 360 340">
+      <animate attributeName="d" values="M310 340 Q340 330 360 340;M310 340 Q340 350 360 340;M310 340 Q340 330 360 340" dur="4.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>
