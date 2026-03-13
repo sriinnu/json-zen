@@ -30,22 +30,6 @@
     </div>
     <div class="header-actions">
       <div class="status-pill" id="status">Ready</div>
-      <div class="dropdown recent-dropdown">
-        <button class="icon-btn" id="recentBtn" title="Recent items">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </button>
-        <div class="dropdown-menu recent-menu" id="recentMenu">
-          <div class="recent-header">Recent Items</div>
-          <div id="recentList" class="recent-list"></div>
-        </div>
-      </div>
-      <button class="icon-btn" id="historyBtn" title="History">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-      </button>
       <button class="theme-toggle" id="theme" title="Toggle theme">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="4"/>
@@ -98,6 +82,12 @@
       </svg>
       Stats
     </button>
+    <button class="btn btn-secondary" id="diffBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 20V4M5 13l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Diff
+    </button>
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" id="convertBtn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -131,16 +121,6 @@
         </button>
       </div>
     </div>
-    <div class="divider"></div>
-    <button class="btn btn-bulk" id="bulkProcess">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <rect x="3" y="3" width="7" height="7" rx="1"/>
-        <rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="3" y="14" width="7" height="7" rx="1"/>
-        <rect x="14" y="14" width="7" height="7" rx="1"/>
-      </svg>
-      Bulk Process
-    </button>
   </div>
 
   <!-- Main content with glass panels -->
@@ -177,9 +157,7 @@
           </button>
         </div>
       </div>
-      <div class="output-container">
-        <pre id="output" class="json-tree-view"></pre>
-      </div>
+      <pre id="output"></pre>
     </div>
   </div>
 
@@ -191,38 +169,6 @@
     <span class="shortcut"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>V</kbd> Validate</span>
     <span class="credit">by Srinivas Pendela</span>
   </footer>
-
-  <!-- History Sidebar -->
-  <div id="historySidebar" class="history-sidebar">
-    <div class="history-header">
-      <div class="history-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span>History</span>
-      </div>
-      <button class="history-close" id="closeHistory">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 6L6 18M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-    <div class="history-search">
-      <input type="text" id="historySearch" placeholder="Search history...">
-    </div>
-    <div class="history-actions">
-      <button class="history-action-btn" id="clearHistory">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-        </svg>
-        Clear All
-      </button>
-    </div>
-    <div id="historyList" class="history-list"></div>
-  </div>
-
-  <!-- History Overlay -->
-  <div id="historyOverlay" class="history-overlay"></div>
 
   <!-- Schema Validation Modal -->
   <div class="modal-overlay" id="schemaModal">
@@ -306,146 +252,87 @@
     </div>
   </div>
 
-  <!-- Bulk Process Modal -->
-  <div class="modal-overlay" id="bulkModal">
-    <div class="modal-content bulk-modal-content">
+  <!-- Diff/Compare Modal -->
+  <div class="modal-overlay" id="diffModal">
+    <div class="modal-content diff-modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">Bulk JSON Processing</h2>
-        <button class="modal-close" id="closeBulkModal">
+        <h2 class="modal-title">JSON Diff Comparison</h2>
+        <button class="modal-close" id="closeDiffModal">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
         </button>
       </div>
 
-      <div class="modal-body bulk-modal-body">
-        <!-- File Selection Area -->
-        <div class="bulk-file-area" id="bulkFileArea">
-          <div class="bulk-dropzone" id="bulkDropzone">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <p class="dropzone-text">Drop files/folders here or click to select</p>
-            <p class="dropzone-hint">Supports .json and .txt files</p>
-            <input type="file" id="bulkFileInput" multiple accept=".json,.txt" style="display:none">
-          </div>
-
-          <!-- Selected Files List -->
-          <div class="bulk-files-list" id="bulkFilesList" style="display:none;">
-            <div class="bulk-files-header">
-              <span class="bulk-files-count">0 files selected</span>
-              <button class="bulk-clear-btn" id="bulkClearFiles">Clear All</button>
-            </div>
-            <div class="bulk-files-items" id="bulkFilesItems"></div>
-          </div>
-        </div>
-
-        <!-- Operation Selection -->
-        <div class="bulk-operation-section">
-          <label class="bulk-label">Select Operation:</label>
-          <div class="bulk-operations">
-            <button class="bulk-op-btn active" data-op="format">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 6h16M4 12h12M4 18h16" stroke-linecap="round"/>
-              </svg>
-              Format
-            </button>
-            <button class="bulk-op-btn" data-op="minify">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
-              </svg>
-              Minify
-            </button>
-            <button class="bulk-op-btn" data-op="fix">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h3l2.5 3h5a2 2 0 002-2V6a2 2 0 00-2-2z"/>
-              </svg>
-              Fix
-            </button>
-            <button class="bulk-op-btn" data-op="validate">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 12l2 2 4-4"/>
-              </svg>
-              Validate
-            </button>
-            <button class="bulk-op-btn" data-op="convert">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 6h18M3 12h18M3 18h18"/>
-                <path d="M9 6v12m0-6l-3 3m3-3l3 3" stroke-linecap="round" stroke-linejoin="round" transform="translate(12,0)"/>
-              </svg>
-              Convert
-            </button>
-          </div>
-
-          <!-- Convert Format Selection (hidden by default) -->
-          <div class="bulk-convert-format" id="bulkConvertFormat" style="display:none;">
-            <label class="bulk-label">Convert To:</label>
-            <select id="bulkConvertSelect" class="bulk-select">
-              <option value="yaml">YAML</option>
-              <option value="xml">XML</option>
-              <option value="csv">CSV</option>
-              <option value="toml">TOML</option>
-              <option value="base64">Base64</option>
-              <option value="url">URL Encode</option>
+      <div class="modal-body diff-modal-body">
+        <!-- Diff Controls -->
+        <div class="diff-controls">
+          <div class="diff-mode-selector">
+            <label for="diffMode">Comparison Mode:</label>
+            <select id="diffMode" class="diff-select">
+              <option value="formatted">Formatted JSON</option>
+              <option value="minified">Minified JSON</option>
             </select>
           </div>
-        </div>
-
-        <!-- Progress Section -->
-        <div class="bulk-progress-section" id="bulkProgressSection" style="display:none;">
-          <div class="bulk-progress-header">
-            <span class="bulk-progress-file" id="bulkProgressFile">Processing...</span>
-            <span class="bulk-progress-counter" id="bulkProgressCounter">0 / 0</span>
-          </div>
-          <div class="bulk-progress-bar">
-            <div class="bulk-progress-fill" id="bulkProgressFill"></div>
-          </div>
-          <div class="bulk-progress-stats">
-            <span class="bulk-stat success" id="bulkSuccessCount">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <path d="M9 12l2 2 4-4"/>
+          <div class="diff-actions">
+            <button class="diff-action-btn" id="clearDiff" title="Clear comparison">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
               </svg>
-              0 Success
-            </span>
-            <span class="bulk-stat error" id="bulkErrorCount">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <path d="M18 6L6 18M6 6l12 12"/>
+              Clear
+            </button>
+            <button class="diff-action-btn diff-copy-changes" id="copyChanges" title="Copy only changes">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
               </svg>
-              0 Errors
-            </span>
+              Copy Changes
+            </button>
           </div>
         </div>
 
-        <!-- Results Section -->
-        <div class="bulk-results-section" id="bulkResultsSection" style="display:none;">
-          <div class="bulk-results-header">
-            <h3>Processing Complete</h3>
-            <div class="bulk-results-actions">
-              <button class="btn btn-secondary" id="bulkDownloadAll">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Download All (ZIP)
-              </button>
-              <button class="btn btn-secondary" id="bulkNewProcess">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                </svg>
-                New Process
-              </button>
+        <!-- Diff Panels -->
+        <div class="diff-panels">
+          <!-- Original JSON Panel -->
+          <div class="diff-panel">
+            <div class="diff-panel-header">
+              <span class="diff-panel-title">Original JSON</span>
+              <span class="diff-panel-status" id="originalStatus"></span>
+            </div>
+            <textarea id="originalJson" class="diff-textarea" placeholder="Paste original JSON here or use current input..."></textarea>
+          </div>
+
+          <!-- New JSON Panel -->
+          <div class="diff-panel">
+            <div class="diff-panel-header">
+              <span class="diff-panel-title">New JSON</span>
+              <span class="diff-panel-status" id="newStatus"></span>
+            </div>
+            <textarea id="newJson" class="diff-textarea" placeholder="Paste new JSON to compare..."></textarea>
+          </div>
+        </div>
+
+        <!-- Diff Results -->
+        <div class="diff-results">
+          <div class="diff-summary" id="diffSummary"></div>
+          <div class="diff-output" id="diffOutput">
+            <div class="diff-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 20V4M5 13l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p>Enter JSON in both panels to see differences</p>
             </div>
           </div>
-          <div class="bulk-results-list" id="bulkResultsList"></div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-secondary" id="cancelBulk">Cancel</button>
-        <button class="btn btn-primary" id="startBulkProcess">
+        <button class="btn btn-secondary" id="cancelDiff">Cancel</button>
+        <button class="btn btn-primary" id="runDiff">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polygon points="5,3 19,12 5,21"/>
+            <path d="M12 20V4M5 13l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Start Processing
+          Compare
         </button>
       </div>
     </div>
@@ -453,8 +340,6 @@
 
   <!-- Scripts -->
   <script src="../utils/json-utils.js"></script>
-  <script src="path-explorer.js"></script>
-  <script src="bulk-processor.js"></script>
   <script src="popup-script.js"></script>
 </body>
 </html>
