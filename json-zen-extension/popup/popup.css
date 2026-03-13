@@ -59,6 +59,10 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px;
+
+  /* Dropdown */
+  --dropdown-bg: rgba(20, 20, 25, 0.95);
+  --dropdown-border: rgba(255, 255, 255, 0.1);
 }
 
 /* Light theme */
@@ -80,6 +84,10 @@
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
   --shadow-lg: 0 12px 32px rgba(0,0,0,0.1), 0 6px 16px rgba(0,0,0,0.07);
   --shadow-xl: 0 20px 48px rgba(0,0,0,0.12), 0 10px 24px rgba(0,0,0,0.08);
+
+  /* Dropdown */
+  --dropdown-bg: rgba(255, 255, 255, 0.95);
+  --dropdown-border: rgba(0, 0, 0, 0.1);
 }
 
 /* ================================================
@@ -608,10 +616,10 @@ kbd {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
-  background: rgba(20, 20, 25, 0.95);
+  background: var(--dropdown-bg);
   backdrop-filter: blur(30px) saturate(180%);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--dropdown-border);
   border-radius: var(--radius-md);
   padding: 8px;
   min-width: 150px;
@@ -660,7 +668,7 @@ kbd {
 
 .dropdown-divider {
   height: 1px;
-  background: var(--glass-border);
+  background: var(--dropdown-border);
   margin: 8px 0;
 }
 
