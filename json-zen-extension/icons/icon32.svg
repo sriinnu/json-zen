@@ -1,25 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e"/>
-      <stop offset="100%" style="stop-color:#16213e"/>
+    <linearGradient id="g32" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60A5FA"/>
+      <stop offset="50%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#2563EB"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#0f4c75"/>
-      <stop offset="100%" style="stop-color:#3282b8"/>
-    </linearGradient>
+    <filter id="glow32">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <!-- Background with subtle rounded square -->
-  <rect width="32" height="32" rx="8" fill="url(#bg)"/>
-  <!-- Inner accent bar -->
-  <rect x="4" y="4" width="24" height="24" rx="5" fill="url(#accent)" opacity="0.3"/>
-  <!-- JSON braces - left -->
-  <path d="M9 8v4c0 1.1-.9 2-2 2s-2-.9-2-2V8c0-1.1.9-2 2-2" stroke="#bbe1fa" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <!-- JSON braces - right -->
-  <path d="M23 8v4c0 1.1.9 2 2 2s2-.9 2-2V8c0-1.1-.9-2-2-2" stroke="#bbe1fa" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <!-- Colon dots -->
-  <circle cx="15" cy="10" r="1.5" fill="#bbe1fa"/>
-  <circle cx="15" cy="14" r="1.5" fill="#bbe1fa"/>
-  <!-- Horizontal line -->
-  <path d="M10 20h12" stroke="#bbe1fa" stroke-width="2" stroke-linecap="round"/>
+  <rect width="32" height="32" rx="8" fill="#0a0a0f"/>
+  <path d="M7 5v4c0 1.5-1 2-2 2s-2-.5-2-2V5c0-1.5 1-2 2-2" stroke="url(#g32)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#glow32)"/>
+  <path d="M25 5v4c0 1.5 1 2 2 2s2-.5 2-2V5c0-1.5-1-2-2-2" stroke="url(#g32)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#glow32)"/>
+  <circle cx="13" cy="7" r="1.5" fill="#60A5FA"/>
+  <circle cx="13" cy="10" r="1.5" fill="#60A5FA"/>
+  <path d="M7 17h16" stroke="url(#g32)" stroke-width="2" stroke-linecap="round"/>
 </svg>
