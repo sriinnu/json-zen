@@ -647,7 +647,6 @@ kbd {
   z-index: 100;
 }
 
-.dropdown:hover .dropdown-menu,
 .dropdown.active .dropdown-menu {
   display: block;
   animation: dropdownFade 0.2s ease;
