@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="50%" style="stop-color:#1E293B"/>
+      <stop offset="100%" style="stop-color:#334155"/>
+    </linearGradient>
+
+    <!-- Accent gradient for braces -->
+    <linearGradient id="braceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38BDF8"/>
+      <stop offset="50%" style="stop-color:#0EA5E9"/>
+      <stop offset="100%" style="stop-color:#0284C7"/>
+    </linearGradient>
+
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Text glow -->
+    <filter id="textGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="1280" height="640" fill="url(#bgGradient)"/>
+
+  <!-- Decorative grid pattern -->
+  <g opacity="0.03">
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#38BDF8" stroke-width="1"/>
+    </pattern>
+    <rect width="1280" height="640" fill="url(#grid)"/>
+  </g>
+
+  <!-- Left decorative brace (large) -->
+  <path d="M120 180v100c0 30-25 50-60 50s-60-20-60-50v-100c0-30 25-50 60-50"
+        stroke="url(#braceGradient)" stroke-width="16" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" opacity="0.15"/>
+
+  <!-- Right decorative brace (large) -->
+  <path d="M1160 180v100c0 30 25 50 60 50s60-20 60-50v-100c0-30-25-50-60-50"
+        stroke="url(#braceGradient)" stroke-width="16" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" opacity="0.15"/>
+
+  <!-- Main logo centered -->
+  <g transform="translate(180, 120)">
+    <!-- Logo background card -->
+    <rect width="280" height="280" rx="52" fill="url(#bgGradient)" stroke="url(#braceGradient)" stroke-width="2" opacity="0.9"/>
+
+    <!-- Inner border -->
+    <rect x="12" y="12" width="256" height="256" rx="44" fill="none" stroke="url(#braceGradient)" stroke-width="1.5" opacity="0.3"/>
+
+    <!-- Left brace -->
+    <path d="M70 80v35c0 10-8 18-20 18s-20-8-20-18v-35c0-10 8-18 20-18"
+          stroke="url(#braceGradient)" stroke-width="10" fill="none"
+          stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+    <!-- Right brace -->
+    <path d="M210 80v35c0 10 8 18 20 18s20-8 20-18v-35c0-10-8-18-20-18"
+          stroke="url(#braceGradient)" stroke-width="10" fill="none"
+          stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+    <!-- JSON data representation -->
+    <circle cx="105" cy="95" r="7" fill="#38BDF8" opacity="0.9"/>
+    <circle cx="105" cy="115" r="7" fill="#38BDF8" opacity="0.9"/>
+
+    <rect x="125" y="85" width="95" height="8" rx="4" fill="#94A3B8"/>
+    <rect x="125" y="100" width="60" height="8" rx="4" fill="#64748B"/>
+
+    <rect x="95" y="125" width="115" height="8" rx="4" fill="#94A3B8"/>
+    <rect x="110" y="140" width="85" height="8" rx="4" fill="#64748B"/>
+    <rect x="110" y="155" width="70" height="8" rx="4" fill="#475569"/>
+
+    <!-- Bottom accent line -->
+    <path d="M80 185h120" stroke="url(#braceGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+
+    <!-- Zen symbol -->
+    <circle cx="140" cy="220" r="25" fill="none" stroke="url(#braceGradient)" stroke-width="2" opacity="0.4"/>
+    <circle cx="140" cy="220" r="18" fill="none" stroke="url(#braceGradient)" stroke-width="1.5" opacity="0.3"/>
+    <circle cx="140" cy="220" r="10" fill="url(#braceGradient)" opacity="0.5"/>
+  </g>
+
+  <!-- Text content on the right -->
+  <g transform="translate(520, 180)">
+    <!-- Main title: JSON Zen -->
+    <text x="0" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="700" fill="url(#braceGradient)" filter="url(#textGlow)">
+      JSON Zen
+    </text>
+
+    <!-- Tagline -->
+    <text x="0" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="#94A3B8">
+      Elegant JSON Data Management
+    </text>
+
+    <!-- Feature bullets -->
+    <g transform="translate(0, 200)">
+      <circle cx="10" cy="0" r="6" fill="#38BDF8" opacity="0.8"/>
+      <text x="30" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#CBD5E1">
+        Validate & Transform
+      </text>
+    </g>
+
+    <g transform="translate(0, 250)">
+      <circle cx="10" cy="0" r="6" fill="#38BDF8" opacity="0.8"/>
+      <text x="30" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#CBD5E1">
+        Query & Filter
+      </text>
+    </g>
+
+    <g transform="translate(0, 300)">
+      <circle cx="10" cy="0" r="6" fill="#38BDF8" opacity="0.8"/>
+      <text x="30" y="10" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#CBD5E1">
+        Simplify & Organize
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom accent line -->
+  <path d="M180 520h920" stroke="url(#braceGradient)" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Version/tag indicator -->
+  <text x="1180" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#64748B" text-anchor="end">
+    v1.0
+  </text>
+</svg>

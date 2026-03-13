@@ -1,0 +1,14 @@
+{
+	"mcpServers": {
+		"chitragupta": {
+			"command": "node",
+			"args": [
+				"/mnt/c/sriinnu/personal/Kaala-brahma/AUriva/chitragupta/packages/cli/dist/mcp-entry.js",
+				"--agent"
+			],
+			"env": {
+				"CHITRAGUPTA_MCP_AGENT": "true"
+			}
+		}
+	}
+}

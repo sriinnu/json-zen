@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Zen - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="settings">
+    <header class="header">
+      <h1>JSON Zen Settings</h1>
+    </header>
+
+    <main class="content">
+      <section class="settings-section">
+        <h2>Formatting</h2>
+
+        <div class="setting">
+          <label for="indent-size">Indentation Size</label>
+          <select id="indent-size">
+            <option value="2">2 spaces</option>
+            <option value="4">4 spaces</option>
+            <option value="8">8 spaces</option>
+            <option value="tab">Tabs</option>
+          </select>
+        </div>
+
+        <div class="setting">
+          <label for="theme">Theme</label>
+          <select id="theme">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="system">System</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Behavior</h2>
+
+        <div class="setting">
+          <label for="auto-copy">
+            <input type="checkbox" id="auto-copy">
+            Auto-copy output to clipboard
+          </label>
+        </div>
+
+        <div class="setting">
+          <label for="auto-format">
+            <input type="checkbox" id="auto-format">
+            Auto-format on paste
+          </label>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Keyboard Shortcuts</h2>
+        <div class="shortcuts-list">
+          <div class="shortcut">
+            <span>Format JSON</span>
+            <kbd>Ctrl+Shift+F</kbd>
+          </div>
+          <div class="shortcut">
+            <span>Minify JSON</span>
+            <kbd>Ctrl+Shift+M</kbd>
+          </div>
+          <div class="shortcut">
+            <span>Fix JSON</span>
+            <kbd>Ctrl+Shift+X</kbd>
+          </div>
+          <div class="shortcut">
+            <span>Validate JSON</span>
+            <kbd>Ctrl+Shift+V</kbd>
+          </div>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>About</h2>
+        <p class="about-text">
+          JSON Zen v1.0.0<br>
+          A powerful JSON utility for developers
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <button id="save-btn" class="btn btn-primary">Save Settings</button>
+      <button id="reset-btn" class="btn btn-outline">Reset to Defaults</button>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

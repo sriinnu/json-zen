@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "JSON Zen",
+  "version": "1.0.3",
+  "description": "Format, prettify, minify, validate, and fix JSON data - Beautiful JSON toolkit",
+  "icons": {
+    "16": "icons/icon16.svg",
+    "32": "icons/icon32.svg",
+    "48": "icons/icon48.svg",
+    "128": "icons/icon128.svg",
+    "256": "icons/icon128.svg"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "options_page": "options/options.html",
+  "permissions": [
+    "storage",
+    "clipboardRead",
+    "clipboardWrite"
+  ],
+  "commands": {
+    "format-json": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "Command+Shift+F"
+      },
+      "description": "Format JSON"
+    },
+    "minify-json": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M",
+        "mac": "Command+Shift+M"
+      },
+      "description": "Minify JSON"
+    },
+    "fix-json": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Fix JSON"
+    },
+    "validate-json": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V"
+      },
+      "description": "Validate JSON"
+    }
+  }
+}

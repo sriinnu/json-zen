@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="50%" style="stop-color:#1E293B"/>
+      <stop offset="100%" style="stop-color:#334155"/>
+    </linearGradient>
+
+    <!-- Accent gradient for braces -->
+    <linearGradient id="braceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38BDF8"/>
+      <stop offset="50%" style="stop-color:#0EA5E9"/>
+      <stop offset="100%" style="stop-color:#0284C7"/>
+    </linearGradient>
+
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Soft shadow -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Main background with rounded corners -->
+  <rect width="256" height="256" rx="56" fill="url(#bgGradient)" filter="url(#softShadow)"/>
+
+  <!-- Subtle inner border -->
+  <rect x="8" y="8" width="240" height="240" rx="48"
+        fill="none" stroke="url(#braceGradient)" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Left brace - cleaner design -->
+  <path d="M64 72v28c0 13-10 24-24 24s-24-11-24-24v-28c0-13 10-24 24-24"
+        stroke="url(#braceGradient)" stroke-width="9" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+  <!-- Right brace - cleaner design -->
+  <path d="M192 72v28c0 13 10 24 24 24s24-11 24-24v-28c0-13-10-24-24-24"
+        stroke="url(#braceGradient)" stroke-width="9" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+  <!-- Simplified JSON representation - cleaner design -->
+  <!-- Data dots -->
+  <circle cx="96" cy="86" r="6" fill="#38BDF8" opacity="0.95"/>
+  <circle cx="96" cy="106" r="6" fill="#38BDF8" opacity="0.95"/>
+  <circle cx="96" cy="126" r="6" fill="#38BDF8" opacity="0.95"/>
+
+  <!-- Data lines - varied lengths for visual interest -->
+  <rect x="115" y="78" width="85" height="7" rx="3.5" fill="#94A3B8"/>
+  <rect x="115" y="98" width="55" height="7" rx="3.5" fill="#64748B"/>
+  <rect x="115" y="118" width="70" height="7" rx="3.5" fill="#64748B"/>
+
+  <!-- Bottom data section -->
+  <rect x="85" y="140" width="95" height="7" rx="3.5" fill="#475569"/>
+  <rect x="85" y="156" width="75" height="7" rx="3.5" fill="#475569"/>
+
+  <!-- Decorative accent line -->
+  <path d="M72 180h112" stroke="url(#braceGradient)" stroke-width="2.5"
+        stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Simplified Zen symbol - more prominent -->
+  <g transform="translate(128, 210)">
+    <!-- Outer ring -->
+    <circle cx="0" cy="0" r="28" fill="none" stroke="url(#braceGradient)"
+            stroke-width="2.5" opacity="0.5"/>
+    <!-- Middle ring -->
+    <circle cx="0" cy="0" r="20" fill="none" stroke="url(#braceGradient)"
+            stroke-width="1.5" opacity="0.35"/>
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="10" fill="url(#braceGradient)" opacity="0.6"/>
+    <!-- Inner highlight -->
+    <circle cx="-3" cy="-3" r="3" fill="#38BDF8" opacity="0.8"/>
+  </g>
+
+  <!-- Corner accents for modern touch -->
+  <g opacity="0.15">
+    <path d="M20 40v-10c0-5.5 4.5-10 10-10h10" stroke="url(#braceGradient)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M236 40v-10c0-5.5-4.5-10-10-10h-10" stroke="url(#braceGradient)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M20 216v10c0 5.5 4.5 10 10 10h10" stroke="url(#braceGradient)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M236 216v10c0 5.5-4.5 10-10 10h-10" stroke="url(#braceGradient)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

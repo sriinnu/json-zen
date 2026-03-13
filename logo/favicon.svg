@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="50%" style="stop-color:#1E293B"/>
+      <stop offset="100%" style="stop-color:#334155"/>
+    </linearGradient>
+
+    <!-- Accent gradient for braces -->
+    <linearGradient id="braceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38BDF8"/>
+      <stop offset="50%" style="stop-color:#0EA5E9"/>
+      <stop offset="100%" style="stop-color:#0284C7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Main background with rounded corners -->
+  <rect width="32" height="32" rx="6" fill="url(#bgGradient)"/>
+
+  <!-- Simplified left brace -->
+  <path d="M7 8v4c0 2-1.5 3-3 3s-3-1-3-3v-4c0-2 1.5-3 3-3"
+        stroke="url(#braceGradient)" stroke-width="2.5" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Simplified right brace -->
+  <path d="M25 8v4c0 2 1.5 3 3 3s3-1 3-3v-4c0-2-1.5-3-3-3"
+        stroke="url(#braceGradient)" stroke-width="2.5" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Simplified data dots -->
+  <circle cx="14" cy="11" r="1.5" fill="#38BDF8"/>
+  <circle cx="14" cy="15" r="1.5" fill="#38BDF8"/>
+
+  <!-- Simplified data lines -->
+  <rect x="16" y="10" width="8" height="1.5" rx="0.75" fill="#94A3B8"/>
+  <rect x="16" y="14.5" width="5" height="1.5" rx="0.75" fill="#64748B"/>
+
+  <!-- Zen circle -->
+  <circle cx="16" cy="22" r="2.5" fill="none" stroke="url(#braceGradient)" stroke-width="1" opacity="0.6"/>
+  <circle cx="16" cy="22" r="1" fill="url(#braceGradient)" opacity="0.5"/>
+</svg>
