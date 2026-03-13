@@ -1,0 +1,37 @@
+{
+  "name": "json-zen",
+  "version": "1.1.0",
+  "description": "A beautiful cross-platform JSON toolkit with glassmorphism UI - Format, validate, fix, convert, and transform JSON data",
+  "author": "Srinivas Pendela",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sriinnu/json-zen.git"
+  },
+  "homepage": "https://github.com/sriinnu/json-zen",
+  "bugs": {
+    "url": "https://github.com/sriinnu/json-zen/issues"
+  },
+  "keywords": [
+    "json",
+    "formatter",
+    "validator",
+    "minifier",
+    "browser-extension",
+    "chrome-extension",
+    "json-schema",
+    "json-converter",
+    "yaml",
+    "xml",
+    "csv",
+    "glassmorphism",
+    "developer-tools"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "echo 'No build step required - load json-zen-extension/ as unpacked extension'",
+    "zip": "cd json-zen-extension && zip -r ../json-zen-v1.1.0.zip . -x '*.DS_Store'"
+  }
+}

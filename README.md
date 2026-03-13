@@ -4,14 +4,15 @@
 
 ### A Beautiful Cross-Platform JSON Toolkit
 
-[![Version](https://img.shields.io/badge/version-1.0.3-blue.svg)](https://github.com/sriinnu/json-zen)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/sriinnu/json-zen)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/sriinnu/json-zen)
 [![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Firefox%20%7C%20Edge%20%7C%20Safari-orange.svg)](https://github.com/sriinnu/json-zen)
+[![Manifest](https://img.shields.io/badge/manifest-v3-blueviolet.svg)](https://developer.chrome.com/docs/extensions/mv3/)
 
-**Format, prettify, minify, validate, and fix JSON data with ease**
+**Format, validate, fix, convert, and transform JSON data with a glassmorphism UI**
 
-[Features](#-features) • [Installation](#-installation) • [Screenshots](#-screenshots) • [Documentation](#-documentation) • [Contributing](#-contributing)
+[Features](#-features) • [Installation](#-installation) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
 </div>
 
@@ -19,62 +20,117 @@
 
 ## ✨ Features
 
-JSON Zen provides a comprehensive suite of JSON manipulation tools designed for developers, data analysts, and anyone working with JSON data.
+JSON Zen is a comprehensive JSON toolkit built as a browser extension with a glassmorphism UI. It covers everything from basic formatting to schema validation, format conversions, bulk processing, and interactive path exploration.
 
 ### 🎯 Core Operations
 
 | Feature | Description |
 |---------|-------------|
-| **Format/Prettify** | Transform minified JSON into beautifully formatted, human-readable output with customizable indentation (2, 4, or 8 spaces/tabs) |
-| **Minify** | Compress JSON to its smallest possible size by removing unnecessary whitespace and line breaks |
-| **Validate** | Parse JSON syntax and provide detailed error reporting with exact line and column positions |
+| **Format/Prettify** | Transform minified JSON into beautifully formatted output with customizable indentation (2, 4, or 8 spaces, or tabs) |
+| **Minify** | Compress JSON to its smallest possible size by removing all whitespace |
+| **Validate** | Parse JSON syntax and provide detailed error reporting with exact positions |
 | **Auto-Fix** | Intelligently repair common JSON formatting issues and syntax errors |
+| **Sort Keys** | Alphabetically sort all object keys for consistent ordering |
+| **Stats** | Analyze JSON structure: type counts, depth, byte size, key count |
 
-### 🛠️ Advanced Tools
+### 📐 Schema Validation
 
-- **🌳 JSON Tree View** - Interactive, collapsible tree structure for navigating complex JSON objects
-- **🔍 JSON Path Explorer** - Navigate and query specific paths within your JSON data
-- **🔤 Sort Keys** - Alphabetically sort object keys for consistent ordering
-- **🧹 Remove Null Values** - Clean up JSON by removing null entries
-- **🔐 Base64 Encoding** - Encode/decode JSON data in Base64 format
-- **🔗 URL-Safe Encoding** - Convert JSON for safe URL transmission
+Full JSON Schema Draft 7 support with a dedicated modal interface:
 
-### 🎨 Theme Support
+- **Template library** - Pre-built schemas for User Profile, Configuration, API Response, Product, and Address
+- **Auto-generate** - Generate a schema from any JSON data with one click
+- **Detailed error reporting** - Path-level validation errors with line numbers
 
-Beautiful syntax highlighting in both dark and light themes:
+### 🔄 Format Conversions
 
-**Dark Theme (Default)**
-- 🔵 Keys → Sky blue
-- 🟢 Strings → Green
-- 🟡 Numbers → Amber
-- 🟣 Booleans → Violet
-- ⚪ Null → Slate gray
+| Conversion | Direction |
+|------------|-----------|
+| **YAML** | JSON → YAML and YAML → JSON |
+| **XML** | JSON → XML |
+| **CSV** | JSON → CSV (for arrays of objects) |
+| **TOML** | JSON → TOML |
+| **Base64** | Encode and Decode |
+| **URL Encode** | JSON → URL-safe string |
+| **Escape/Unescape** | String escaping for embedding JSON in strings |
 
-**Light Theme**
-- Optimized color variants for excellent contrast in bright environments
+### 🔧 Transform Operations
 
-### ⌨️ Global Keyboard Shortcuts
+- **Remove Nulls** - Strip all null values from JSON objects
+- **Redact PII** - Automatically detect and redact emails, phones, passwords, tokens, and other sensitive fields
+- **Flatten Keys** - Convert nested objects into flat dot-notation keys
+
+### 🔍 JSON Query
+
+JSONPath-like query syntax to extract specific values from your data. Type paths like `.data.users[0].name` in the query bar and get instant results.
+
+### 🗺️ Path Explorer
+
+Interactive JSON navigation built into the output panel:
+
+- **Breadcrumb navigation** - Click through the JSON structure level by level
+- **Path search** - Search keys and values, or type paths like `$.key.subkey`
+- **Mini tree view** - Collapsible structure overview for large documents
+- **Copy path** - One-click copy of the current JSONPath
+
+### 📦 Bulk Processing
+
+Process multiple JSON files at once through a dedicated modal:
+
+- **Drag-and-drop** file selection (`.json` and `.txt` files)
+- **Operations** - Format, Minify, Fix, Validate, or Convert in batch
+- **Progress tracking** - Real-time progress bar with success/error counts
+- **Download results** - Export all processed files as a ZIP
+
+### 📜 History
+
+- **History sidebar** - Browse up to 50 past operations with full input/output
+- **Search history** - Filter by operation type or content
+- **Star/favorite** items to pin them at the top
+- **Recent items dropdown** - Quick access to your last 5 operations from the header
+
+### 🖱️ Context Menus
+
+Right-click any selected text on any page to:
+
+- **Format JSON** - Prettify selected JSON in-place
+- **Minify JSON** - Compress selected JSON
+- **Fix JSON** - Auto-repair selected JSON
+- **Validate JSON** - Check if selected text is valid JSON
+
+Results appear as toast notifications via the content script.
+
+### 🎨 Themes & Syntax Highlighting
+
+Three theme modes: **Dark** (default), **Light**, and **System** (follows OS preference).
+
+Smart syntax highlighting with semantic key coloring:
+- IDs and references → Cyan
+- Names and titles → Green
+- Descriptions and content → Amber
+- URLs and links → Indigo
+- Email and phone → Orange
+- Status and type → Purple
+- Dates and timestamps → Red
+- Counts and sizes → Green
+
+### ⌨️ Keyboard Shortcuts
 
 | Action | Windows/Linux | macOS |
 |--------|---------------|-------|
 | Format JSON | `Ctrl+Shift+F` | `Cmd+Shift+F` |
 | Minify JSON | `Ctrl+Shift+M` | `Cmd+Shift+M` |
-| Validate JSON | `Ctrl+Shift+V` | `Cmd+Shift+V` |
 | Fix JSON | `Ctrl+Shift+X` | `Cmd+Shift+X` |
-| Copy Output | `Ctrl+C` | `Cmd+C` |
-| Paste Input | `Ctrl+V` | `Cmd+V` |
+| Validate JSON | `Ctrl+Shift+V` | `Cmd+Shift+V` |
 
 ---
 
 ## 🚀 Installation
 
-Choose your preferred platform below. JSON Zen is available as both a browser extension and a native desktop application.
-
 ### 🌐 Browser Extension
 
 **Supported Browsers:** Chrome, Firefox, Edge, Safari
 
-#### Option 1: Install from Source (Development)
+#### Install from Source
 
 1. **Clone the repository**
    ```bash
@@ -100,91 +156,23 @@ Choose your preferred platform below. JSON Zen is available as both a browser ex
    - Develop → Allow Unsigned Extensions
    - File → Open in `json-zen-extension` directory
 
-#### Option 2: Install from Chrome Web Store (Coming Soon)
-
-```markdown
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Download-green.svg)](https://chrome.google.com/webstore/detail/json-zen/xxxxx)
-```
+That's it. No build step, no npm install. Pure browser extension.
 
 ### 🍎 macOS Menu Bar App
 
-A native macOS application with seamless menu bar integration.
+A separate native macOS application lives in `json-zen-macos/`. It provides the same core JSON operations with menu bar integration, global hotkeys, and launch-at-login support.
 
 #### Prerequisites
 - macOS 11.0 (Big Sur) or later
 - Xcode 14.0 or later (for building from source)
 
-#### Installation from Source
+#### Build from Source
 
-1. **Clone and navigate to the macOS project**
-   ```bash
-   git clone https://github.com/sriinnu/json-zen.git
-   cd json-zen/json-zen-macos
-   ```
-
-2. **Open in Xcode**
-   ```bash
-   open JSONZen.xcodeproj
-   ```
-
-3. **Build and Run**
-   - Select your target device (My Mac)
-   - Press `Cmd + R` to build and run
-   - Or press `Cmd + B` to build only
-
-4. **Install to Applications** (Optional)
-   - In Xcode, select "Product" → "Archive"
-   - Right-click the archive → "Show in Finder"
-   - Right-click → "Show Package Contents"
-   - Copy the app to `/Applications`
-
-#### Usage
-- Click the JSON Zen icon in your menu bar
-- Paste your JSON data using keyboard shortcuts or the paste button
-- Use toolbar buttons or keyboard shortcuts to process your JSON
-- Results are automatically copied to your clipboard
-
----
-
-## 📸 Screenshots
-
-### Browser Extension
-
-<!--
-![Browser Extension - Main Interface](screenshots/browser-extension-main.png)
-*Main interface with formatted JSON*
-
-![Browser Extension - Tree View](screenshots/browser-extension-tree.png)
-*Interactive tree view navigation*
-
-![Browser Extension - Dark Theme](screenshots/browser-extension-dark.png)
-*Dark theme with syntax highlighting*
--->
-
-#### Key Features
-- **Clean, intuitive interface** - Paste, process, and copy in seconds
-- **Real-time validation** - Instant feedback on JSON syntax
-- **Multiple output formats** - Choose between formatted, minified, or tree view
-- **Customizable settings** - Configure indentation, theme, and auto-copy behavior
-
-### macOS Menu Bar App
-
-<!--
-![macOS App - Menu Bar Icon](screenshots/macos-menubar.png)
-*Quick access from the menu bar*
-
-![macOS App - Main Window](screenshots/macos-main.png)
-*Main editor window with syntax highlighting*
-
-![macOS App - Preferences](screenshots/macos-preferences.png)
-*Configuration and preferences*
--->
-
-#### Key Features
-- **Menu bar integration** - Access JSON Zen from anywhere
-- **Global keyboard shortcuts** - Process JSON without leaving your current app
-- **Launch at login** - Always available when you need it
-- **Native macOS experience** - Designed for macOS with native controls and gestures
+```bash
+cd json-zen-macos
+open JSONZen.xcodeproj
+# Press Cmd+R to build and run
+```
 
 ---
 
@@ -206,25 +194,14 @@ The intelligent JSON fixer automatically repairs common issues:
 
 ## ⚙️ Configuration
 
-### Browser Extension Settings
+Access settings via the extension options page (`Right-click extension icon → Options`):
 
-Access settings via the extension options page:
-
-- **Indentation Style**: Choose between spaces or tabs
-- **Indentation Size**: Select 2, 4, or 8 spaces
-- **Theme**: Dark or light theme
-- **Auto-Copy**: Automatically copy output to clipboard after operations
-- **Line Numbers**: Show/hide line numbers in formatted output
-
-### macOS App Preferences
-
-Access preferences from the app menu (`JSON Zen → Preferences`):
-
-- **All browser extension options** plus:
-- **Launch at Login**: Start JSON Zen automatically when you log in
-- **Global Hotkeys**: Enable/disable global keyboard shortcuts
-- **Show in Menu Bar**: Toggle menu bar icon visibility
-- **Notification Sounds**: Audio feedback for operations
+| Setting | Options |
+|---------|---------|
+| **Indentation Size** | 2 spaces, 4 spaces, 8 spaces, or Tabs |
+| **Theme** | Dark, Light, or System |
+| **Auto-Copy** | Automatically copy output to clipboard after operations |
+| **Auto-Format on Paste** | Automatically format JSON when pasting into the input |
 
 ---
 
@@ -234,81 +211,61 @@ Access preferences from the app menu (`JSON Zen → Preferences`):
 
 ```
 json-zen/
-├── README.md                    # This file
-├── LICENSE                      # MIT License
-├── json-zen-extension/          # Browser extension
-│   ├── manifest.json            # Extension manifest
-│   ├── popup/                   # Popup interface
+├── README.md
+├── package.json
+├── LICENSE
+├── json-zen-extension/
+│   ├── manifest.json
+│   ├── worker.js
+│   ├── background/
+│   │   └── background.js
+│   ├── content/
+│   │   └── content-script.js
+│   ├── popup/
 │   │   ├── popup.html
 │   │   ├── popup.css
-│   │   └── popup.js
-│   ├── options/                 # Options page
+│   │   ├── popup-script.js
+│   │   ├── path-explorer.js
+│   │   └── bulk-processor.js
+│   ├── options/
 │   │   ├── options.html
 │   │   ├── options.css
 │   │   └── options.js
-│   ├── background/              # Background scripts
-│   │   └── background.js
-│   ├── utils/                   # Utility functions
-│   │   ├── json-formatter.js
-│   │   ├── json-minifier.js
-│   │   ├── json-validator.js
-│   │   └── json-fixer.js
-│   ├── icons/                   # Extension icons
-│   └── lib/                     # Third-party libraries
-└── json-zen-macos/              # macOS application
+│   ├── utils/
+│   │   └── json-utils.js
+│   └── icons/
+│       ├── icon16.svg
+│       ├── icon32.svg
+│       ├── icon48.svg
+│       └── icon128.svg
+└── json-zen-macos/
+    ├── project.yml
     ├── JSONZen/
-    │   ├── AppDelegate.swift
-    │   ├── ViewController.swift
-    │   ├── JSONProcessor.swift
-    │   └── Resources/
-    │       ├── Assets.xcassets
-    │       └── Main.storyboard
-    └── JSONZen.xcodeproj/       # Xcode project
+    └── JSONForgeTests/
 ```
 
 ### Development Setup
 
-#### Browser Extension Development
-
-1. **Navigate to extension directory**
+1. **Clone the repository**
    ```bash
-   cd json-zen-extension
+   git clone https://github.com/sriinnu/json-zen.git
+   cd json-zen
    ```
 
-2. **Install dependencies** (if any)
-   ```bash
-   npm install
-   ```
+2. **Load as unpacked extension** in your browser (see [Installation](#-installation))
 
-3. **Load as unpacked extension** in your browser
+3. **Make changes** and reload the extension (`Ctrl+R` on the extensions page)
 
-4. **Make changes** and reload the extension
-
-#### macOS App Development
-
-1. **Open Xcode project**
-   ```bash
-   cd json-zen-macos
-   open JSONZen.xcodeproj
-   ```
-
-2. **Configure development team** in project settings
-
-3. **Build and run** using Xcode
+No build tools, no bundler, no dependencies. Edit the source files directly and reload.
 
 ### Building for Distribution
 
-#### Browser Extension
-1. Update version in `manifest.json`
-2. Test thoroughly across supported browsers
-3. Zip the `json-zen-extension` directory
-4. Submit to Chrome Web Store / Firefox Add-ons / Edge Add-ons
-
-#### macOS App
-1. Update version in Xcode project settings
-2. Select "Any macOS Device (arm64, x86_64)" as destination
-3. Product → Archive
-4. Distribute via App Store or direct download
+```bash
+# Create a distributable ZIP
+npm run zip
+# Or manually:
+cd json-zen-extension && zip -r ../json-zen-v1.1.0.zip . -x '*.DS_Store'
+```
 
 ---
 
@@ -326,50 +283,26 @@ Contributions are welcome! Here's how you can help:
 ### Submitting Pull Requests
 
 1. **Fork the repository**
-   ```bash
-   git clone https://github.com/sriinnu/json-zen.git
-   ```
-
 2. **Create a feature branch**
    ```bash
    git checkout -b feature/your-feature-name
    ```
-
-3. **Make your changes**
-   - Follow existing code style
-   - Add comments for complex logic
-   - Update documentation if needed
-
-4. **Test your changes**
-   - Test on multiple platforms/browsers
-   - Ensure keyboard shortcuts work
-   - Verify theme switching
-
-5. **Commit and push**
-   ```bash
-   git add .
-   git commit -m "Add your commit message"
-   git push origin feature/your-feature-name
-   ```
-
-6. **Submit a Pull Request**
-   - Describe your changes clearly
-   - Reference related issues
-   - Include screenshots for UI changes
+3. **Make your changes** - follow the existing code style
+4. **Test across browsers** - verify on Chrome, Firefox, and Edge
+5. **Submit a Pull Request** with a clear description of your changes
 
 ### Development Guidelines
 
-- **Code Style**: Follow the existing code style and formatting
-- **Commits**: Write clear, concise commit messages
-- **Testing**: Test across different platforms and browsers
-- **Documentation**: Update README and inline documentation
-- **Backwards Compatibility**: Maintain compatibility with existing features
+- **No external dependencies** - the extension runs without npm packages
+- **Vanilla JS** - no frameworks, no transpilation
+- **Manifest V3** - follow Chrome Extension Manifest V3 conventions
+- **Test keyboard shortcuts** and theme switching after changes
 
 ---
 
 ## 📝 Copyright
 
-© 2020-2026 Srinivas Pendela. Licensed under the [MIT License](LICENSE).
+(c) 2020-2026 Srinivas Pendela. Licensed under the [MIT License](LICENSE).
 
 ---
 
@@ -384,6 +317,6 @@ Contributions are welcome! Here's how you can help:
 
 **Made with love by Srinivas Pendela**
 
-[⬆ Back to Top](#json-zen)
+[Back to Top](#json-zen)
 
 </div>
