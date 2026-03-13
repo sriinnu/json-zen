@@ -10,10 +10,10 @@
   --bg-secondary: #111115;
 
   /* Glass surfaces - translucent */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-hover: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-border-hover: rgba(255, 255, 255, 0.25);
 
   /* Accent gradients */
   --accent-blue: #3B82F6;
@@ -22,9 +22,9 @@
   --accent-teal: #14B8A6;
 
   /* Gradients */
-  --grad-blue: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
-  --grad-purple: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%);
-  --grad-teal: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 50%, #0D9488 100%);
+  --grad-blue: linear-gradient(135deg, #93C5FD 0%, #60A5FA 50%, #3B82F6 100%);
+  --grad-purple: linear-gradient(135deg, #C4B5FD 0%, #A78BFA 50%, #8B5CF6 100%);
+  --grad-teal: linear-gradient(135deg, #5EEAD4 0%, #2DD4BF 50%, #14B8A6 100%);
   --grad-glass: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
 
   /* Text */
@@ -71,10 +71,10 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f9f9fb;
 
-  --glass-bg: rgba(0, 0, 0, 0.03);
-  --glass-bg-hover: rgba(0, 0, 0, 0.06);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-border-hover: rgba(0, 0, 0, 0.15);
+  --glass-bg: rgba(0, 0, 0, 0.04);
+  --glass-bg-hover: rgba(0, 0, 0, 0.08);
+  --glass-border: rgba(0, 0, 0, 0.15);
+  --glass-border-hover: rgba(0, 0, 0, 0.25);
 
   --text-primary: #1c1c1e;
   --text-secondary: #6e6e73;
@@ -172,11 +172,12 @@ body {
   justify-content: space-between;
   padding: 14px 18px;
   background: var(--glass-bg);
-  backdrop-filter: blur(30px) saturate(180%);
-  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
   border-bottom: 1px solid var(--glass-border);
   position: relative;
   z-index: 10;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.15);
 }
 
 .logo {
@@ -252,29 +253,31 @@ body {
   height: 6px;
   border-radius: 50%;
   background: var(--text-tertiary);
-  box-shadow: 0 0 8px var(--text-tertiary);
+  box-shadow: 0 0 12px var(--text-tertiary), 0 0 20px rgba(99, 99, 102, 0.4);
 }
 
 .status-pill.success {
-  background: rgba(48, 209, 88, 0.12);
-  border-color: rgba(48, 209, 88, 0.3);
+  background: rgba(48, 209, 88, 0.15);
+  border-color: rgba(48, 209, 88, 0.4);
   color: var(--success);
+  box-shadow: 0 0 20px rgba(48, 209, 88, 0.3), inset 0 0 20px rgba(48, 209, 88, 0.1);
 }
 
 .status-pill.success::before {
   background: var(--success);
-  box-shadow: 0 0 12px var(--success);
+  box-shadow: 0 0 16px var(--success), 0 0 32px rgba(48, 209, 88, 0.5);
 }
 
 .status-pill.error {
-  background: rgba(255, 69, 58, 0.12);
-  border-color: rgba(255, 69, 58, 0.3);
+  background: rgba(255, 69, 58, 0.15);
+  border-color: rgba(255, 69, 58, 0.4);
   color: var(--error);
+  box-shadow: 0 0 20px rgba(255, 69, 58, 0.3), inset 0 0 20px rgba(255, 69, 58, 0.1);
 }
 
 .status-pill.error::before {
   background: var(--error);
-  box-shadow: 0 0 12px var(--error);
+  box-shadow: 0 0 16px var(--error), 0 0 32px rgba(255, 69, 58, 0.5);
 }
 
 /* Theme toggle button */
@@ -411,8 +414,8 @@ body {
 .main {
   display: flex;
   height: calc(100% - 150px);
-  gap: 12px;
-  padding: 12px 18px;
+  gap: 20px;
+  padding: 16px 20px;
   background: var(--bg-deep);
 }
 
@@ -421,17 +424,18 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--glass-bg);
-  backdrop-filter: blur(30px) saturate(180%);
-  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   overflow: hidden;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .panel:hover {
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.6), 0 12px 28px rgba(0,0,0,0.45);
   border-color: var(--glass-border-hover);
 }
 
@@ -614,14 +618,15 @@ kbd {
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%;
   left: 0;
+  margin-top: 0;
   background: var(--dropdown-bg);
   backdrop-filter: blur(30px) saturate(180%);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
   border: 1px solid var(--dropdown-border);
   border-radius: var(--radius-md);
-  padding: 8px;
+  padding: 6px;
   min-width: 150px;
   box-shadow: var(--shadow-xl);
   display: none;
