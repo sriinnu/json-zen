@@ -1019,5 +1019,15 @@ if (queryBtn && queryInput) {
   });
 }
 
+// Platform-detect keyboard shortcut labels
+const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+if (!isMac) {
+  document.querySelectorAll('.shortcut').forEach(el => {
+    el.innerHTML = el.innerHTML
+      .replace('⌘', 'Ctrl')
+      .replace('⇧', 'Shift');
+  });
+}
+
 // Initialize
 loadSettings();
