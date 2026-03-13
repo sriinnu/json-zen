@@ -22,7 +22,7 @@ function loadSettings() {
     chrome.storage.sync.get(settings, (items) => {
       if (chrome.runtime.lastError) return;
       settings = items;
-      settings.indentSize = parseInt(settings.indentSize) || 2;
+      settings.indentSize = settings.indentSize === 'tab' ? '\t' : (parseInt(settings.indentSize) || 2);
       applyTheme(settings.theme);
     });
   } catch (e) {}
@@ -39,10 +39,11 @@ function applyTheme(theme) {
   } else if (theme === 'system') {
     if (window.matchMedia('(prefers-color-scheme: light)').matches) {
       document.documentElement.classList.add('light');
+      themeBtn.textContent = '☀️';
     } else {
       document.documentElement.classList.remove('light');
+      themeBtn.textContent = '🌙';
     }
-    themeBtn.textContent = '🌙';
   } else {
     document.documentElement.classList.remove('light');
     themeBtn.textContent = '🌙';
@@ -52,7 +53,9 @@ function applyTheme(theme) {
 
 // Toggle theme
 themeBtn.onclick = () => {
-  const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
+  const themes = ['dark', 'light', 'system'];
+  const currentIndex = themes.indexOf(settings.theme);
+  const newTheme = themes[(currentIndex + 1) % themes.length];
   applyTheme(newTheme);
   try {
     chrome.storage.sync.set({ theme: newTheme });
@@ -470,11 +473,14 @@ function run(fn, name) {
     result = r.result || 'Valid JSON';
     output.innerHTML = r.success ? highlight(result) : result;
     setStatus('Done', 'success');
-    
-    // Add to history
+
+    // Update path explorer with the result
     if (r.success) {
-      addToHistory(name.toLowerCase(), text, result);
+      updatePathExplorer(result);
     }
+
+    // Add to history
+    addToHistory(name.toLowerCase(), text, result);
     
     if (settings.autoCopy && r.success) {
       navigator.clipboard.writeText(result).then(() => setStatus('Copied', 'success'));
@@ -490,7 +496,34 @@ $('minify').onclick = () => run(t => JSONUtils.minify(t), 'Minify');
 $('fix').onclick = () => run(t => JSONUtils.fix(t), 'Fix');
 $('validate').onclick = () => run(t => JSONUtils.validate(t), 'Validate');
 $('sort').onclick = () => run(t => JSONUtils.sortKeys(t), 'Sort');
-$('stats').onclick = () => run(t => JSONUtils.stats(t), 'Stats');
+$('stats').onclick = () => {
+  const text = input.value.trim();
+  if (!text) { setStatus('Enter JSON', 'error'); return; }
+  const r = JSONUtils.stats(text);
+  if (r.success) {
+    const s = JSON.parse(r.result);
+    const formatted = `📊 JSON Statistics
+━━━━━━━━━━━━━━━━━━━━━━
+Type:        ${s.type}
+Keys:        ${s.keys}
+Depth:       ${s.depth}
+Size:        ${s.bytes >= 1024 ? (s.bytes / 1024).toFixed(1) + ' KB' : s.bytes + ' B'}
+━━━━━━━━━━━━━━━━━━━━━━
+Strings:     ${s.strings}
+Numbers:     ${s.numbers}
+Booleans:    ${s.booleans}
+Nulls:       ${s.nulls}
+Arrays:      ${s.arrays}
+Objects:     ${s.objects}`;
+    result = formatted;
+    output.textContent = formatted;
+    setStatus('Done', 'success');
+    addToHistory('stats', text, formatted);
+  } else {
+    output.textContent = r.error;
+    setStatus('Error', 'error');
+  }
+};
 
 // Schema validate button
 if ($('schemaValidate')) {
@@ -791,6 +824,10 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
       case 'toml': r = JSONUtils.toTOML(text); operationName = 'TOML'; break;
       case 'base64': r = JSONUtils.encodeBase64(text); operationName = 'Base64'; break;
       case 'url': r = JSONUtils.urlEncode(text); operationName = 'URL Encode'; break;
+      case 'decode-base64': r = JSONUtils.decodeBase64(text); operationName = 'Decode Base64'; break;
+      case 'from-yaml': r = JSONUtils.fromYAML(text); operationName = 'From YAML'; break;
+      case 'escape': r = JSONUtils.escape(text); operationName = 'Escape'; break;
+      case 'unescape': r = JSONUtils.unescape(text); operationName = 'Unescape'; break;
     }
 
     if (r && r.success) {
@@ -823,9 +860,10 @@ input.oninput = () => info.textContent = input.value.length + ' chars';
 
 document.onkeydown = e => {
   if ((e.metaKey || e.ctrlKey) && e.shiftKey) {
-    if (e.key === 'f') $('format').click();
-    else if (e.key === 'm') $('minify').click();
-    else if (e.key === 'x') $('fix').click();
+    if (e.key === 'f') { e.preventDefault(); $('format').click(); }
+    else if (e.key === 'm') { e.preventDefault(); $('minify').click(); }
+    else if (e.key === 'x') { e.preventDefault(); $('fix').click(); }
+    else if (e.key === 'v') { e.preventDefault(); $('validate').click(); }
   }
 };
 
@@ -850,17 +888,12 @@ $('historySearch').oninput = (e) => {
 
 // Close dropdowns when clicking outside
 document.addEventListener('click', (e) => {
-  // Close convert dropdown
-  const convertDropdown = document.querySelector('.dropdown:not(.recent-dropdown)');
-  if (convertDropdown && !convertDropdown.contains(e.target)) {
-    convertDropdown.classList.remove('active');
-  }
-  
-  // Close recent dropdown
-  const recentDropdown = document.querySelector('.recent-dropdown');
-  if (recentDropdown && !recentDropdown.contains(e.target)) {
-    recentDropdown.classList.remove('active');
-  }
+  // Close all dropdowns when clicking outside
+  document.querySelectorAll('.dropdown').forEach(dropdown => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('active');
+    }
+  });
 });
 
 // Toggle convert dropdown
@@ -868,7 +901,121 @@ const convertBtn = $('convertBtn');
 if (convertBtn) {
   convertBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    document.querySelector('.dropdown:not(.recent-dropdown)').classList.toggle('active');
+    const dropdown = convertBtn.closest('.dropdown');
+    if (dropdown) dropdown.classList.toggle('active');
+  });
+}
+
+// ================================================
+// PATH EXPLORER INTEGRATION
+// ================================================
+
+let pathExplorer = null;
+
+// Initialize PathExplorer if available
+if (typeof PathExplorer !== 'undefined') {
+  pathExplorer = new PathExplorer();
+}
+
+// Feed JSON to PathExplorer after successful operations
+function updatePathExplorer(jsonText) {
+  if (pathExplorer) {
+    try {
+      JSON.parse(jsonText);
+      pathExplorer.setJson(jsonText);
+    } catch (e) {
+      // Not valid JSON, don't update path explorer
+    }
+  }
+}
+
+// Transform dropdown
+document.querySelectorAll('[data-transform]').forEach(item => {
+  item.onclick = () => {
+    const transformType = item.dataset.transform;
+    const text = input.value.trim();
+    if (!text) { setStatus('Enter JSON', 'error'); return; }
+
+    let r;
+    let operationName = '';
+    switch (transformType) {
+      case 'removeNulls': r = JSONUtils.removeNulls(text); operationName = 'Remove Nulls'; break;
+      case 'redactPII': r = JSONUtils.redactPII(text); operationName = 'Redact PII'; break;
+      case 'flatten':
+        // Flatten nested keys into dot notation
+        try {
+          const parsed = JSON.parse(text);
+          const flat = {};
+          const flatten = (obj, prefix = '') => {
+            for (const [k, v] of Object.entries(obj)) {
+              const key = prefix ? prefix + '.' + k : k;
+              if (v && typeof v === 'object' && !Array.isArray(v)) {
+                flatten(v, key);
+              } else {
+                flat[key] = v;
+              }
+            }
+          };
+          flatten(parsed);
+          r = { success: true, result: JSON.stringify(flat, null, 2) };
+          operationName = 'Flatten';
+        } catch (e) {
+          r = { success: false, error: e.message };
+        }
+        break;
+    }
+
+    if (r && r.success) {
+      result = r.result;
+      output.innerHTML = highlight(result);
+      setStatus('Done', 'success');
+      addToHistory(operationName.toLowerCase(), text, result);
+      updatePathExplorer(result);
+    } else if (r) {
+      output.textContent = r.error;
+      setStatus('Error', 'error');
+    }
+  };
+});
+
+// Toggle transform dropdown
+const transformBtn = $('transformBtn');
+if (transformBtn) {
+  transformBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const dropdown = transformBtn.closest('.dropdown');
+    if (dropdown) dropdown.classList.toggle('active');
+  });
+}
+
+// JSON Query
+const queryBtn = $('queryBtn');
+const queryInput = $('queryInput');
+if (queryBtn && queryInput) {
+  const executeQuery = () => {
+    const text = input.value.trim();
+    const path = '$' + queryInput.value.trim();
+    if (!text) { setStatus('Enter JSON', 'error'); return; }
+    if (!queryInput.value.trim()) { setStatus('Enter a path', 'error'); return; }
+
+    const r = JSONUtils.query(text, path);
+    if (r.success) {
+      result = r.result;
+      output.innerHTML = highlight(result);
+      setStatus('Query result', 'success');
+      if (pathExplorer) {
+        pathExplorer.currentPath = path;
+        pathExplorer.updateBreadcrumbs();
+      }
+    } else {
+      output.textContent = r.error;
+      setStatus('Query error', 'error');
+    }
+  };
+
+  queryBtn.onclick = executeQuery;
+  queryInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') executeQuery();
   });
 }
 

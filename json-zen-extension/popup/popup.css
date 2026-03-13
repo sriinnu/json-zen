@@ -105,8 +105,8 @@ body {
   font-size: 13px;
   background: var(--bg-deep);
   color: var(--text-primary);
-  width: 720px;
-  height: 540px;
+  width: 780px;
+  height: 560px;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -310,8 +310,9 @@ body {
 .toolbar {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 18px;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 14px;
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -321,16 +322,16 @@ body {
 }
 
 .btn {
-  padding: 10px 16px;
+  padding: 7px 12px;
   border: none;
   border-radius: var(--radius-md);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   font-family: inherit;
   white-space: nowrap;
   position: relative;
@@ -402,9 +403,9 @@ body {
 
 .divider {
   width: 1px;
-  height: 28px;
+  height: 24px;
   background: var(--glass-border);
-  margin: 0 6px;
+  margin: 0 2px;
 }
 
 /* ================================================
@@ -2767,4 +2768,349 @@ kbd {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.8);
   }
+}
+
+/* ================================================
+   PATH EXPLORER
+   ================================================ */
+
+.path-explorer-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+  min-height: 28px;
+  overflow-x: auto;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.breadcrumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.breadcrumb-item {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.breadcrumb-item:hover {
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+}
+
+.breadcrumb-item.active {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent-blue-light);
+}
+
+.breadcrumb-item.root {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.breadcrumb-separator {
+  color: var(--text-tertiary);
+  font-size: 10px;
+  margin: 0 2px;
+}
+
+.path-explorer-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.path-btn {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Path Search */
+.path-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.path-search-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.path-search-input:focus {
+  border-color: var(--accent-blue);
+}
+
+.path-search-results {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Mini Tree Panel */
+.mini-tree-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: 150px;
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.mini-tree-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.mini-tree-content {
+  overflow-y: auto;
+  padding: 4px 0;
+  max-height: 120px;
+}
+
+.mini-tree-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 11px;
+}
+
+.mini-tree-node:hover {
+  background: var(--glass-bg-hover);
+}
+
+.mini-tree-node.active {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.node-key {
+  color: var(--accent-blue-light);
+  font-family: monospace;
+}
+
+.node-type {
+  color: var(--text-tertiary);
+  font-size: 10px;
+}
+
+/* Interactive JSON nodes */
+.json-node {
+  cursor: pointer;
+  transition: background 0.1s;
+  border-radius: 2px;
+}
+
+.json-node:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.json-node.highlighted {
+  background: rgba(59, 130, 246, 0.15);
+  outline: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Value Preview Tooltip */
+.value-preview {
+  position: fixed;
+  z-index: 10000;
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  max-width: 300px;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+}
+
+.preview-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.preview-value {
+  font-size: 12px;
+  font-family: monospace;
+  color: var(--text-primary);
+  word-break: break-all;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+/* Copy Feedback */
+.copy-feedback {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--accent-blue);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  z-index: 10001;
+  animation: feedbackFade 1.5s ease-out forwards;
+}
+
+@keyframes feedbackFade {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -60%) scale(0.9); }
+}
+
+/* ================================================
+   JSON QUERY BAR
+   ================================================ */
+
+.query-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-border);
+}
+
+.query-input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: 0 8px;
+  transition: border-color 0.15s;
+}
+
+.query-input-wrapper:focus-within {
+  border-color: var(--accent-blue);
+}
+
+.query-prefix {
+  color: var(--accent-blue-light);
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.query-input {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.btn-sm {
+  padding: 3px 10px;
+  font-size: 11px;
+  border-radius: 4px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-sm:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+
+/* ================================================
+   TRANSFORM DROPDOWN
+   ================================================ */
+
+/* Transform dropdown uses same styles as convert dropdown - no new styles needed */
+
+/* Light mode adjustments for new elements */
+:root.light .path-explorer-bar,
+:root.light .path-search-bar,
+:root.light .mini-tree-panel,
+:root.light .query-bar {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+:root.light .path-search-input,
+:root.light .query-input-wrapper {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+:root.light .path-search-input,
+:root.light .query-input {
+  color: #1a1a1a;
+}
+
+:root.light .breadcrumb-item {
+  color: #666;
+}
+
+:root.light .breadcrumb-item:hover {
+  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+:root.light .breadcrumb-item.active {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563EB;
+}
+
+:root.light .value-preview {
+  background: white;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+:root.light .json-node:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+:root.light .json-node.highlighted {
+  background: rgba(59, 130, 246, 0.08);
+  outline-color: rgba(59, 130, 246, 0.2);
 }

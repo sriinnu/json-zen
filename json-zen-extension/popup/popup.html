@@ -129,6 +129,42 @@
         <button class="dropdown-item" data-convert="url">
           <span style="display:inline-block;width:20px;">🔗</span> URL Encode
         </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" data-convert="decode-base64">
+          <span style="display:inline-block;width:20px;">🔓</span> Decode Base64
+        </button>
+        <button class="dropdown-item" data-convert="from-yaml">
+          <span style="display:inline-block;width:20px;">📥</span> YAML to JSON
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" data-convert="escape">
+          <span style="display:inline-block;width:20px;">🔤</span> Escape
+        </button>
+        <button class="dropdown-item" data-convert="unescape">
+          <span style="display:inline-block;width:20px;">🔡</span> Unescape
+        </button>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" id="transformBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/>
+        </svg>
+        Transform
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="dropdown-menu" id="transformMenu">
+        <button class="dropdown-item" data-transform="removeNulls">
+          <span style="display:inline-block;width:20px;">🚫</span> Remove Nulls
+        </button>
+        <button class="dropdown-item" data-transform="redactPII">
+          <span style="display:inline-block;width:20px;">🔒</span> Redact PII
+        </button>
+        <button class="dropdown-item" data-transform="flatten">
+          <span style="display:inline-block;width:20px;">📋</span> Flatten Keys
+        </button>
       </div>
     </div>
     <div class="divider"></div>
@@ -160,6 +196,13 @@
         </div>
       </div>
       <textarea id="input" placeholder="Paste your JSON here to format, validate, or fix..."></textarea>
+      <div class="query-bar" id="queryBar">
+        <div class="query-input-wrapper">
+          <span class="query-prefix">$</span>
+          <input type="text" id="queryInput" class="query-input" placeholder="Enter path: .data.users[0].name">
+        </div>
+        <button class="btn btn-sm" id="queryBtn">Query</button>
+      </div>
     </div>
 
     <!-- Output panel -->
@@ -176,6 +219,45 @@
             Copy
           </button>
         </div>
+      </div>
+      <!-- Path Explorer Bar -->
+      <div class="path-explorer-bar" id="pathExplorerBar" style="display:none;">
+        <div class="breadcrumbs" id="breadcrumbs"></div>
+        <div class="path-explorer-actions">
+          <button class="icon-btn path-btn" id="copyPathBtn" title="Copy path">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+          </button>
+          <button class="icon-btn path-btn" id="toggleTreeBtn" title="Toggle tree view">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h18v18H3zM3 9h18M9 21V9"/>
+            </svg>
+          </button>
+          <button class="icon-btn path-btn" id="clearPathBtn" title="Reset path">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Path Search Bar -->
+      <div class="path-search-bar" id="pathSearchBar" style="display:none;">
+        <input type="text" id="pathSearchInput" class="path-search-input" placeholder="Search keys/values or type path ($.key.subkey)...">
+        <span class="path-search-results" id="searchResults"></span>
+      </div>
+      <!-- Mini Tree Panel -->
+      <div class="mini-tree-panel" id="miniTreePanel" style="display:none;">
+        <div class="mini-tree-header">
+          <span>Structure</span>
+          <button class="icon-btn" id="closeTreeBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="mini-tree-content" id="miniTreeContent"></div>
       </div>
       <div class="output-container">
         <pre id="output" class="json-tree-view"></pre>

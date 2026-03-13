@@ -1,9 +1,16 @@
 // JSON Zen - Background Service Worker
-// Minimal version to avoid registration issues
 
-// Handle keyboard shortcuts - they will only work if there's a content script
+// Handle keyboard shortcuts
 chrome.commands.onCommand.addListener((command) => {
-  console.log('Command received:', command);
+  // Open the popup when a command is received
+  chrome.action.openPopup().catch(() => {
+    // If popup can't be opened, try sending to active tab
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(tabs[0].id, { command: command.replace('-json', '') }).catch(() => {});
+      }
+    });
+  });
 });
 
 // Context menu setup
@@ -40,20 +47,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
   const command = info.menuItemId.replace('json-zen-', '');
 
-  // Try to send to content script
-  try {
-    chrome.tabs.sendMessage(tab.id, {
-      command: command,
-      json: info.selectionText
-    }, (response) => {
-      if (chrome.runtime.lastError) {
-        // No content script - that's okay
-        console.log('No content script available');
-      }
-    });
-  } catch (e) {
-    console.warn('Message send error:', e);
-  }
+  chrome.tabs.sendMessage(tab.id, {
+    command: command,
+    json: info.selectionText
+  }).catch(() => {
+    console.log('No content script available on this page');
+  });
 });
-
-console.log('JSON Zen background service worker loaded');
