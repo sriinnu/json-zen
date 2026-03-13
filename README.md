@@ -4,10 +4,10 @@
 
 ### A Beautiful Cross-Platform JSON Toolkit
 
-[![Version](https://img.shields.io/badge/version-1.0.3-blue.svg)](https://github.com/yourusername/json-zen)
+[![Version](https://img.shields.io/badge/version-1.0.3-blue.svg)](https://github.com/sriinnu/json-zen)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/yourusername/json-zen)
-[![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Firefox%20%7C%20Edge%20%7C%20Safari-orange.svg)](https://github.com/yourusername/json-zen)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/sriinnu/json-zen)
+[![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Firefox%20%7C%20Edge%20%7C%20Safari-orange.svg)](https://github.com/sriinnu/json-zen)
 
 **Format, prettify, minify, validate, and fix JSON data with ease**
 
@@ -78,7 +78,7 @@ Choose your preferred platform below. JSON Zen is available as both a browser ex
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/json-zen.git
+   git clone https://github.com/sriinnu/json-zen.git
    cd json-zen
    ```
 
@@ -118,7 +118,7 @@ A native macOS application with seamless menu bar integration.
 
 1. **Clone and navigate to the macOS project**
    ```bash
-   git clone https://github.com/yourusername/json-zen.git
+   git clone https://github.com/sriinnu/json-zen.git
    cd json-zen/json-zen-macos
    ```
 
@@ -318,7 +318,7 @@ Contributions are welcome! Here's how you can help:
 
 ### Reporting Issues
 
-- Use the [GitHub Issues](https://github.com/yourusername/json-zen/issues) page
+- Use the [GitHub Issues](https://github.com/sriinnu/json-zen/issues) page
 - Include steps to reproduce the issue
 - Provide screenshots if applicable
 - Mention your OS/browser version
@@ -327,7 +327,7 @@ Contributions are welcome! Here's how you can help:
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/your-username/json-zen.git
+   git clone https://github.com/sriinnu/json-zen.git
    ```
 
 2. **Create a feature branch**
@@ -367,55 +367,22 @@ Contributions are welcome! Here's how you can help:
 
 ---
 
-## 📝 License
+## 📝 Copyright
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 JSON Zen Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
-
-## 🌟 Acknowledgments
-
-- JSON parsing and validation powered by native browser APIs
-- Syntax highlighting inspired by popular JSON editors
-- Built with ❤️ for developers who work with JSON daily
+© 2020-2026 Srinivas Pendela. Licensed under the [MIT License](LICENSE).
 
 ---
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/json-zen/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/json-zen/discussions)
-- **Email**: support@jsonzen.dev
+- **Issues**: [GitHub Issues](https://github.com/sriinnu/json-zen/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/sriinnu/json-zen/discussions)
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by the JSON Zen Team**
+**Made with love by Srinivas Pendela**
 
 [⬆ Back to Top](#json-zen)
 
