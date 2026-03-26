@@ -1,0 +1,24 @@
+{
+  "name": "json-zen",
+  "version": "1.2.0",
+  "description": "Format, prettify, minify, validate, and fix JSON data - Beautiful glassmorphism JSON toolkit with 6 themes",
+  "author": "Srinivas Pendela",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sriinnu/json-zen.git"
+  },
+  "keywords": [
+    "json",
+    "formatter",
+    "validator",
+    "prettify",
+    "minify",
+    "chrome-extension",
+    "browser-extension",
+    "glassmorphism"
+  ],
+  "scripts": {
+    "zip": "cd json-zen-extension && zip -r ../json-zen-v$npm_package_version.zip . -x '*.DS_Store' -x '__MACOSX/*'"
+  }
+}

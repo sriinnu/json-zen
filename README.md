@@ -4,13 +4,13 @@
 
 ### A Beautiful Cross-Platform JSON Toolkit
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/sriinnu/json-zen)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/sriinnu/json-zen)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/sriinnu/json-zen)
 [![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Firefox%20%7C%20Edge%20%7C%20Safari-orange.svg)](https://github.com/sriinnu/json-zen)
 [![Manifest](https://img.shields.io/badge/manifest-v3-blueviolet.svg)](https://developer.chrome.com/docs/extensions/mv3/)
 
-**Format, validate, fix, convert, and transform JSON data with a glassmorphism UI**
+**Format, validate, fix, convert, and transform JSON data with a glassmorphism UI and 6 beautiful themes**
 
 [Features](#-features) • [Installation](#-installation) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
@@ -101,7 +101,18 @@ Results appear as toast notifications via the content script.
 
 ### 🎨 Themes & Syntax Highlighting
 
-Three theme modes: **Dark** (default), **Light**, and **System** (follows OS preference).
+Six beautiful themes with unique fonts:
+
+| Theme | Description | Font |
+|-------|-------------|------|
+| **Dark** | Deep dark with blue accents | Operator Mono* / SF Mono |
+| **Light** | Clean light mode | IBM Plex Mono |
+| **Ocean** | Calming blue/teal tones | Monaspace Radon |
+| **Sunset** | Warm orange/pink vibes | Victor Mono |
+| **Retro** | Old-school CRT terminal | VT323 (pixel font) |
+| **System** | Follows OS preference | System default |
+
+*\*Operator Mono requires local installation or bundling WOFF files in the extension*
 
 Smart syntax highlighting with semantic key coloring:
 - IDs and references → Cyan
@@ -264,7 +275,7 @@ No build tools, no bundler, no dependencies. Edit the source files directly and 
 # Create a distributable ZIP
 npm run zip
 # Or manually:
-cd json-zen-extension && zip -r ../json-zen-v1.1.0.zip . -x '*.DS_Store'
+cd json-zen-extension && zip -r ../json-zen-v1.2.0.zip . -x '*.DS_Store'
 ```
 
 ---

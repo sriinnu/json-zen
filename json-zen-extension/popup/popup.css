@@ -3,6 +3,32 @@
    Enhanced with frosted glass effects and layered depth
    ================================================ */
 
+/* Import fonts for themes */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Fira+Code:wght@400;500&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Space+Mono&family=Inconsolata:wght@400;700&family=Roboto+Mono:wght@400;500&family=Victor+Mono:wght@400;500;700&display=swap');
+
+/* Monaspace Radon - Elegant handwritten-style monospace from GitHub */
+@font-face {
+  font-family: 'Monaspace Radon';
+  src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@v1.200/fonts/webfonts/MonaspaceRadon-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Monaspace Radon';
+  src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@v1.200/fonts/webfonts/MonaspaceRadon-RegularItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Monaspace Radon';
+  src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@v1.200/fonts/webfonts/MonaspaceRadon-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Deep dark background */
   --bg-deep: #08080a;
@@ -63,6 +89,10 @@
   /* Dropdown */
   --dropdown-bg: rgba(20, 20, 25, 0.95);
   --dropdown-border: rgba(255, 255, 255, 0.1);
+
+  /* Fonts - default modern fonts with Operator Mono support */
+  --font-primary: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+  --font-mono: 'Operator Mono', 'OperatorMono-Book', 'SF Mono', Monaco, 'Cascadia Code', monospace;
 }
 
 /* Light theme */
@@ -88,6 +118,176 @@
   /* Dropdown */
   --dropdown-bg: rgba(255, 255, 255, 0.95);
   --dropdown-border: rgba(0, 0, 0, 0.1);
+
+  /* Fonts - clean, crisp fonts for light theme */
+  --font-primary: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Arial', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Fira Code', Monaco, monospace;
+}
+
+/* Ocean theme - calming blue/teal tones */
+:root.ocean {
+  --bg-deep: #0a1628;
+  --bg-primary: #0f1f35;
+  --bg-secondary: #152a45;
+
+  --glass-bg: rgba(56, 189, 248, 0.08);
+  --glass-bg-hover: rgba(56, 189, 248, 0.12);
+  --glass-border: rgba(56, 189, 248, 0.2);
+  --glass-border-hover: rgba(56, 189, 248, 0.35);
+
+  --accent-blue: #38bdf8;
+  --accent-blue-light: #7dd3fc;
+  --accent-purple: #06b6d4;
+  --accent-teal: #22d3ee;
+
+  --grad-blue: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 50%, #0ea5e9 100%);
+  --grad-purple: linear-gradient(135deg, #67e8f9 0%, #22d3ee 50%, #06b6d4 100%);
+
+  --text-primary: #e0f2fe;
+  --text-secondary: #7dd3fc;
+  --text-tertiary: #38bdf8;
+
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(14,165,233,0.1);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4), 0 2px 6px rgba(14,165,233,0.15);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5), 0 6px 16px rgba(14,165,233,0.2);
+  --shadow-xl: 0 20px 48px rgba(0,0,0,0.6), 0 10px 24px rgba(14,165,233,0.25);
+
+  --glow-blue: 0 0 12px rgba(56, 189, 248, 0.3), 0 0 24px rgba(56, 189, 248, 0.15);
+
+  --dropdown-bg: rgba(15, 31, 53, 0.95);
+  --dropdown-border: rgba(56, 189, 248, 0.2);
+
+  --json-key: #7dd3fc;
+  --json-string: #34d399;
+  --json-number: #fbbf24;
+  --json-boolean: #c084fc;
+  --json-null: #64748b;
+
+  /* Fonts - elegant Monaspace Radon for ocean theme */
+  --font-primary: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Monaspace Radon', 'Source Code Pro', 'Fira Code', Monaco, monospace;
+}
+
+/* Sunset theme - warm orange/pink tones */
+:root.sunset {
+  --bg-deep: #1a0a0f;
+  --bg-primary: #2d1117;
+  --bg-secondary: #3d1a22;
+
+  --glass-bg: rgba(251, 146, 60, 0.08);
+  --glass-bg-hover: rgba(251, 146, 60, 0.12);
+  --glass-border: rgba(251, 146, 60, 0.2);
+  --glass-border-hover: rgba(251, 146, 60, 0.35);
+
+  --accent-blue: #fb923c;
+  --accent-blue-light: #fdba74;
+  --accent-purple: #f472b6;
+  --accent-teal: #fb7185;
+
+  --grad-blue: linear-gradient(135deg, #fdba74 0%, #fb923c 50%, #ea580c 100%);
+  --grad-purple: linear-gradient(135deg, #f9a8d4 0%, #f472b6 50%, #ec4899 100%);
+  --grad-teal: linear-gradient(135deg, #fda4af 0%, #fb7185 50%, #f43f5e 100%);
+
+  --text-primary: #fef3c7;
+  --text-secondary: #fdba74;
+  --text-tertiary: #fb923c;
+
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(251,146,60,0.1);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4), 0 2px 6px rgba(251,146,60,0.15);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5), 0 6px 16px rgba(251,146,60,0.2);
+  --shadow-xl: 0 20px 48px rgba(0,0,0,0.6), 0 10px 24px rgba(251,146,60,0.25);
+
+  --glow-blue: 0 0 12px rgba(251, 146, 60, 0.3), 0 0 24px rgba(251, 146, 60, 0.15);
+
+  --dropdown-bg: rgba(45, 17, 23, 0.95);
+  --dropdown-border: rgba(251, 146, 60, 0.2);
+
+  --json-key: #fdba74;
+  --json-string: #a3e635;
+  --json-number: #fde047;
+  --json-boolean: #f9a8d4;
+  --json-null: #78716c;
+
+  /* Fonts - warm, elegant fonts for sunset theme with Victor Mono's script italics */
+  --font-primary: 'Georgia', 'Times New Roman', -apple-system, BlinkMacSystemFont, serif;
+  --font-mono: 'Victor Mono', 'Inconsolata', 'Fira Code', Monaco, monospace;
+}
+
+/* Retro theme - old school CRT terminal look */
+:root.retro {
+  --bg-deep: #0a0a0a;
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+
+  --glass-bg: rgba(0, 255, 0, 0.03);
+  --glass-bg-hover: rgba(0, 255, 0, 0.06);
+  --glass-border: rgba(0, 255, 0, 0.3);
+  --glass-border-hover: rgba(0, 255, 0, 0.5);
+
+  --accent-blue: #00ff00;
+  --accent-blue-light: #33ff33;
+  --accent-purple: #00ffaa;
+  --accent-teal: #00ff66;
+
+  --grad-blue: linear-gradient(135deg, #00ff00 0%, #00cc00 50%, #009900 100%);
+  --grad-purple: linear-gradient(135deg, #00ffaa 0%, #00cc88 50%, #009966 100%);
+  --grad-teal: linear-gradient(135deg, #00ff66 0%, #00cc55 50%, #009944 100%);
+
+  --text-primary: #00ff00;
+  --text-secondary: #00cc00;
+  --text-tertiary: #009900;
+
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.8), 0 0 4px rgba(0,255,0,0.1);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.8), 0 0 8px rgba(0,255,0,0.15);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.8), 0 0 16px rgba(0,255,0,0.2);
+  --shadow-xl: 0 20px 48px rgba(0,0,0,0.8), 0 0 24px rgba(0,255,0,0.25);
+
+  --glow-blue: 0 0 8px rgba(0, 255, 0, 0.4), 0 0 16px rgba(0, 255, 0, 0.2);
+
+  --dropdown-bg: rgba(10, 10, 10, 0.98);
+  --dropdown-border: rgba(0, 255, 0, 0.3);
+
+  --json-key: #00ffaa;
+  --json-string: #ffff00;
+  --json-number: #00ffff;
+  --json-boolean: #ff00ff;
+  --json-null: #666666;
+
+  /* Retro font - larger size for pixel font */
+  --font-primary: 'VT323', 'Courier New', monospace;
+  --font-mono: 'VT323', 'Courier New', monospace;
+  --font-size-base: 18px;
+  --font-size-mono: 20px;
+}
+
+/* Retro theme - larger font sizes for pixel font */
+:root.retro body {
+  font-size: 16px;
+}
+
+:root.retro #input,
+:root.retro #output {
+  font-size: 18px !important;
+  line-height: 1.4;
+}
+
+/* Retro theme scanline effect */
+:root.retro body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
 }
 
 /* ================================================
@@ -101,7 +301,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+  font-family: var(--font-primary, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif);
   font-size: 13px;
   background: var(--bg-deep);
   color: var(--text-primary);
@@ -543,7 +743,8 @@ body {
   background: transparent;
   border: none;
   color: var(--text-primary);
-  font: 13px/1.6 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font: 15px/1.6 var(--font-mono);
+  font-family: var(--font-mono);
   resize: none;
   outline: none;
   font-variant-ligatures: none;
@@ -1805,8 +2006,14 @@ kbd {
   right: 0;
   left: auto;
   min-width: 280px;
+  max-width: 320px;
   max-height: 400px;
   overflow: hidden;
+}
+
+.recent-list {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .recent-dropdown.active .dropdown-menu {

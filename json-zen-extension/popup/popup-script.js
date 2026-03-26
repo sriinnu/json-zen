@@ -33,27 +33,38 @@ function loadSettings() {
 
 // Apply theme
 function applyTheme(theme) {
+  // Remove all theme classes first
+  document.documentElement.classList.remove('light', 'ocean', 'sunset', 'retro');
+
   if (theme === 'light') {
     document.documentElement.classList.add('light');
-    themeBtn.textContent = '☀️';
+    if (themeBtn) themeBtn.textContent = '☀️';
   } else if (theme === 'system') {
     if (window.matchMedia('(prefers-color-scheme: light)').matches) {
       document.documentElement.classList.add('light');
-      themeBtn.textContent = '☀️';
+      if (themeBtn) themeBtn.textContent = '💻';
     } else {
-      document.documentElement.classList.remove('light');
-      themeBtn.textContent = '🌙';
+      if (themeBtn) themeBtn.textContent = '💻';
     }
+  } else if (theme === 'ocean') {
+    document.documentElement.classList.add('ocean');
+    if (themeBtn) themeBtn.textContent = '🌊';
+  } else if (theme === 'sunset') {
+    document.documentElement.classList.add('sunset');
+    if (themeBtn) themeBtn.textContent = '🌅';
+  } else if (theme === 'retro') {
+    document.documentElement.classList.add('retro');
+    if (themeBtn) themeBtn.textContent = '👾';
   } else {
-    document.documentElement.classList.remove('light');
-    themeBtn.textContent = '🌙';
+    // Dark theme (default)
+    if (themeBtn) themeBtn.textContent = '🌙';
   }
   settings.theme = theme;
 }
 
 // Toggle theme
-themeBtn.onclick = () => {
-  const themes = ['dark', 'light', 'system'];
+if (themeBtn) themeBtn.onclick = () => {
+  const themes = ['dark', 'light', 'system', 'ocean', 'sunset', 'retro'];
   const currentIndex = themes.indexOf(settings.theme);
   const newTheme = themes[(currentIndex + 1) % themes.length];
   applyTheme(newTheme);
@@ -491,12 +502,13 @@ function run(fn, name) {
   }
 }
 
-$('format').onclick = () => run(t => JSONUtils.format(t, settings.indentSize || 2), 'Format');
-$('minify').onclick = () => run(t => JSONUtils.minify(t), 'Minify');
-$('fix').onclick = () => run(t => JSONUtils.fix(t), 'Fix');
-$('validate').onclick = () => run(t => JSONUtils.validate(t), 'Validate');
-$('sort').onclick = () => run(t => JSONUtils.sortKeys(t), 'Sort');
-$('stats').onclick = () => {
+// Safe button click handlers
+if ($('format')) $('format').onclick = () => run(t => JSONUtils.format(t, settings.indentSize || 2), 'Format');
+if ($('minify')) $('minify').onclick = () => run(t => JSONUtils.minify(t), 'Minify');
+if ($('fix')) $('fix').onclick = () => run(t => JSONUtils.fix(t), 'Fix');
+if ($('validate')) $('validate').onclick = () => run(t => JSONUtils.validate(t), 'Validate');
+if ($('sort')) $('sort').onclick = () => run(t => JSONUtils.sortKeys(t), 'Sort');
+if ($('stats')) $('stats').onclick = () => {
   const text = input.value.trim();
   if (!text) { setStatus('Enter JSON', 'error'); return; }
   const r = JSONUtils.stats(text);
@@ -842,8 +854,8 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
   };
 });
 
-$('copy').onclick = () => result && navigator.clipboard.writeText(result).then(() => setStatus('Copied', 'success'));
-$('paste').onclick = () => navigator.clipboard.readText().then(t => {
+if ($('copy')) $('copy').onclick = () => result && navigator.clipboard.writeText(result).then(() => setStatus('Copied', 'success'));
+if ($('paste')) $('paste').onclick = () => navigator.clipboard.readText().then(t => {
   input.value = t;
   info.textContent = t.length + ' chars';
   if (settings.autoFormat && t.trim()) {
@@ -855,8 +867,8 @@ $('paste').onclick = () => navigator.clipboard.readText().then(t => {
     }
   }
 });
-$('clear').onclick = () => { input.value = ''; output.textContent = ''; result = ''; info.textContent = '0 chars'; setStatus('Ready', ''); };
-input.oninput = () => info.textContent = input.value.length + ' chars';
+if ($('clear')) $('clear').onclick = () => { input.value = ''; output.textContent = ''; result = ''; info.textContent = '0 chars'; setStatus('Ready', ''); };
+if (input) input.oninput = () => info.textContent = input.value.length + ' chars';
 
 document.onkeydown = e => {
   if ((e.metaKey || e.ctrlKey) && e.shiftKey) {
@@ -871,18 +883,19 @@ document.onkeydown = e => {
 // HISTORY UI EVENT LISTENERS
 // ================================================
 
-$('historyBtn').onclick = openHistorySidebar;
-$('closeHistory').onclick = closeHistorySidebar;
-$('historyOverlay').onclick = closeHistorySidebar;
-$('recentBtn').onclick = (e) => {
+if ($('historyBtn')) $('historyBtn').onclick = openHistorySidebar;
+if ($('closeHistory')) $('closeHistory').onclick = closeHistorySidebar;
+if ($('historyOverlay')) $('historyOverlay').onclick = closeHistorySidebar;
+if ($('recentBtn')) $('recentBtn').onclick = (e) => {
   e.stopPropagation();
-  document.querySelector('.recent-dropdown').classList.toggle('active');
+  const dropdown = document.querySelector('.recent-dropdown');
+  if (dropdown) dropdown.classList.toggle('active');
   renderRecent();
 };
 
-$('clearHistory').onclick = clearHistory;
+if ($('clearHistory')) $('clearHistory').onclick = clearHistory;
 
-$('historySearch').oninput = (e) => {
+if ($('historySearch')) $('historySearch').oninput = (e) => {
   renderHistory(e.target.value);
 };
 
