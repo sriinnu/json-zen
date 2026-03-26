@@ -223,11 +223,10 @@ Access settings via the extension options page (`Right-click extension icon → 
 ```
 json-zen/
 ├── README.md
-├── package.json
 ├── LICENSE
 ├── json-zen-extension/
 │   ├── manifest.json
-│   ├── worker.js
+│   ├── package.json
 │   ├── background/
 │   │   └── background.js
 │   ├── content/
