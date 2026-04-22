@@ -1,0 +1,49 @@
+/* ============================================
+   JSON Zen - Dark Theme (Default)
+   ============================================ */
+
+:root {
+  /* Background Layers */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1a1a24;
+  --bg-elevated: #242430;
+  --bg-overlay: rgba(10, 10, 15, 0.95);
+
+  /* Text Colors */
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0b0;
+  --text-tertiary: #707080;
+  --text-muted: #505060;
+
+  /* Semantic Colors */
+  --color-string: #a5d6a7;
+  --color-number: #81d4fa;
+  --color-boolean: #ffcc80;
+  --color-null: #ef9a9a;
+  --color-key: #64d2ff;
+  --color-key-id: #64d2ff;
+  --color-key-name: #32d74b;
+  --color-key-desc: #ffcc00;
+  --color-key-url: #5e5ce6;
+  --color-key-email: #ff9f0a;
+  --color-key-status: #bf5af2;
+  --color-key-count: #30d158;
+  --color-key-date: #ff453a;
+  --color-key-secret: #ff453a;
+
+  /* Syntax Highlighting for JSON */
+  --json-key: #9cdcfe;
+  --json-string: #ce9178;
+  --json-number: #b5cea8;
+  --json-boolean: #569cd6;
+  --json-null: #569cd6;
+  --json-bracket: #ffd700;
+}
+
+/* Dark theme specific glows */
+[data-theme="dark"] {
+  --glow-primary: 0 0 30px rgba(59, 130, 246, 0.3);
+  --glow-success: 0 0 30px rgba(34, 197, 94, 0.3);
+  --glow-error: 0 0 30px rgba(239, 68, 68, 0.3);
+}

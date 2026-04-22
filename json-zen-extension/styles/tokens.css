@@ -1,0 +1,119 @@
+/* ============================================
+   JSON Zen - Design Tokens (Pixar-Level Polish)
+   ============================================ */
+
+:root {
+  /* Brand Colors */
+  --brand-primary: #3B82F6;
+  --brand-primary-rgb: 59, 130, 246;
+  --brand-secondary: #8B5CF6;
+  --brand-secondary-rgb: 139, 92, 246;
+  --brand-accent: #14B8A6;
+  --brand-accent-rgb: 20, 184, 166;
+  --brand-success: #22C55E;
+  --brand-warning: #F59E0B;
+  --brand-error: #EF4444;
+  --brand-info: #3B82F6;
+
+  /* Glassmorphism System */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.06);
+  --glass-bg-active: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --glass-border-glow: rgba(59, 130, 246, 0.3);
+  --glass-blur: blur(20px) saturate(180%);
+  --glass-blur-heavy: blur(40px) saturate(200%);
+
+  /* Shadow System (Layered Depth) */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.6), 0 8px 20px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(var(--brand-primary-rgb), 0.4), 0 0 40px rgba(var(--brand-primary-rgb), 0.2);
+  --shadow-success-glow: 0 0 20px rgba(34, 197, 94, 0.4);
+  --shadow-error-glow: 0 0 20px rgba(239, 68, 68, 0.4);
+
+  /* Typography */
+  --font-mono: 'SF Mono', 'Operator Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Sizes - INCREASED for readability */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 20px;
+  --text-3xl: 28px;
+
+  /* Font Scale Factor (1.0 = normal, 1.1 = 10% larger, etc) */
+  --font-scale: 1.0;
+  --scaled-xs: calc(12px * var(--font-scale));
+  --scaled-sm: calc(13px * var(--font-scale));
+  --scaled-base: calc(14px * var(--font-scale));
+  --scaled-md: calc(15px * var(--font-scale));
+  --scaled-lg: calc(16px * var(--font-scale));
+  --scaled-xl: calc(18px * var(--font-scale));
+
+  /* Spacing */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-8: 16px;
+  --space-10: 20px;
+  --space-12: 24px;
+  --space-16: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* Animation Timing */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-liquid: cubic-bezier(0.23, 1, 0.32, 1);
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-elevated: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+
+  /* Layout */
+  --header-height: 48px;
+  --toolbar-height: 40px;
+  --panel-min-width: 280px;
+  --sidebar-width: 280px;
+  --panel-gap: 8px;
+  --editor-line-height: 1.6;
+  --btn-sm-padding: 4px 6px;
+  --btn-sm-font-size: 12px;
+  --btn-sm-height: 22px;
+  --btn-md-padding: 6px 10px;
+  --btn-md-font-size: 13px;
+  --btn-md-height: 28px;
+  --btn-lg-padding: 8px 12px;
+  --btn-lg-font-size: 15px;
+  --btn-lg-height: 36px;
+  --icon-btn-size: 28px;
+}

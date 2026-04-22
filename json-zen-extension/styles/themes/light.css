@@ -1,0 +1,52 @@
+/* ============================================
+   JSON Zen - Light Theme
+   ============================================ */
+
+[data-theme="light"] {
+  /* Background Layers */
+  --bg-primary: #f5f7fb;
+  --bg-secondary: #eef2f7;
+  --bg-tertiary: #e8edf5;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(248, 250, 252, 0.98);
+
+  /* Glassmorphism for Light */
+  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-bg-hover: rgba(255, 255, 255, 0.95);
+  --glass-bg-active: rgba(255, 255, 255, 1);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-border-hover: rgba(15, 23, 42, 0.16);
+  --glass-blur: blur(20px) saturate(150%);
+
+  /* Text Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-muted: #94a3b8;
+
+  /* Shadows (Lighter for light theme) */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05), 0 1px 1px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 18px 40px rgba(15, 23, 42, 0.12), 0 8px 16px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 28px 60px rgba(15, 23, 42, 0.15), 0 12px 24px rgba(15, 23, 42, 0.08);
+
+  /* Semantic Colors */
+  --color-string: #15803d;
+  --color-number: #0369a1;
+  --color-boolean: #b45309;
+  --color-null: #dc2626;
+  --color-key: #0284c7;
+
+  /* Syntax Highlighting */
+  --json-key: #d946ef;
+  --json-string: #16a34a;
+  --json-number: #2563eb;
+  --json-boolean: #d97706;
+  --json-null: #dc2626;
+  --json-bracket: #7c3aed;
+}
+
+[data-theme="light"] #app::before,
+[data-theme="light"] .particle-container {
+  display: none;
+}

@@ -1,21 +1,21 @@
 {
   "manifest_version": 3,
   "name": "JSON Zen",
-  "version": "1.2.0",
-  "description": "Format, prettify, minify, validate, and fix JSON data - Beautiful glassmorphism JSON toolkit",
+  "version": "2.0.0",
+  "description": "Ultimate JSON Toolkit with HTTP Client, Diff & more - Beautiful glassmorphism UI",
   "icons": {
-    "16": "icons/icon16.svg",
-    "32": "icons/icon32.svg",
-    "48": "icons/icon48.svg",
-    "128": "icons/icon128.svg"
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   },
   "action": {
-    "default_popup": "popup/popup.html",
+    "default_popup": "popup/popup-v2.html",
     "default_icon": {
-      "16": "icons/icon16.svg",
-      "32": "icons/icon32.svg",
-      "48": "icons/icon48.svg",
-      "128": "icons/icon128.svg"
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
     }
   },
   "options_page": "options/options.html",
@@ -24,7 +24,12 @@
     "clipboardRead",
     "clipboardWrite",
     "contextMenus",
-    "activeTab"
+    "activeTab",
+    "tabs",
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background/background.js"

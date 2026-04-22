@@ -1,0 +1,45 @@
+/* ============================================
+   JSON Zen - Sunset Theme
+   ============================================ */
+
+[data-theme="sunset"] {
+  /* Sunset Background Layers */
+  --bg-primary: #1a0f1a;
+  --bg-secondary: #241425;
+  --bg-tertiary: #2d1825;
+  --bg-elevated: #381d2c;
+  --bg-overlay: rgba(26, 15, 26, 0.98);
+
+  /* Brand Override - Sunset Colors */
+  --brand-primary: #f97316;
+  --brand-primary-rgb: 249, 115, 22;
+  --brand-secondary: #ec4899;
+  --brand-secondary-rgb: 236, 72, 153;
+  --brand-accent: #fbbf24;
+  --brand-accent-rgb: 251, 191, 36;
+
+  /* Sunset Glassmorphism */
+  --glass-bg: rgba(249, 115, 22, 0.05);
+  --glass-bg-hover: rgba(249, 115, 22, 0.1);
+  --glass-border: rgba(236, 72, 153, 0.15);
+  --glass-border-hover: rgba(236, 72, 153, 0.3);
+  --glass-border-glow: rgba(249, 115, 22, 0.4);
+
+  /* Text Colors */
+  --text-primary: #fef3c7;
+  --text-secondary: #fdba74;
+  --text-tertiary: #fb923c;
+  --text-muted: #f97316;
+
+  /* Glows */
+  --glow-primary: 0 0 30px rgba(249, 115, 22, 0.4);
+  --shadow-glow: 0 0 20px rgba(249, 115, 22, 0.3), 0 0 40px rgba(236, 72, 153, 0.2);
+
+  /* Syntax Highlighting */
+  --json-key: #fdba74;
+  --json-string: #fde68a;
+  --json-number: #fed7aa;
+  --json-boolean: #fbbf24;
+  --json-null: #fca5a5;
+  --json-bracket: #fb923c;
+}

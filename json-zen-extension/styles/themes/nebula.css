@@ -1,0 +1,173 @@
+/* ============================================
+   JSON Zen - Nebula Theme (Modern & Cosmic)
+   Deep space inspired with galaxy gradients
+   ============================================ */
+
+[data-theme="nebula"] {
+  /* Nebula Palette */
+  --nebula-purple: #8b5cf6;
+  --nebula-blue: #3b82f6;
+  --nebula-pink: #ec4899;
+  --nebula-cyan: #06b6d4;
+  --nebula-indigo: #6366f1;
+  --nebula-rose: #f43f5e;
+  
+  /* Brand Override */
+  --brand-primary: #8b5cf6;
+  --brand-primary-rgb: 139, 92, 246;
+  --brand-secondary: #06b6d4;
+  --brand-secondary-rgb: 6, 182, 212;
+  --brand-accent: #ec4899;
+  --brand-accent-rgb: 236, 72, 153;
+  
+  /* Deep Space Background */
+  --bg-primary: #030014;
+  --bg-secondary: #0a0620;
+  --bg-tertiary: #120c2e;
+  --bg-elevated: #1a1440;
+  --bg-overlay: rgba(3, 0, 20, 0.98);
+  
+  /* Cosmic Glass */
+  --glass-bg: rgba(139, 92, 246, 0.05);
+  --glass-bg-hover: rgba(139, 92, 246, 0.1);
+  --glass-bg-active: rgba(6, 182, 212, 0.1);
+  --glass-border: rgba(139, 92, 246, 0.2);
+  --glass-border-hover: rgba(139, 92, 246, 0.4);
+  --glass-border-glow: rgba(139, 92, 246, 0.5);
+  --glass-blur: blur(20px) saturate(180%);
+  
+  /* Text Colors */
+  --text-primary: #f5f3ff;
+  --text-secondary: #ddd6fe;
+  --text-tertiary: #c4b5fd;
+  --text-muted: #a78bfa;
+  
+  /* Cosmic Glows */
+  --glow-primary: 0 0 30px rgba(139, 92, 246, 0.5), 0 0 60px rgba(6, 182, 212, 0.3);
+  --glow-secondary: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(244, 63, 94, 0.3);
+  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.4), 0 0 80px rgba(6, 182, 212, 0.2);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 12px rgba(139, 92, 246, 0.15);
+  --shadow-md: 0 4px 24px rgba(139, 92, 246, 0.2);
+  --shadow-lg: 0 8px 40px rgba(139, 92, 246, 0.25);
+  --shadow-xl: 0 16px 80px rgba(139, 92, 246, 0.3);
+  
+  /* Syntax Highlighting - Nebula */
+  --json-key: #ec4899;
+  --json-string: #06b6d4;
+  --json-number: #f43f5e;
+  --json-boolean: #8b5cf6;
+  --json-null: #6366f1;
+  --json-bracket: #3b82f6;
+  
+  /* Key Colors */
+  --color-key: #8b5cf6;
+  --color-key-id: #ec4899;
+  --color-key-name: #06b6d4;
+  --color-key-desc: #f43f5e;
+  --color-key-url: #6366f1;
+  --color-key-email: #3b82f6;
+  --color-key-status: #8b5cf6;
+  --color-key-count: #ec4899;
+  --color-key-date: #06b6d4;
+  --color-key-secret: #f43f5e;
+}
+
+/* Starfield Background */
+[data-theme="nebula"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 90px 40px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.2), transparent),
+    radial-gradient(1.5px 1.5px at 160px 120px, rgba(255,255,255,0.3), transparent);
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 0;
+  animation: starTwinkle 4s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Nebula Clouds */
+[data-theme="nebula"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: nebulaDrift 20s ease-in-out infinite;
+}
+
+@keyframes nebulaDrift {
+  0%, 100% { 
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% { 
+    transform: translate(10px, -10px) rotate(2deg);
+  }
+}
+
+/* Nebula Button Styles */
+[data-theme="nebula"] .btn-primary {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.15));
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  box-shadow: 
+    0 0 25px rgba(139, 92, 246, 0.3),
+    inset 0 0 25px rgba(139, 92, 246, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="nebula"] .btn-primary:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.2));
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 
+    0 0 35px rgba(139, 92, 246, 0.4),
+    0 0 70px rgba(236, 72, 153, 0.2),
+    inset 0 0 35px rgba(139, 92, 246, 0.12);
+}
+
+/* Nebula Panels */
+[data-theme="nebula"] .panel {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.03), rgba(6, 182, 212, 0.02));
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 0 30px rgba(139, 92, 246, 0.08),
+    inset 0 0 40px rgba(6, 182, 212, 0.03);
+}
+
+[data-theme="nebula"] .panel:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 
+    0 0 40px rgba(139, 92, 246, 0.12),
+    inset 0 0 50px rgba(6, 182, 212, 0.04);
+}
+
+/* Nebula Scrollbar */
+[data-theme="nebula"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--nebula-purple), var(--nebula-cyan));
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+}
+
+/* Nebula Header */
+[data-theme="nebula"] .app-header {
+  background: linear-gradient(
+    180deg,
+    rgba(139, 92, 246, 0.08),
+    rgba(6, 182, 212, 0.04),
+    transparent
+  );
+  border-bottom: 1px solid rgba(139, 92, 246, 0.25);
+}

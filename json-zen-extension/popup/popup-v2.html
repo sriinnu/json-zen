@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Zen - Ultimate JSON Toolkit</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Resize Handle -->
+    <div class="popup-resize-edge popup-resize-edge-right" data-resize-axis="x" aria-hidden="true"></div>
+    <div class="popup-resize-edge popup-resize-edge-bottom" data-resize-axis="y" aria-hidden="true"></div>
+    <div id="resizeHandle" class="popup-resize-handle" data-resize-axis="xy" aria-label="Resize popup">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 21H15M21 15V21M15 21L21 15"/>
+      </svg>
+    </div>
+    
+    <!-- Header with Magic -->
+    <header class="app-header app-shell-header">
+      <div class="brand-lockup">
+        <div class="logo">
+        <div class="logo-icon brand-mark" style="background:transparent;padding:0;">
+          <svg width="32" height="32" viewBox="0 0 128 128" class="brand-mark-svg">
+            <defs>
+              <linearGradient id="logoBrace" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:var(--brand-primary)"/>
+                <stop offset="100%" style="stop-color:var(--brand-secondary)"/>
+              </linearGradient>
+              <linearGradient id="logoZen" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:var(--brand-accent)"/>
+                <stop offset="100%" style="stop-color:var(--brand-primary)"/>
+              </linearGradient>
+              <filter id="logoGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <!-- Zen Circle -->
+            <circle cx="64" cy="64" r="28" fill="none" stroke="url(#logoZen)" stroke-width="3" stroke-linecap="round" filter="url(#logoGlow)"/>
+            <!-- Left Brace -->
+            <path d="M44 44 C40 44,38 48,38 52 L38 56 C38 60,36 62,32 64 L32 66 C36 68,38 70,38 74 L38 78 C38 82,40 86,44 86" 
+                  fill="none" stroke="url(#logoBrace)" stroke-width="4" stroke-linecap="round" filter="url(#logoGlow)"/>
+            <!-- Right Brace -->
+            <path d="M84 44 C88 44,90 48,90 52 L90 56 C90 60,92 62,96 64 L96 66 C92 68,90 70,90 74 L90 78 C90 82,88 86,84 86" 
+                  fill="none" stroke="url(#logoBrace)" stroke-width="4" stroke-linecap="round" filter="url(#logoGlow)"/>
+            <!-- Data Nodes -->
+            <circle cx="56" cy="56" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
+            <circle cx="64" cy="48" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
+            <circle cx="72" cy="56" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
+            <circle cx="58" cy="74" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
+            <circle cx="70" cy="74" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
+            <!-- Connection Lines -->
+            <g stroke="url(#logoBrace)" stroke-width="1" opacity="0.4">
+              <line x1="56" y1="56" x2="64" y2="48"/>
+              <line x1="64" y1="48" x2="72" y2="56"/>
+              <line x1="56" y1="56" x2="58" y2="74"/>
+              <line x1="72" y1="56" x2="70" y2="74"/>
+              <line x1="58" y1="74" x2="70" y2="74"/>
+            </g>
+          </svg>
+        </div>
+          <div class="brand-copy">
+            <span class="brand-title">JSON Zen</span>
+            <span class="brand-subtitle">Format, inspect, diff, and test APIs</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="status-pill ready" id="status">Ready</div>
+        <button class="icon-btn" id="recentBtn" data-tooltip="Recent Items" aria-label="Recent Items">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="historyBtn" data-tooltip="History" aria-label="History">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="themeBtn" data-tooltip="Theme" aria-label="Toggle Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="4" fill="currentColor"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M16.24 16.24l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="settingsBtn" data-tooltip="Settings" aria-label="Settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6m0 6v6m4.22-10.22l4.24-4.24M6.34 17.66l-4.24 4.24M23 12h-6m-6 0H1m20.24 4.24l-4.24-4.24M6.34 6.34L2.1 2.1"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="tab-bar" id="mainTabs">
+      <button class="tab-item active" data-tab="json">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <path d="M14 2v6h6M16 13H8M16 17H8"/>
+        </svg>
+        JSON Editor
+      </button>
+      <button class="tab-item" data-tab="http">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 010 20"/>
+        </svg>
+        HTTP Client
+      </button>
+      <button class="tab-item" data-tab="diff">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;">
+          <path d="M12 2v20M2 12h20"/>
+        </svg>
+        Diff
+      </button>
+      <button class="tab-item" data-tab="bulk">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        Bulk
+      </button>
+      <button class="tab-item" data-tab="settings">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v6m0 6v6m4.22-10.22l4.24-4.24M6.34 17.66l-4.24 4.24M23 12h-6m-6 0H1m20.24 4.24l-4.24-4.24M6.34 6.34L2.1 2.1"/>
+        </svg>
+        Settings
+      </button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      
+      <!-- JSON Editor Tab -->
+      <div id="tab-json" class="tab-content" style="display:flex;flex:1;flex-direction:column;">
+        <!-- Toolbar -->
+        <div class="app-toolbar">
+          <button class="btn btn-primary btn-sm btn-ripple" id="formatBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 6h16M4 12h12M4 18h16" stroke-linecap="round"/>
+            </svg>
+            Format
+          </button>
+          <button class="btn btn-secondary btn-sm" id="minifyBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
+            </svg>
+            Minify
+          </button>
+          <button class="btn btn-secondary btn-sm" id="fixBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h3l2.5 3h5a2 2 0 002-2V6a2 2 0 00-2-2z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            Fix
+          </button>
+          <button class="btn btn-secondary btn-sm" id="validateBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            Validate
+          </button>
+          <button class="btn btn-secondary btn-sm" id="schemaBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            Schema
+          </button>
+          <div class="toolbar-divider"></div>
+          <div class="dropdown" id="convertDropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggle">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18M3 12h18M3 18h18"/>
+                <path d="M9 6v12m0-6l-3 3m3-3l3 3" stroke-linecap="round" stroke-linejoin="round" transform="translate(12,0)"/>
+              </svg>
+              Convert
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item" data-convert="yaml">YAML</button>
+              <button class="dropdown-item" data-convert="xml">XML</button>
+              <button class="dropdown-item" data-convert="csv">CSV</button>
+              <button class="dropdown-item" data-convert="toml">TOML</button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" data-convert="base64">Base64 Encode</button>
+              <button class="dropdown-item" data-convert="decode-base64">Base64 Decode</button>
+              <button class="dropdown-item" data-convert="url">URL Encode</button>
+              <button class="dropdown-item" data-convert="escape">Escape</button>
+            </div>
+          </div>
+          <div class="dropdown" id="transformDropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggle">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83"/>
+              </svg>
+              Transform
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item" data-transform="sort">Sort Keys</button>
+              <button class="dropdown-item" data-transform="remove-nulls">Remove Nulls</button>
+              <button class="dropdown-item" data-transform="redact-pii">Redact PII</button>
+              <button class="dropdown-item" data-transform="flatten">Flatten</button>
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="statsBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="18" rx="1"/>
+              <rect x="14" y="8" width="7" height="13" rx="1"/>
+            </svg>
+            Stats
+          </button>
+          <div class="toolbar-spacer"></div>
+          <button class="btn btn-ghost btn-sm" id="pasteBtn" data-tooltip="Paste from Clipboard">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+          </button>
+          <button class="btn btn-ghost btn-sm" id="clearBtn" data-tooltip="Clear">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Editor Panels -->
+        <div class="editor-panels">
+          <!-- Input Panel -->
+          <div class="panel" style="flex:1;min-width:0;">
+            <div class="panel-header">
+              <span class="panel-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                </svg>
+                Input
+              </span>
+              <div class="panel-actions">
+                <span class="badge" id="inputStats">0 chars</span>
+              </div>
+            </div>
+            <div class="panel-content" style="padding:0;position:relative;">
+              <textarea id="input" class="json-textarea" placeholder="Paste your JSON here...
+
+Try this example:
+{
+  \"name\": \"JSON Zen\",
+  \"version\": \"2.0\",
+  \"features\": [\"format\", \"validate\", \"transform\"]
+}" spellcheck="false" style="border-radius:0;border:none;height:100%;min-height:200px;"></textarea>
+              <!-- Query Bar (Overlay) -->
+              <div id="queryBar" style="position:absolute;bottom:8px;left:8px;right:8px;display:none;gap:8px;background:var(--bg-elevated);padding:8px;border-radius:8px;border:1px solid var(--glass-border);">
+                <span style="color:var(--text-muted);font-family:var(--font-mono);font-size:11px;">$</span>
+                <input type="text" id="queryInput" class="json-input" placeholder=".data.users[0].name" style="flex:1;background:transparent;border:none;padding:0;">
+                <button class="btn btn-primary btn-sm" id="queryExecute">Query</button>
+                <button class="icon-btn btn-sm" id="queryClose">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Output Panel -->
+          <div class="panel" style="flex:1;min-width:0;">
+            <div class="panel-header">
+              <span class="panel-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                  <path d="M14 2v6h6M16 13H8M16 17H8"/>
+                </svg>
+                Output
+              </span>
+              <div class="panel-actions">
+                <span class="badge" id="outputStats">0 chars</span>
+                <button class="btn btn-secondary btn-sm" id="copyBtn">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  Copy
+                </button>
+              </div>
+            </div>
+            <div class="panel-content" style="padding:0;position:relative;">
+              <!-- Path Explorer Bar -->
+              <div id="pathExplorerBar" style="display:none;padding:6px 12px;background:var(--bg-tertiary);border-bottom:1px solid var(--glass-border);gap:8px;align-items:center;">
+                <div id="breadcrumbs" style="display:flex;gap:4px;flex:1;flex-wrap:wrap;align-items:center;"></div>
+                <button class="icon-btn btn-sm" id="treeToggleBtn" data-tooltip="Toggle Tree View">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3h18v18H3zM3 9h18M9 21V9"/>
+                  </svg>
+                </button>
+                <button class="icon-btn btn-sm" id="copyPathBtn" data-tooltip="Copy Path">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <!-- Tree Panel (Collapsible) -->
+              <div id="treePanel" style="display:none;width:200px;border-right:1px solid var(--glass-border);background:var(--bg-tertiary);overflow:auto;"></div>
+              <pre id="output" class="json-textarea json-output" style="border-radius:0;border:none;white-space:pre-wrap;word-break:break-word;min-height:200px;height:calc(100% - 0px);background:var(--bg-tertiary);" readonly></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HTTP Client Tab -->
+      <div id="tab-http" class="tab-content hidden http-shell" style="flex:1;flex-direction:column;overflow:hidden;">
+        <div class="http-command-deck">
+          <div class="http-request-bar">
+            <select id="httpMethod" class="json-select http-method-select">
+              <option value="GET" style="color:#22c55e;">GET</option>
+              <option value="POST" style="color:#3b82f6;">POST</option>
+              <option value="PUT" style="color:#f59e0b;">PUT</option>
+              <option value="PATCH" style="color:#8b5cf6;">PATCH</option>
+              <option value="DELETE" style="color:#ef4444;">DELETE</option>
+              <option value="HEAD">HEAD</option>
+              <option value="OPTIONS">OPTIONS</option>
+            </select>
+            <div class="http-url-wrap">
+              <span class="http-url-label">Request</span>
+              <input type="text" id="httpUrl" class="json-input http-url-input" placeholder="https://api.example.com/users">
+            </div>
+            <div class="http-request-actions">
+              <button class="btn btn-primary http-send-btn" id="httpSendBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="5,3 19,12 5,21"/>
+                </svg>
+                Send
+              </button>
+              <button class="icon-btn http-save-btn" id="httpSaveBtn" data-tooltip="Save Request">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                  <polyline points="17 21 17 13 7 13 7 21"/>
+                  <polyline points="7 3 7 8 15 8"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="http-tabs">
+            <div class="http-tabs-nav" role="tablist" aria-label="HTTP sections">
+              <div class="http-tab active" data-http-tab="params">Params</div>
+              <div class="http-tab" data-http-tab="headers">Headers</div>
+              <div class="http-tab" data-http-tab="body">Body</div>
+              <div class="http-tab" data-http-tab="auth">Auth</div>
+              <div class="http-tab" data-http-tab="trace">Trace</div>
+            </div>
+            <button class="btn btn-ghost btn-sm http-history-btn" id="httpHistoryBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              History
+            </button>
+          </div>
+        </div>
+
+        <div class="http-workbench">
+          <div class="http-workbench-main">
+            <!-- Params Tab -->
+            <div id="http-tab-params" class="http-tab-content http-pane">
+              <div class="http-pane-header">
+                <div>
+                  <span class="panel-title">Query Params</span>
+                  <p class="http-pane-copy">Shape the request URL without leaving the main flow.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="addParamBtn">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                  Add Param
+                </button>
+              </div>
+              <div class="http-pane-scroll">
+                <div class="http-headers-editor" id="httpParamsEditor">
+                  <!-- Dynamic param rows -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Headers Tab -->
+            <div id="http-tab-headers" class="http-tab-content http-pane hidden">
+              <div class="http-pane-header">
+                <div>
+                  <span class="panel-title">Headers</span>
+                  <p class="http-pane-copy">Override request metadata only where needed.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="addHeaderBtn">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                  Add Header
+                </button>
+              </div>
+              <div class="http-pane-scroll">
+                <div class="http-headers-editor" id="httpHeadersEditor">
+                  <div class="http-header-row">
+                    <input type="text" class="json-input http-header-key" placeholder="Content-Type" value="Content-Type">
+                    <input type="text" class="json-input http-header-value" placeholder="application/json" value="application/json">
+                    <button class="icon-btn btn-sm remove-header-btn">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Body Tab -->
+            <div id="http-tab-body" class="http-tab-content http-pane hidden">
+              <div class="http-pane-header">
+                <div>
+                  <span class="panel-title">Request Body</span>
+                  <p class="http-pane-copy">Compose payloads without wasting vertical space.</p>
+                </div>
+              </div>
+              <div class="http-body-modebar">
+                <label class="json-label http-body-mode">
+                  <input type="radio" name="bodyType" value="json" checked class="json-checkbox" style="width:14px;height:14px;"> JSON
+                </label>
+                <label class="json-label http-body-mode">
+                  <input type="radio" name="bodyType" value="raw" class="json-checkbox" style="width:14px;height:14px;"> Raw
+                </label>
+                <label class="json-label http-body-mode">
+                  <input type="radio" name="bodyType" value="form" class="json-checkbox" style="width:14px;height:14px;"> Form
+                </label>
+              </div>
+              <textarea id="httpBody" class="json-textarea http-body-textarea" placeholder='{
+  "key": "value"
+}'></textarea>
+            </div>
+
+            <!-- Auth Tab -->
+            <div id="http-tab-auth" class="http-tab-content http-pane hidden">
+              <div class="http-pane-header">
+                <div>
+                  <span class="panel-title">Authentication</span>
+                  <p class="http-pane-copy">Load browser context or set explicit credentials.</p>
+                </div>
+              </div>
+              <div class="http-pane-scroll http-auth-layout">
+                <div class="http-auth-section">
+                  <label class="json-label">Authorization Type</label>
+                  <select id="authType" class="json-select">
+                    <option value="none">No Auth</option>
+                    <option value="bearer">Bearer Token</option>
+                    <option value="basic">Basic Auth</option>
+                    <option value="apikey">API Key</option>
+                  </select>
+                  <div id="authFields" class="http-auth-fields"></div>
+                </div>
+
+                <div class="http-auth-section">
+                  <div class="http-inline-header">
+                    <label class="json-label" style="margin:0;">Load from Browser</label>
+                    <button class="btn btn-primary btn-sm" id="loadAuthFromBrowserBtn">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                      </svg>
+                      Load
+                    </button>
+                  </div>
+                  <div id="detectedAuthPanel" class="http-detected-auth">
+                    <div class="http-helper-copy">
+                      Enter a URL and click "Load" to detect authentication tokens from your browser
+                    </div>
+                  </div>
+                </div>
+
+                <div class="http-auth-section">
+                  <label class="json-label" style="margin-bottom:8px;">Auto-Detect Authentication</label>
+                  <label class="http-check-row">
+                    <input type="checkbox" id="autoAuthCheck" class="json-checkbox" style="width:16px;height:16px;">
+                    <span>Auto-detect cookies, session tokens, and CSRF from browser</span>
+                  </label>
+                  <p class="http-helper-copy http-indent-copy">
+                    Automatically includes browser cookies and detected auth tokens. You can override them in the Headers tab.
+                  </p>
+                </div>
+
+                <div class="http-auth-section">
+                  <label class="json-label" style="margin-bottom:8px;">CSRF Token Management</label>
+                  <label class="http-check-row">
+                    <input type="checkbox" id="autoCsrfCheck" class="json-checkbox" style="width:16px;height:16px;">
+                    <span>Auto-add CSRF token from cookies</span>
+                  </label>
+                  <div class="http-auth-fields">
+                    <label class="http-field-caption">Custom CSRF Token (optional override)</label>
+                    <input type="text" id="customCsrfToken" class="json-input" placeholder="Enter custom CSRF token...">
+                  </div>
+                  <div class="http-inline-actions">
+                    <button class="btn btn-secondary btn-sm" id="clearCsrfBtn">Clear CSRF</button>
+                    <button class="btn btn-secondary btn-sm" id="refreshCsrfBtn">Refresh from Cookies</button>
+                  </div>
+                </div>
+
+                <div class="http-auth-section">
+                  <label class="json-label" style="margin-bottom:8px;">Saved API Tokens</label>
+                  <div id="savedTokensList" class="http-token-list">
+                    <div class="http-helper-copy">No saved tokens</div>
+                  </div>
+                  <button class="btn btn-secondary btn-sm" id="addTokenBtn">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    Add Token
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trace Tab -->
+            <div id="http-tab-trace" class="http-tab-content http-pane hidden">
+              <div class="http-pane-header">
+                <div>
+                  <span class="panel-title">Request Trace</span>
+                  <p class="http-pane-copy">Inspect timing and auth attachment without leaving the client.</p>
+                </div>
+              </div>
+              <div class="http-pane-scroll">
+                <div class="http-trace-header">
+                  <span class="panel-title" style="margin:0;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                    Packet Trace
+                  </span>
+                  <span class="badge">Network Waterfall</span>
+                </div>
+                <div id="packetTracePanel" class="http-trace-panel">
+                  <div class="http-helper-copy http-trace-empty">
+                    Send a request to see the packet trace timeline
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Response Panel -->
+          <div id="httpResponsePanel" class="http-response-panel">
+            <div class="http-response-header">
+              <div class="http-response-heading">
+                <div>
+                  <span class="panel-title">Response</span>
+                  <p class="http-pane-copy">Formatted output, status, and transfer summary.</p>
+                </div>
+              </div>
+              <div class="http-status-bar">
+                <span id="httpStatus" class="http-status-chip">---</span>
+                <span id="httpTime" class="http-status-meta">0ms</span>
+                <span id="httpSize" class="http-status-meta">0 B</span>
+              </div>
+              <div class="http-response-actions">
+                <button class="btn btn-ghost btn-sm" id="httpFormatResponse">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 6h16M4 12h12M4 18h16"/>
+                  </svg>
+                  Format
+                </button>
+                <button class="btn btn-ghost btn-sm" id="httpCopyResponse">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  Copy
+                </button>
+              </div>
+            </div>
+            <div class="http-response-body">
+              <pre id="httpResponseBody" class="http-response-pre">Send a request to see the response here...</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diff Tab -->
+      <div id="tab-diff" class="tab-content hidden" style="flex:1;flex-direction:column;overflow:hidden;">
+        <div class="diff-nav">
+          <button class="btn btn-secondary btn-sm" id="diffLeftBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Load Left
+          </button>
+          <button class="btn btn-secondary btn-sm" id="diffRightBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+            Load Right
+          </button>
+          <button class="btn btn-primary btn-sm" id="diffCompareBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            Compare
+          </button>
+          <span class="diff-counter" id="diffStats">0 added, 0 removed</span>
+          <div class="diff-actions">
+            <button class="btn btn-ghost btn-sm" id="diffCopyLeft">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              Copy Left
+            </button>
+            <button class="btn btn-ghost btn-sm" id="diffCopyRight">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              Copy Right
+            </button>
+          </div>
+        </div>
+        <div class="diff-view" style="flex:1;overflow:hidden;">
+          <div class="diff-panel">
+            <div class="diff-panel-header">
+              <span class="diff-panel-label left">Left</span>
+            </div>
+            <textarea id="diffLeftInput" class="json-textarea" placeholder="Paste JSON to compare..." style="flex:1;border-radius:0;border:none;"></textarea>
+          </div>
+          <div class="diff-panel">
+            <div class="diff-panel-header">
+              <span class="diff-panel-label right">Right</span>
+            </div>
+            <textarea id="diffRightInput" class="json-textarea" placeholder="Paste JSON to compare..." style="flex:1;border-radius:0;border:none;"></textarea>
+          </div>
+        </div>
+        <!-- Diff Result View -->
+        <div id="diffResult" class="panel" style="display:none;flex:1;margin:8px;overflow:auto;">
+          <div class="panel-header">
+            <span class="panel-title">Diff Result</span>
+            <div class="panel-actions">
+              <button class="btn btn-ghost btn-sm" id="diffCloseResult">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="diffResultContent" style="padding:12px;font-family:var(--font-mono);font-size:12px;line-height:1.6;"></div>
+        </div>
+      </div>
+
+      <!-- Bulk Tab -->
+      <div id="tab-bulk" class="tab-content hidden" style="flex:1;flex-direction:column;overflow:hidden;">
+        <div style="flex:1;padding:16px;overflow:auto;">
+          <div class="bulk-dropzone" id="bulkDropzone">
+            <div class="bulk-dropzone-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p style="margin:0;font-size:14px;font-weight:500;color:var(--text-secondary);">Drop files here or click to select</p>
+            <p style="margin:4px 0 0;font-size:11px;color:var(--text-muted);">Supports .json and .txt files</p>
+            <input type="file" id="bulkFileInput" multiple accept=".json,.txt" style="display:none;">
+          </div>
+          
+          <div id="bulkFilesList" style="display:none;margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <span id="bulkFilesCount" style="font-size:13px;font-weight:500;">0 files selected</span>
+              <button class="btn btn-ghost btn-sm" id="bulkClearFiles">Clear All</button>
+            </div>
+            <div id="bulkFilesItems" style="display:flex;flex-direction:column;gap:4px;max-height:150px;overflow:auto;"></div>
+          </div>
+          
+          <div style="margin-top:16px;">
+            <label class="json-label">Operation</label>
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+              <button class="btn btn-secondary btn-sm bulk-op-btn active" data-op="format">Format</button>
+              <button class="btn btn-secondary btn-sm bulk-op-btn" data-op="minify">Minify</button>
+              <button class="btn btn-secondary btn-sm bulk-op-btn" data-op="fix">Fix</button>
+              <button class="btn btn-secondary btn-sm bulk-op-btn" data-op="validate">Validate</button>
+            </div>
+          </div>
+          
+          <div id="bulkProgressSection" style="display:none;margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+              <span id="bulkProgressFile" style="font-size:12px;">Processing...</span>
+              <span id="bulkProgressCounter" style="font-size:12px;color:var(--text-muted);">0 / 0</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="bulkProgressFill" style="width:0%;"></div>
+            </div>
+            <div style="display:flex;gap:16px;margin-top:8px;">
+              <span class="badge badge-success" id="bulkSuccessCount">0 Success</span>
+              <span class="badge badge-error" id="bulkErrorCount">0 Errors</span>
+            </div>
+          </div>
+          
+          <div id="bulkResultsSection" style="display:none;margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <h4 style="margin:0;font-size:14px;">Results</h4>
+              <button class="btn btn-primary btn-sm" id="bulkDownloadAll">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                Download All (ZIP)
+              </button>
+            </div>
+            <div id="bulkResultsList" style="display:flex;flex-direction:column;gap:4px;max-height:200px;overflow:auto;"></div>
+          </div>
+        </div>
+        
+        <div style="padding:12px;border-top:1px solid var(--glass-border);display:flex;justify-content:flex-end;gap:8px;">
+          <button class="btn btn-primary" id="startBulkProcess" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;">
+              <polygon points="5,3 19,12 5,21"/>
+            </svg>
+            Start Processing
+          </button>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div id="tab-settings" class="tab-content settings-tab hidden">
+        <div class="panel settings-panel">
+          <div class="panel-header">
+            <span class="panel-title">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v6m4.22-10.22l4.24-4.24M6.34 17.66l-4.24 4.24M23 12h-6m-6 0H1m20.24 4.24l-4.24-4.24M6.34 6.34L2.1 2.1"/>
+              </svg>
+              Settings
+            </span>
+            <div class="panel-actions">
+              <span class="badge">Live preferences</span>
+            </div>
+          </div>
+          <div class="panel-content settings-content">
+            <div class="settings-layout">
+              <section class="settings-section settings-section-span">
+                <div class="settings-section-head">
+                  <div class="settings-section-copy">
+                    <span class="settings-section-kicker">Appearance</span>
+                    <h3 class="settings-section-title">Theme and editor feel</h3>
+                    <p class="settings-section-meta">Pick the visual mood, code font, and JSON formatting defaults.</p>
+                  </div>
+                  <span class="badge">11 themes</span>
+                </div>
+
+                <div class="settings-theme-grid" id="themeGrid">
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="dark" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Dark</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="light" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Light</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="ocean" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Ocean</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="sunset" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Sunset</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="cyberpunk" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Cyberpunk</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="synthwave" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Synthwave</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="aurora" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Aurora</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="nebula" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Nebula</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="crystal" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Crystal</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="retro" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">Retro</span>
+                  </button>
+                  <button class="btn btn-secondary btn-sm theme-option" data-theme="system" type="button">
+                    <span class="settings-theme-preview"></span>
+                    <span class="settings-theme-name">System</span>
+                  </button>
+                </div>
+
+                <div class="settings-field-grid settings-field-grid-wide">
+                  <div class="settings-field settings-field-slider">
+                    <div class="settings-field-head">
+                      <label for="fontSizeSlider" class="settings-field-label">Font size</label>
+                      <span class="settings-field-value" id="fontSizeValue">100%</span>
+                    </div>
+                    <input type="range" id="fontSizeSlider" min="80" max="150" value="100" class="json-input">
+                    <span class="settings-field-hint">Scales the editor and supporting text.</span>
+                  </div>
+
+                  <div class="settings-field">
+                    <div class="settings-field-head">
+                      <label for="fontFamilySelect" class="settings-field-label">Code font</label>
+                    </div>
+                    <select id="fontFamilySelect" class="json-select settings-select">
+                      <option value="system">System Default</option>
+                      <option value="fira">Fira Code</option>
+                      <option value="jetbrains">JetBrains Mono</option>
+                      <option value="cascadia">Cascadia Code</option>
+                      <option value="source">Source Code Pro</option>
+                      <option value="consolas">Consolas</option>
+                      <option value="courier">Courier New</option>
+                    </select>
+                    <span class="settings-field-hint">Used in input, output, and diff editors.</span>
+                  </div>
+
+                  <div class="settings-field">
+                    <div class="settings-field-head">
+                      <label for="indentSizeSelect" class="settings-field-label">Indentation</label>
+                    </div>
+                    <select id="indentSizeSelect" class="json-select settings-select">
+                      <option value="2">2 spaces</option>
+                      <option value="4">4 spaces</option>
+                      <option value="tab">Tab</option>
+                    </select>
+                    <span class="settings-field-hint">Default format depth for JSON output.</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="settings-section">
+                <div class="settings-section-copy">
+                  <span class="settings-section-kicker">Workspace</span>
+                  <h3 class="settings-section-title">Density and spacing</h3>
+                  <p class="settings-section-meta">Tune how tightly the popup uses its limited space.</p>
+                </div>
+
+                <div class="settings-field-grid">
+                  <div class="settings-field settings-field-slider">
+                    <div class="settings-field-head">
+                      <label for="panelGapSlider" class="settings-field-label">Panel gap</label>
+                      <span class="settings-field-value" id="panelGapValue">8px</span>
+                    </div>
+                    <input type="range" id="panelGapSlider" min="4" max="20" value="8" class="json-input">
+                  </div>
+
+                  <div class="settings-field">
+                    <div class="settings-field-head">
+                      <label for="buttonSizeSelect" class="settings-field-label">Button size</label>
+                      <span class="settings-field-value" id="buttonSizeValue">Normal</span>
+                    </div>
+                    <select id="buttonSizeSelect" class="json-select settings-select">
+                      <option value="compact">Compact</option>
+                      <option value="normal" selected>Normal</option>
+                      <option value="large">Large</option>
+                    </select>
+                  </div>
+
+                  <div class="settings-field settings-field-slider">
+                    <div class="settings-field-head">
+                      <label for="lineHeightSlider" class="settings-field-label">Line height</label>
+                      <span class="settings-field-value" id="lineHeightValue">1.5</span>
+                    </div>
+                    <input type="range" id="lineHeightSlider" min="1.2" max="2.0" step="0.1" value="1.5" class="json-input">
+                  </div>
+                </div>
+              </section>
+
+              <section class="settings-section">
+                <div class="settings-section-copy">
+                  <span class="settings-section-kicker">Behavior</span>
+                  <h3 class="settings-section-title">Automation and persistence</h3>
+                  <p class="settings-section-meta">Choose what the extension should do for you by default.</p>
+                </div>
+
+                <div class="settings-toggle-list">
+                  <label class="settings-toggle">
+                    <input type="checkbox" id="autoFormatCheck" class="json-checkbox">
+                    <span class="settings-toggle-copy">
+                      <span class="settings-toggle-title">Auto-format on paste</span>
+                      <span class="settings-toggle-meta">Clean incoming JSON immediately.</span>
+                    </span>
+                  </label>
+
+                  <label class="settings-toggle">
+                    <input type="checkbox" id="autoCopyCheck" class="json-checkbox">
+                    <span class="settings-toggle-copy">
+                      <span class="settings-toggle-title">Auto-copy formatted output</span>
+                      <span class="settings-toggle-meta">Push the final result to clipboard.</span>
+                    </span>
+                  </label>
+
+                  <label class="settings-toggle">
+                    <input type="checkbox" id="savePopupSizeCheck" class="json-checkbox">
+                    <span class="settings-toggle-copy">
+                      <span class="settings-toggle-title">Save popup size</span>
+                      <span class="settings-toggle-meta">Reopen with the last chosen dimensions.</span>
+                    </span>
+                  </label>
+
+                  <label class="settings-toggle">
+                    <input type="checkbox" id="compactModeCheck" class="json-checkbox">
+                    <span class="settings-toggle-copy">
+                      <span class="settings-toggle-title">Compact mode</span>
+                      <span class="settings-toggle-meta">Reduce spacing for smaller popup sizes.</span>
+                    </span>
+                  </label>
+                </div>
+              </section>
+            </div>
+          </div>
+          <div class="modal-footer settings-footer">
+            <button class="btn btn-secondary" id="resetSettingsBtn">Reset to Defaults</button>
+            <button class="btn btn-primary" id="saveSettingsBtn">Save Settings</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-left">
+        <span class="footer-item">
+          <kbd>Cmd</kbd><kbd>⇧</kbd><kbd>F</kbd> Format
+        </span>
+        <span class="footer-item">
+          <kbd>Cmd</kbd><kbd>⇧</kbd><kbd>M</kbd> Minify
+        </span>
+        <span class="footer-item">
+          <kbd>Cmd</kbd><kbd>⇧</kbd><kbd>V</kbd> Validate
+        </span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-item">by Srinivas Pendela</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Modals -->
+  <!-- Schema Modal -->
+  <div class="modal-overlay" id="schemaModal">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          JSON Schema Validation
+        </div>
+        <button class="modal-close" id="closeSchemaModal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" style="display:flex;gap:16px;overflow:hidden;">
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <label class="json-label" style="margin:0;">JSON Data</label>
+            <span class="badge" id="schemaJsonStatus"></span>
+          </div>
+          <textarea id="schemaJsonInput" class="json-textarea" placeholder="Enter your JSON data..." style="flex:1;min-height:200px;"></textarea>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <label class="json-label" style="margin:0;">JSON Schema</label>
+            <select id="schemaTemplate" class="json-select" style="width:auto;">
+              <option value="">-- Select Template --</option>
+              <option value="user">User Profile</option>
+              <option value="config">Configuration</option>
+              <option value="api">API Response</option>
+              <option value="product">Product</option>
+            </select>
+          </div>
+          <textarea id="schemaInput" class="json-textarea" placeholder="Enter or generate JSON schema..." style="flex:1;min-height:200px;"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="generateSchemaBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83"/>
+          </svg>
+          Generate Schema
+        </button>
+        <button class="btn btn-primary" id="runSchemaValidation">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          Validate
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Modal -->
+  <div class="modal-overlay" id="statsModal">
+    <div class="modal-content modal-md">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="modal-title-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="18" rx="1"/>
+              <rect x="14" y="8" width="7" height="13" rx="1"/>
+            </svg>
+          </div>
+          JSON Statistics
+        </div>
+        <button class="modal-close" id="closeStatsModal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="stats-grid" id="statsGrid">
+          <!-- Stats cards dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../utils/json-utils.js"></script>
+  <script src="modules/toast-manager.js"></script>
+  <script src="modules/theme-manager.js"></script>
+  <script src="modules/http-client.js"></script>
+  <script src="modules/diff-engine.js"></script>
+  <script src="modules/bulk-processor.js"></script>
+  <script src="popup-v2.js"></script>
+</body>
+</html>

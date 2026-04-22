@@ -88,8 +88,98 @@
     return false;
   }
 
+  function hostnamesMatch(currentHost, targetHost) {
+    return currentHost === targetHost ||
+      currentHost.endsWith(`.${targetHost}`) ||
+      targetHost.endsWith(`.${currentHost}`);
+  }
+
+  function isAuthLikeKey(key) {
+    return /auth|token|bearer|jwt|session|csrf|xsrf|secret|api[_-]?key/i.test(key);
+  }
+
+  function collectStorageEntries(storage) {
+    const entries = [];
+    try {
+      for (let index = 0; index < storage.length; index += 1) {
+        const key = storage.key(index);
+        const value = storage.getItem(key);
+        if (key && value !== null && isAuthLikeKey(key)) {
+          entries.push({ key, value });
+        }
+      }
+    } catch (e) {
+      return [];
+    }
+    return entries;
+  }
+
+  function collectMetaTokens() {
+    const selectors = [
+      'meta[name="csrf-token"]',
+      'meta[name="xsrf-token"]',
+      'meta[name="csrf"]',
+      'meta[name="auth-token"]',
+      'meta[name="token"]',
+      'input[name="csrfmiddlewaretoken"]',
+      'input[name="_csrf"]'
+    ];
+
+    return selectors
+      .map((selector) => document.querySelector(selector))
+      .filter(Boolean)
+      .map((element) => ({
+        key: element.getAttribute('name') || element.getAttribute('id') || element.tagName.toLowerCase(),
+        value: element.getAttribute('content') || element.value || ''
+      }))
+      .filter((entry) => entry.value);
+  }
+
+  function firstMatchingValue(entries, pattern) {
+    const match = entries.find((entry) => pattern.test(entry.key));
+    return match ? match.value : null;
+  }
+
+  function collectPageAuthContext(targetHost) {
+    const currentHost = location.hostname;
+    if (!hostnamesMatch(currentHost, targetHost)) {
+      return {
+        matched: false,
+        hostname: currentHost,
+        reason: `Active tab host ${currentHost} does not match ${targetHost}`
+      };
+    }
+
+    const localStorageEntries = collectStorageEntries(window.localStorage);
+    const sessionStorageEntries = collectStorageEntries(window.sessionStorage);
+    const metaTokens = collectMetaTokens();
+    const combined = [...localStorageEntries, ...sessionStorageEntries, ...metaTokens];
+
+    return {
+      matched: true,
+      hostname: currentHost,
+      url: location.href,
+      localStorageEntries,
+      sessionStorageEntries,
+      metaTokens,
+      csrfToken: firstMatchingValue(combined, /csrf|xsrf/i),
+      sessionToken: firstMatchingValue(combined, /auth|bearer|jwt|session|token/i),
+      storageToken: firstMatchingValue([...localStorageEntries, ...sessionStorageEntries], /auth|bearer|jwt|session|token/i)
+    };
+  }
+
   // Listen for messages from background script
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message?.type === 'jsonZen:getPageAuthContext') {
+      try {
+        const context = collectPageAuthContext(message.targetHost);
+        sendResponse({ ok: true, context });
+      } catch (e) {
+        sendResponse({ ok: false, error: e.message });
+      }
+      return;
+    }
+
     const { command, json } = message;
     if (!command || !json) return;
 

@@ -1,0 +1,182 @@
+/* ============================================
+   JSON Zen - Aurora Theme (Modern & Ethereal)
+   Northern lights inspired with flowing gradients
+   ============================================ */
+
+[data-theme="aurora"] {
+  /* Aurora Palette */
+  --aurora-green: #00ff9d;
+  --aurora-blue: #00d4ff;
+  --aurora-purple: #9d4edd;
+  --aurora-pink: #ff6b9d;
+  --aurora-teal: #14b8a6;
+  --aurora-violet: #7c3aed;
+  
+  /* Brand Override */
+  --brand-primary: #00ff9d;
+  --brand-primary-rgb: 0, 255, 157;
+  --brand-secondary: #9d4edd;
+  --brand-secondary-rgb: 157, 78, 221;
+  --brand-accent: #00d4ff;
+  --brand-accent-rgb: 0, 212, 255;
+  
+  /* Aurora Background */
+  --bg-primary: #0a0f1a;
+  --bg-secondary: #0f1623;
+  --bg-tertiary: #141d2e;
+  --bg-elevated: #1a2538;
+  --bg-overlay: rgba(10, 15, 26, 0.98);
+  
+  /* Aurora Glass */
+  --glass-bg: rgba(0, 255, 157, 0.04);
+  --glass-bg-hover: rgba(0, 255, 157, 0.08);
+  --glass-bg-active: rgba(157, 78, 221, 0.1);
+  --glass-border: rgba(0, 255, 157, 0.15);
+  --glass-border-hover: rgba(0, 255, 157, 0.3);
+  --glass-border-glow: rgba(0, 255, 157, 0.4);
+  --glass-blur: blur(24px) saturate(150%);
+  
+  /* Text Colors */
+  --text-primary: #f0fdf4;
+  --text-secondary: #a7f3d0;
+  --text-tertiary: #6ee7b7;
+  --text-muted: #34d399;
+  
+  /* Aurora Glows */
+  --glow-primary: 0 0 30px rgba(0, 255, 157, 0.4), 0 0 60px rgba(0, 212, 255, 0.2);
+  --glow-secondary: 0 0 30px rgba(157, 78, 221, 0.4), 0 0 60px rgba(255, 107, 157, 0.2);
+  --shadow-glow: 0 0 40px rgba(0, 255, 157, 0.3), 0 0 80px rgba(0, 212, 255, 0.15);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 12px rgba(0, 255, 157, 0.1);
+  --shadow-md: 0 4px 24px rgba(0, 255, 157, 0.15);
+  --shadow-lg: 0 8px 40px rgba(0, 255, 157, 0.2);
+  --shadow-xl: 0 16px 80px rgba(0, 255, 157, 0.25);
+  
+  /* Syntax Highlighting - Aurora */
+  --json-key: #00d4ff;
+  --json-string: #00ff9d;
+  --json-number: #ff6b9d;
+  --json-boolean: #9d4edd;
+  --json-null: #14b8a6;
+  --json-bracket: #7c3aed;
+  
+  /* Key Colors */
+  --color-key: #00ff9d;
+  --color-key-id: #00d4ff;
+  --color-key-name: #9d4edd;
+  --color-key-desc: #ff6b9d;
+  --color-key-url: #7c3aed;
+  --color-key-email: #14b8a6;
+  --color-key-status: #00ff9d;
+  --color-key-count: #00d4ff;
+  --color-key-date: #9d4edd;
+  --color-key-secret: #ff6b9d;
+}
+
+/* Aurora Gradient Background */
+[data-theme="aurora"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(0, 255, 157, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(157, 78, 221, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: auroraShift 15s ease-in-out infinite;
+}
+
+@keyframes auroraShift {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  33% { 
+    transform: translate(5%, -5%) scale(1.1);
+    opacity: 0.8;
+  }
+  66% { 
+    transform: translate(-5%, 5%) scale(0.95);
+    opacity: 0.9;
+  }
+}
+
+/* Aurora Wave Effect */
+[data-theme="aurora"] body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 255, 157, 0.03),
+    rgba(0, 212, 255, 0.05),
+    rgba(157, 78, 221, 0.03),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: auroraWave 8s ease-in-out infinite;
+}
+
+@keyframes auroraWave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Aurora Button Styles */
+[data-theme="aurora"] .btn-primary {
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.15), rgba(0, 212, 255, 0.15));
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 157, 0.2),
+    inset 0 0 20px rgba(0, 255, 157, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="aurora"] .btn-primary:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.25), rgba(0, 212, 255, 0.25));
+  border-color: rgba(0, 255, 157, 0.5);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 157, 0.3),
+    0 0 60px rgba(0, 212, 255, 0.2),
+    inset 0 0 30px rgba(0, 255, 157, 0.1);
+}
+
+/* Aurora Panels */
+[data-theme="aurora"] .panel {
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.02), rgba(157, 78, 221, 0.02));
+  border: 1px solid rgba(0, 255, 157, 0.15);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 157, 0.05),
+    inset 0 0 40px rgba(0, 212, 255, 0.02);
+}
+
+[data-theme="aurora"] .panel:hover {
+  border-color: rgba(0, 255, 157, 0.3);
+  box-shadow: 
+    0 0 40px rgba(0, 255, 157, 0.1),
+    inset 0 0 50px rgba(0, 212, 255, 0.03);
+}
+
+/* Aurora Scrollbar */
+[data-theme="aurora"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--aurora-green), var(--aurora-blue));
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+}
+
+/* Aurora Header */
+[data-theme="aurora"] .app-header {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 255, 157, 0.05),
+    rgba(0, 212, 255, 0.03),
+    transparent
+  );
+  border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+}

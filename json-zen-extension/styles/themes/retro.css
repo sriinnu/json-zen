@@ -1,0 +1,80 @@
+/* ============================================
+   JSON Zen - Retro Theme (CRT Terminal)
+   ============================================ */
+
+[data-theme="retro"] {
+  /* Retro CRT Background */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-elevated: #222222;
+  --bg-overlay: rgba(10, 10, 10, 0.98);
+
+  /* Brand Override - Phosphor Green */
+  --brand-primary: #33ff00;
+  --brand-primary-rgb: 51, 255, 0;
+  --brand-secondary: #00ff66;
+  --brand-secondary-rgb: 0, 255, 102;
+
+  /* Retro Glassmorphism */
+  --glass-bg: rgba(51, 255, 0, 0.03);
+  --glass-bg-hover: rgba(51, 255, 0, 0.08);
+  --glass-border: rgba(51, 255, 0, 0.2);
+  --glass-border-hover: rgba(51, 255, 0, 0.4);
+  --glass-border-glow: rgba(51, 255, 0, 0.5);
+
+  /* Phosphor Text Colors */
+  --text-primary: #33ff00;
+  --text-secondary: #29cc00;
+  --text-tertiary: #1f9900;
+  --text-muted: #146600;
+
+  /* Retro Font */
+  --font-mono: 'VT323', 'Courier New', monospace;
+  --font-sans: 'VT323', 'Courier New', monospace;
+
+  /* Glows - Intense for retro feel */
+  --glow-primary: 0 0 10px rgba(51, 255, 0, 0.8), 0 0 20px rgba(51, 255, 0, 0.4);
+  --shadow-glow: 0 0 15px rgba(51, 255, 0, 0.6), 0 0 30px rgba(51, 255, 0, 0.3);
+
+  /* Syntax Highlighting - Monochrome Green */
+  --json-key: #66ff33;
+  --json-string: #99ff66;
+  --json-number: #ccff99;
+  --json-boolean: #ffff99;
+  --json-null: #ff6666;
+  --json-bracket: #33ff00;
+}
+
+/* Retro Theme Specific - CRT Scanline Effect */
+[data-theme="retro"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Retro Theme Specific - Screen Flicker */
+[data-theme="retro"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(51, 255, 0, 0.02);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1001;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.03; }
+}

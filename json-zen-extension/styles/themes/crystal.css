@@ -1,0 +1,162 @@
+/* ============================================
+   JSON Zen - Crystal Theme (Modern & Pristine)
+   Glass crystal inspired with clean refractions
+   ============================================ */
+
+[data-theme="crystal"] {
+  /* Crystal Palette */
+  --crystal-white: #f8fafc;
+  --crystal-silver: #e2e8f0;
+  --crystal-blue: #7dd3fc;
+  --crystal-purple: #c4b5fd;
+  --crystal-teal: #5eead4;
+  --crystal-rose: #fda4af;
+  
+  /* Brand Override */
+  --brand-primary: #7dd3fc;
+  --brand-primary-rgb: 125, 211, 252;
+  --brand-secondary: #c4b5fd;
+  --brand-secondary-rgb: 196, 181, 253;
+  --brand-accent: #5eead4;
+  --brand-accent-rgb: 94, 234, 212;
+  
+  /* Crystal Background */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-elevated: #475569;
+  --bg-overlay: rgba(15, 23, 42, 0.98);
+  
+  /* Crystal Glass */
+  --glass-bg: rgba(125, 211, 252, 0.06);
+  --glass-bg-hover: rgba(125, 211, 252, 0.12);
+  --glass-bg-active: rgba(196, 181, 253, 0.12);
+  --glass-border: rgba(125, 211, 252, 0.2);
+  --glass-border-hover: rgba(125, 211, 252, 0.4);
+  --glass-border-glow: rgba(125, 211, 252, 0.5);
+  --glass-blur: blur(16px) saturate(120%);
+  
+  /* Text Colors */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --text-muted: #64748b;
+  
+  /* Crystal Glows */
+  --glow-primary: 0 0 25px rgba(125, 211, 252, 0.4), 0 0 50px rgba(125, 211, 252, 0.2);
+  --glow-secondary: 0 0 25px rgba(196, 181, 253, 0.4), 0 0 50px rgba(94, 234, 212, 0.2);
+  --shadow-glow: 0 0 35px rgba(125, 211, 252, 0.3), 0 0 70px rgba(196, 181, 253, 0.15);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 10px rgba(125, 211, 252, 0.1);
+  --shadow-md: 0 4px 20px rgba(125, 211, 252, 0.15);
+  --shadow-lg: 0 8px 35px rgba(125, 211, 252, 0.2);
+  --shadow-xl: 0 16px 70px rgba(125, 211, 252, 0.25);
+  
+  /* Syntax Highlighting - Crystal */
+  --json-key: #c4b5fd;
+  --json-string: #5eead4;
+  --json-number: #fda4af;
+  --json-boolean: #7dd3fc;
+  --json-null: #fbbf24;
+  --json-bracket: #a5b4fc;
+  
+  /* Key Colors */
+  --color-key: #7dd3fc;
+  --color-key-id: #c4b5fd;
+  --color-key-name: #5eead4;
+  --color-key-desc: #fda4af;
+  --color-key-url: #a5b4fc;
+  --color-key-email: #7dd3fc;
+  --color-key-status: #5eead4;
+  --color-key-count: #c4b5fd;
+  --color-key-date: #7dd3fc;
+  --color-key-secret: #fda4af;
+}
+
+/* Crystal Refraction Background */
+[data-theme="crystal"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(135deg, rgba(125, 211, 252, 0.03) 0%, transparent 50%),
+    linear-gradient(225deg, rgba(196, 181, 253, 0.03) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(94, 234, 212, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Crystal Shimmer Effect */
+[data-theme="crystal"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 100px,
+    rgba(125, 211, 252, 0.01) 100px,
+    rgba(125, 211, 252, 0.01) 200px
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: crystalShimmer 10s linear infinite;
+}
+
+@keyframes crystalShimmer {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(200px); }
+}
+
+/* Crystal Button Styles */
+[data-theme="crystal"] .btn-primary {
+  background: linear-gradient(135deg, rgba(125, 211, 252, 0.12), rgba(196, 181, 253, 0.1));
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  box-shadow: 
+    0 0 20px rgba(125, 211, 252, 0.2),
+    inset 0 0 20px rgba(125, 211, 252, 0.05);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="crystal"] .btn-primary:hover {
+  background: linear-gradient(135deg, rgba(125, 211, 252, 0.2), rgba(94, 234, 212, 0.15));
+  border-color: rgba(125, 211, 252, 0.5);
+  box-shadow: 
+    0 0 30px rgba(125, 211, 252, 0.3),
+    0 0 60px rgba(196, 181, 253, 0.15),
+    inset 0 0 30px rgba(125, 211, 252, 0.1);
+}
+
+/* Crystal Panels */
+[data-theme="crystal"] .panel {
+  background: linear-gradient(135deg, rgba(125, 211, 252, 0.03), rgba(196, 181, 253, 0.02));
+  border: 1px solid rgba(125, 211, 252, 0.15);
+  box-shadow: 
+    0 0 25px rgba(125, 211, 252, 0.05),
+    inset 0 0 35px rgba(196, 181, 253, 0.02);
+}
+
+[data-theme="crystal"] .panel:hover {
+  border-color: rgba(125, 211, 252, 0.3);
+  box-shadow: 
+    0 0 35px rgba(125, 211, 252, 0.1),
+    inset 0 0 45px rgba(196, 181, 253, 0.03);
+}
+
+/* Crystal Scrollbar */
+[data-theme="crystal"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--crystal-blue), var(--crystal-purple));
+  box-shadow: 0 0 8px rgba(125, 211, 252, 0.4);
+}
+
+/* Crystal Header */
+[data-theme="crystal"] .app-header {
+  background: linear-gradient(
+    180deg,
+    rgba(125, 211, 252, 0.06),
+    rgba(196, 181, 253, 0.03),
+    transparent
+  );
+  border-bottom: 1px solid rgba(125, 211, 252, 0.2);
+}

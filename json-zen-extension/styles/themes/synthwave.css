@@ -1,0 +1,229 @@
+/* ============================================
+   JSON Zen - Synthwave Theme (80s Retro)
+   Outrun aesthetic with neon sunset gradients
+   ============================================ */
+
+[data-theme="synthwave"] {
+  /* Synthwave Palette */
+  --sunset-pink: #ff2a6d;
+  --sunset-orange: #ff8c42;
+  --neon-purple: #d300c5;
+  --electric-blue: #05d9e8;
+  --deep-purple: #1a0b2e;
+  --hot-pink: #ff00ff;
+  --cyan-glow: #00f0ff;
+  
+  /* Brand Override */
+  --brand-primary: #ff2a6d;
+  --brand-primary-rgb: 255, 42, 109;
+  --brand-secondary: #05d9e8;
+  --brand-secondary-rgb: 5, 217, 232;
+  --brand-accent: #ff8c42;
+  --brand-accent-rgb: 255, 140, 66;
+  
+  /* Synthwave Background */
+  --bg-primary: #0d0221;
+  --bg-secondary: #12052e;
+  --bg-tertiary: #1a0b3d;
+  --bg-elevated: #231551;
+  --bg-overlay: rgba(13, 2, 33, 0.98);
+  
+  /* Synthwave Glass */
+  --glass-bg: rgba(255, 42, 109, 0.05);
+  --glass-bg-hover: rgba(255, 42, 109, 0.1);
+  --glass-bg-active: rgba(5, 217, 232, 0.1);
+  --glass-border: rgba(255, 42, 109, 0.2);
+  --glass-border-hover: rgba(255, 42, 109, 0.4);
+  --glass-border-glow: rgba(255, 42, 109, 0.5);
+  --glass-blur: blur(20px) saturate(180%);
+  
+  /* Text Colors */
+  --text-primary: #ffeeff;
+  --text-secondary: #ffb3d9;
+  --text-tertiary: #ff80c0;
+  --text-muted: #ff4da6;
+  
+  /* Sunset Glows */
+  --glow-primary: 0 0 20px rgba(255, 42, 109, 0.6), 0 0 40px rgba(255, 42, 109, 0.3);
+  --glow-secondary: 0 0 20px rgba(5, 217, 232, 0.6), 0 0 40px rgba(5, 217, 232, 0.3);
+  --shadow-glow: 0 0 30px rgba(255, 42, 109, 0.4), 0 0 60px rgba(5, 217, 232, 0.2);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(255, 42, 109, 0.15);
+  --shadow-md: 0 4px 16px rgba(255, 42, 109, 0.2);
+  --shadow-lg: 0 8px 32px rgba(255, 42, 109, 0.25);
+  --shadow-xl: 0 16px 64px rgba(255, 42, 109, 0.3);
+  
+  /* Syntax Highlighting - Synthwave */
+  --json-key: #ff2a6d;
+  --json-string: #05d9e8;
+  --json-number: #ff8c42;
+  --json-boolean: #ff00ff;
+  --json-null: #ff6b35;
+  --json-bracket: #d300c5;
+  
+  /* Key Colors */
+  --color-key: #05d9e8;
+  --color-key-id: #ff2a6d;
+  --color-key-name: #ff00ff;
+  --color-key-desc: #ff8c42;
+  --color-key-url: #d300c5;
+  --color-key-email: #ff6b35;
+  --color-key-status: #05d9e8;
+  --color-key-count: #ff00ff;
+  --color-key-date: #ff2a6d;
+  --color-key-secret: #ff6b35;
+}
+
+/* Synthwave Sunset Grid */
+[data-theme="synthwave"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(255, 42, 109, 0.1) 50%,
+      rgba(211, 0, 197, 0.2) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 42, 109, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      rgba(255, 42, 109, 0.03) 1px,
+      transparent 1px
+    );
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Synthwave Sun */
+[data-theme="synthwave"] body::after {
+  content: '';
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 150px;
+  background: linear-gradient(
+    to bottom,
+    #ff2a6d 0%,
+    #ff8c42 50%,
+    transparent 100%
+  );
+  border-radius: 150px 150px 0 0;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+  animation: synthwaveSun 10s ease-in-out infinite;
+}
+
+@keyframes synthwaveSun {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: translateX(-50%) scale(1);
+  }
+  50% { 
+    opacity: 0.5;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+/* Synthwave Button Styles */
+[data-theme="synthwave"] .btn-primary {
+  background: linear-gradient(135deg, rgba(255, 42, 109, 0.3), rgba(5, 217, 232, 0.2));
+  border: 1px solid var(--sunset-pink);
+  box-shadow: 
+    0 0 15px rgba(255, 42, 109, 0.4),
+    inset 0 0 20px rgba(255, 42, 109, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+[data-theme="synthwave"] .btn-primary:hover {
+  box-shadow: 
+    0 0 25px rgba(255, 42, 109, 0.6),
+    0 0 50px rgba(5, 217, 232, 0.3),
+    inset 0 0 30px rgba(255, 42, 109, 0.2);
+  text-shadow: 0 0 10px var(--sunset-pink);
+}
+
+/* Synthwave Panels */
+[data-theme="synthwave"] .panel {
+  border: 1px solid rgba(255, 42, 109, 0.3);
+  box-shadow: 
+    0 0 20px rgba(255, 42, 109, 0.1),
+    inset 0 0 30px rgba(5, 217, 232, 0.02);
+  background: linear-gradient(180deg, rgba(255, 42, 109, 0.05), rgba(5, 217, 232, 0.02));
+}
+
+[data-theme="synthwave"] .panel:hover {
+  border-color: rgba(255, 42, 109, 0.5);
+  box-shadow: 
+    0 0 30px rgba(255, 42, 109, 0.2),
+    inset 0 0 40px rgba(5, 217, 232, 0.03);
+}
+
+/* Synthwave Inputs */
+[data-theme="synthwave"] .json-input,
+[data-theme="synthwave"] .json-textarea {
+  background: rgba(13, 2, 33, 0.8);
+  border: 1px solid rgba(255, 42, 109, 0.3);
+  font-family: 'Orbitron', 'Courier New', monospace;
+}
+
+[data-theme="synthwave"] .json-input:focus,
+[data-theme="synthwave"] .json-textarea:focus {
+  border-color: var(--sunset-pink);
+  box-shadow: 
+    0 0 15px rgba(255, 42, 109, 0.4),
+    inset 0 0 25px rgba(255, 42, 109, 0.1);
+}
+
+/* Synthwave Typography Override */
+[data-theme="synthwave"] {
+  --font-mono: 'Orbitron', 'Courier New', monospace;
+  --font-sans: 'Orbitron', 'Rajdhani', sans-serif;
+}
+
+/* Synthwave Scrollbar */
+[data-theme="synthwave"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--sunset-pink), var(--electric-blue));
+  box-shadow: 0 0 8px rgba(255, 42, 109, 0.5);
+}
+
+/* Synthwave Logo Text */
+[data-theme="synthwave"] .logo-text {
+  font-style: italic;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--sunset-pink), var(--electric-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 10px rgba(255, 42, 109, 0.5));
+}
+
+/* Synthwave Status Pills */
+[data-theme="synthwave"] .status-pill.ready {
+  background: linear-gradient(135deg, rgba(5, 217, 232, 0.2), rgba(255, 42, 109, 0.1));
+  border-color: rgba(5, 217, 232, 0.4);
+  color: #05d9e8;
+  text-shadow: 0 0 5px #05d9e8;
+}
+
+[data-theme="synthwave"] .status-pill.processing {
+  background: linear-gradient(135deg, rgba(255, 42, 109, 0.2), rgba(5, 217, 232, 0.1));
+  border-color: rgba(255, 42, 109, 0.4);
+  color: #ff2a6d;
+  text-shadow: 0 0 5px #ff2a6d;
+}

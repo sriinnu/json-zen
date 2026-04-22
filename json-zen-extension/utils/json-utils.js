@@ -345,6 +345,14 @@ const JSONUtils = {
     }
   },
 
+  toBase64: function(jsonString) {
+    return this.encodeBase64(jsonString);
+  },
+
+  fromBase64: function(base64String) {
+    return this.decodeBase64(base64String);
+  },
+
   /**
    * URL-safe JSON encoding
    */
@@ -656,6 +664,11 @@ const JSONUtils = {
     }
   },
 
+  queryPath: function(jsonString, path) {
+    const parsed = typeof jsonString === 'string' ? JSON.parse(jsonString) : jsonString;
+    return this._queryPath(parsed, path);
+  },
+
   _queryPath: function(obj, path) {
     // Support: $.key, $.key.subkey, $[0], $.array[0], $.key.*, $["key"], $[0].name
     // Handle edge cases like $[0], $.arr[], and paths starting with bracket
@@ -873,6 +886,22 @@ const JSONUtils = {
     }
   },
 
+  analyze: function(jsonString) {
+    const parsed = typeof jsonString === 'string' ? JSON.parse(jsonString) : jsonString;
+    const stats = this._analyzeJson(parsed);
+
+    return {
+      totalKeys: stats.keys,
+      arrayItems: stats.arrayItems,
+      strings: stats.strings,
+      numbers: stats.numbers,
+      booleans: stats.booleans,
+      nulls: stats.nulls,
+      maxDepth: stats.depth,
+      sizeBytes: stats.size
+    };
+  },
+
   _analyzeJson: function(obj, depth = 0) {
     const stats = {
       type: Array.isArray(obj) ? 'array' : (obj === null ? 'null' : typeof obj),
@@ -890,6 +919,8 @@ const JSONUtils = {
       stats.arrayItems = obj.length;
       obj.forEach(item => {
         const childStats = this._analyzeJson(item, depth + 1);
+        stats.keys += childStats.keys;
+        stats.arrayItems += childStats.arrayItems;
         stats.strings += childStats.strings;
         stats.numbers += childStats.numbers;
         stats.booleans += childStats.booleans;
@@ -900,6 +931,8 @@ const JSONUtils = {
       stats.keys = Object.keys(obj).length;
       Object.values(obj).forEach(value => {
         const childStats = this._analyzeJson(value, depth + 1);
+        stats.keys += childStats.keys;
+        stats.arrayItems += childStats.arrayItems;
         stats.strings += childStats.strings;
         stats.numbers += childStats.numbers;
         stats.booleans += childStats.booleans;
@@ -963,6 +996,56 @@ const JSONUtils = {
     }
 
     return { success: false, result: null, error: 'Invalid input' };
+  },
+
+  flatten: function(jsonString, separator = '.') {
+    try {
+      const parsed = typeof jsonString === 'string' ? JSON.parse(jsonString) : jsonString;
+      const flattened = {};
+
+      const visit = (value, path = '') => {
+        if (Array.isArray(value)) {
+          if (value.length === 0) {
+            flattened[path] = [];
+            return;
+          }
+          value.forEach((item, index) => {
+            const nextPath = path ? `${path}${separator}${index}` : String(index);
+            visit(item, nextPath);
+          });
+          return;
+        }
+
+        if (value !== null && typeof value === 'object') {
+          const entries = Object.entries(value);
+          if (entries.length === 0) {
+            flattened[path] = {};
+            return;
+          }
+          entries.forEach(([key, nested]) => {
+            const nextPath = path ? `${path}${separator}${key}` : key;
+            visit(nested, nextPath);
+          });
+          return;
+        }
+
+        flattened[path] = value;
+      };
+
+      visit(parsed);
+
+      return {
+        success: true,
+        result: JSON.stringify(flattened, null, 2),
+        error: null
+      };
+    } catch (e) {
+      return {
+        success: false,
+        result: null,
+        error: e.message
+      };
+    }
   },
 
   _redactPII: function(obj) {
@@ -1060,6 +1143,10 @@ const JSONUtils = {
         error: e.message
       };
     }
+  },
+
+  validateAgainstSchema: function(jsonString, schemaString) {
+    return this.validateSchema(jsonString, schemaString);
   },
 
   /**

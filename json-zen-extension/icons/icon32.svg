@@ -1,19 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 128 128">
   <defs>
-    <linearGradient id="g32" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#60A5FA"/>
-      <stop offset="50%" style="stop-color:#3B82F6"/>
-      <stop offset="100%" style="stop-color:#2563EB"/>
+    <linearGradient id="brace32" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="55%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
     </linearGradient>
-    <filter id="glow32">
-      <feGaussianBlur stdDeviation="1" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
+    <linearGradient id="zen32" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
   </defs>
-  <rect width="32" height="32" rx="8" fill="#0a0a0f"/>
-  <path d="M7 5v4c0 1.5-1 2-2 2s-2-.5-2-2V5c0-1.5 1-2 2-2" stroke="url(#g32)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#glow32)"/>
-  <path d="M25 5v4c0 1.5 1 2 2 2s2-.5 2-2V5c0-1.5-1-2-2-2" stroke="url(#g32)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#glow32)"/>
-  <circle cx="13" cy="7" r="1.5" fill="#60A5FA"/>
-  <circle cx="13" cy="10" r="1.5" fill="#60A5FA"/>
-  <path d="M7 17h16" stroke="url(#g32)" stroke-width="2" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="28" fill="#0b1120"/>
+  <circle cx="64" cy="64" r="31" fill="none" stroke="url(#zen32)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M40 42c-5 0-8 4-8 10v8c0 4-2 6-6 8v2c4 2 6 4 6 8v8c0 6 3 10 8 10" fill="none" stroke="url(#brace32)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M88 42c5 0 8 4 8 10v8c0 4 2 6 6 8v2c-4 2-6 4-6 8v8c0 6-3 10-8 10" fill="none" stroke="url(#brace32)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#60a5fa">
+    <circle cx="52" cy="56" r="4"/>
+    <circle cx="64" cy="48" r="4"/>
+    <circle cx="76" cy="56" r="4"/>
+    <circle cx="56" cy="76" r="4"/>
+    <circle cx="72" cy="76" r="4"/>
+  </g>
+  <g stroke="#3b82f6" stroke-width="2" opacity="0.55">
+    <line x1="52" y1="56" x2="64" y2="48"/>
+    <line x1="64" y1="48" x2="76" y2="56"/>
+    <line x1="52" y1="56" x2="56" y2="76"/>
+    <line x1="76" y1="56" x2="72" y2="76"/>
+    <line x1="56" y1="76" x2="72" y2="76"/>
+  </g>
 </svg>
