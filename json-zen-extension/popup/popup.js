@@ -31,6 +31,7 @@ const App = {
     this.setupTabNavigation();
     this.setupResize();
     this.setupAdaptiveShell();
+    this.setupContainerMode();
     
     // Initialize modules
     ToastManager.init();
@@ -39,6 +40,19 @@ const App = {
     DiffEngine.init();
     BulkProcessor.init();
 
+  },
+
+  // Detect container: side panel (default) vs popped-out workspace window.
+  // bg.js opens the workspace with ?mode=window in the URL. In that case, hide
+  // the pop-out button (already popped) and tag the body for any layout deltas.
+  setupContainerMode() {
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get('mode') === 'window' ? 'window' : 'sidepanel';
+    document.body.setAttribute('data-container-mode', mode);
+    if (mode === 'window') {
+      const popout = document.getElementById('popoutBtn');
+      if (popout) popout.style.display = 'none';
+    }
   },
 
   // Cache DOM elements
@@ -80,6 +94,32 @@ const App = {
     document.getElementById('pasteBtn')?.addEventListener('click', () => this.paste());
     document.getElementById('clearBtn')?.addEventListener('click', () => this.clear());
     document.getElementById('copyBtn')?.addEventListener('click', () => this.copy());
+
+    // Pop out from side panel into a workspace window
+    document.getElementById('popoutBtn')?.addEventListener('click', () => {
+      try {
+        chrome.runtime.sendMessage({ type: 'jsonzen:popout' }).catch(() => {});
+      } catch (e) { /* not in extension context */ }
+    });
+
+    // Keyboard-shortcut commands forwarded by the service worker (Ctrl+Shift+F/M/X/V).
+    // Also accept ?cmd= on the URL for the workspace-window pop-out path.
+    try {
+      chrome.runtime.onMessage.addListener((msg) => {
+        if (msg && msg.type === 'jsonzen:command' && msg.command) {
+          this.runCommand(msg.command);
+        }
+      });
+    } catch (e) { /* not in extension context */ }
+
+    const urlCmd = new URLSearchParams(window.location.search).get('cmd');
+    if (urlCmd) setTimeout(() => this.runCommand(urlCmd), 50);
+  },
+
+  runCommand(cmd) {
+    const map = { format: 'format', minify: 'minify', fix: 'fix', validate: 'validate' };
+    const fn = map[cmd];
+    if (fn && typeof this[fn] === 'function') this[fn]();
 
     // Convert dropdown
     document.querySelectorAll('[data-convert]').forEach(btn => {
@@ -172,6 +212,43 @@ const App = {
         autoCopy: detail.autoCopy ?? this.settings.autoCopy,
         autoFormat: detail.autoFormat ?? this.settings.autoFormat
       };
+    });
+
+    // Context-rail [data-action] delegation — fires the same handlers
+    // as the main toolbar buttons, so the right-rail Quick Tools and
+    // the floating bottom command bar both reuse existing wiring.
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-action]');
+      if (!trigger) return;
+      const action = trigger.dataset.action;
+      const targetId = {
+        format: 'formatBtn',
+        minify: 'minifyBtn',
+        fix: 'fixBtn',
+        validate: 'validateBtn',
+        schema: 'schemaBtn',
+        stats: 'statsBtn',
+        copy: 'copyBtn',
+        paste: 'pasteBtn',
+        clear: 'clearBtn'
+      }[action];
+      if (targetId) {
+        e.preventDefault();
+        document.getElementById(targetId)?.click();
+        return;
+      }
+      if (action === 'goto-diff') {
+        e.preventDefault();
+        this.selectTab('diff');
+      } else if (action === 'help') {
+        e.preventDefault();
+        ToastManager.show('Cmd+Shift+F format · Cmd+Shift+M minify · Cmd+Shift+V validate', 'info');
+      }
+    });
+
+    // Context-rail open/close toggle (header button, narrow widths only).
+    document.getElementById('contextRailToggle')?.addEventListener('click', () => {
+      document.body.classList.toggle('context-rail-open');
     });
   },
 
@@ -665,8 +742,14 @@ const App = {
     setTimeout(() => element.classList.remove('shake'), 500);
   },
 
-  // Setup drag-to-resize functionality
+  // Setup drag-to-resize functionality (legacy popup-only).
+  // Side panel + workspace window own their own resize now, so the only thing
+  // we still need from here is the adaptive density observer (handled separately).
   setupResize() {
+    return;
+  },
+
+  setupResize_legacy_unused() {
     const resizeHandles = Array.from(document.querySelectorAll('[data-resize-axis]'));
     const app = document.getElementById('app');
 

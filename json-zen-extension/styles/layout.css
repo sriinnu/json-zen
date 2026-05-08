@@ -139,6 +139,12 @@
   flex: 1 1 auto;
 }
 
+/* Internal resize handles hidden — chrome.windows.create owns resizing */
+.popup-resize-handle,
+.popup-resize-edge {
+  display: none !important;
+}
+
 .popup-resize-handle {
   position: absolute;
   right: 0;

@@ -6,8 +6,11 @@
 const ThemeManager = {
   initialized: false,
   themes: ['dark', 'light', 'ocean', 'sunset', 'cyberpunk', 'synthwave', 'aurora', 'nebula', 'crystal', 'retro', 'system'],
+  presets: ['midnight-glass', 'pastel-dream', 'mission-control', 'cyber-console', 'cosmic', 'light-prism', 'forest-terminal', 'obsidian-ritual'],
   currentTheme: 'dark',
+  currentPreset: 'midnight-glass',
   storageKey: 'jsonZenTheme',
+  presetStorageKey: 'jsonZenPreset',
   fontScale: 1.0,
   fontFamily: 'system',
   settings: {
@@ -30,6 +33,7 @@ const ThemeManager = {
     await this.loadSettings();
     this.applyFontScale();
     this.applyFontFamily();
+    this.applyPreset(this.currentPreset, false);
     this.setupEventListeners();
     this.setupSystemPreferenceListener();
     this.setupSettingsPanel();
@@ -40,6 +44,7 @@ const ThemeManager = {
     try {
       const result = await chrome.storage.sync.get([
         this.storageKey,
+        this.presetStorageKey,
         'jsonZenFontScale',
         'jsonZenFontFamily',
         'jsonZenAutoFormat',
@@ -52,6 +57,7 @@ const ThemeManager = {
       ]);
       
       this.currentTheme = result[this.storageKey] || 'dark';
+      this.currentPreset = result[this.presetStorageKey] || 'midnight-glass';
       this.fontScale = result.jsonZenFontScale || 1.0;
       this.fontFamily = result.jsonZenFontFamily || 'system';
       this.settings.autoFormat = result.jsonZenAutoFormat || false;
@@ -87,6 +93,15 @@ const ThemeManager = {
     };
     
     document.documentElement.style.setProperty('--font-mono', fonts[this.fontFamily] || fonts['system']);
+  },
+
+  // Apply look-and-feel preset (palette + glow + accent font, orthogonal to theme)
+  applyPreset(name, persist = true) {
+    if (!this.presets.includes(name)) name = 'midnight-glass';
+    this.currentPreset = name;
+    document.documentElement.setAttribute('data-preset', name);
+    if (persist) this.saveSettings();
+    window.dispatchEvent(new CustomEvent('jsonzen:presetchange', { detail: { preset: name } }));
   },
 
   // Apply spacing settings
@@ -151,6 +166,7 @@ const ThemeManager = {
     try {
       await chrome.storage.sync.set({
         [this.storageKey]: this.currentTheme,
+        [this.presetStorageKey]: this.currentPreset,
         jsonZenFontScale: this.fontScale,
         jsonZenFontFamily: this.fontFamily,
         jsonZenAutoFormat: this.settings.autoFormat,
@@ -185,6 +201,15 @@ const ThemeManager = {
       if (btn) {
         const theme = btn.dataset.theme;
         this.applyTheme(theme);
+        this.updateSettingsUI();
+      }
+    });
+
+    // Preset selection (look-and-feel reskin)
+    document.getElementById('presetGrid')?.addEventListener('click', (e) => {
+      const btn = e.target.closest('.preset-option');
+      if (btn) {
+        this.applyPreset(btn.dataset.preset);
         this.updateSettingsUI();
       }
     });
@@ -344,6 +369,11 @@ const ThemeManager = {
     // Update active theme button
     document.querySelectorAll('.theme-option').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.theme === this.currentTheme);
+    });
+
+    // Update active preset button
+    document.querySelectorAll('.preset-option').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.preset === this.currentPreset);
     });
 
     // Update font slider

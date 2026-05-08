@@ -18,6 +18,9 @@
 @import 'themes/nebula.css';
 @import 'themes/crystal.css';
 
+/* Look-and-feel presets (orthogonal to themes, applied via [data-preset="..."]) */
+@import 'presets.css';
+
 /* Base Styles */
 @import 'base.css';
 
@@ -28,8 +31,17 @@
 @import 'components/modals.css';
 @import 'components/toasts.css';
 
+/* Pane-specific styling (overhauled v2.0) */
+@import 'panes/json.css';
+@import 'panes/http.css';
+@import 'panes/diff.css';
+@import 'panes/bulk.css';
+
 /* Layout */
 @import 'layout.css';
+
+/* App shell — vertical nav rail + context rail + bento command bar (v2.1) */
+@import 'shell/app-shell.css';
 
 /* Animations */
 @import 'animations.css';
@@ -41,20 +53,19 @@
    App-Specific Styles
    ============================================ */
 
-/* Main App Container */
+/* Main App Container — fills the workspace window (resizable via chrome.windows.create) */
 #app {
-  width: var(--popup-width);
-  height: var(--popup-height);
-  min-width: var(--popup-min-width);
-  min-height: var(--popup-min-height);
-  max-width: var(--popup-max-width);
-  max-height: var(--popup-max-height);
+  width: 100vw;
+  height: 100vh;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  max-height: none;
   overflow: hidden;
   position: relative;
   display: flex;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   flex-direction: column;
-  min-height: 0;
   isolation: isolate;
 }
 

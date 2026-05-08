@@ -1,0 +1,386 @@
+/* ============================================
+   JSON Zen - Visual Presets
+   ============================================
+   Eight selectable "looks" toggled via [data-preset="..."]
+   on <html>. Layout is canonical; only visual tokens change.
+   Orthogonal to [data-theme] — they can stack freely.
+   ============================================ */
+
+
+/* --------------------------------------------
+   1. midnight-glass — default. Deep navy + cyan
+      glass, violet undertone. Mockups #1, #5, #7.
+   -------------------------------------------- */
+[data-preset="midnight-glass"] {
+  --bg-primary: #0b1020;
+  --bg-secondary: #11172b;
+  --bg-tertiary: #1a2140;
+  --bg-elevated: #232b52;
+  --bg-overlay: rgba(11, 16, 32, 0.92);
+
+  --surface-glass: rgba(255, 255, 255, 0.04);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(125, 211, 252, 0.08);
+  --glass-bg-active: rgba(125, 211, 252, 0.14);
+  --glass-border: rgba(125, 211, 252, 0.12);
+  --glass-border-hover: rgba(125, 211, 252, 0.28);
+  --glass-border-glow: rgba(125, 211, 252, 0.4);
+  --glass-blur: blur(28px) saturate(180%);
+  --glass-blur-heavy: blur(48px) saturate(200%);
+  --border-subtle: rgba(125, 211, 252, 0.1);
+
+  --brand-primary: #7dd3fc;
+  --brand-primary-rgb: 125, 211, 252;
+  --brand-secondary: #a78bfa;
+  --brand-secondary-rgb: 167, 139, 250;
+  --brand-accent: #c084fc;
+  --brand-accent-rgb: 192, 132, 252;
+
+  --text-primary: #e8eefc;
+  --text-secondary: #a4b1d4;
+  --text-tertiary: #6b7aa3;
+  --text-muted: #4a5478;
+
+  --glow-primary: 0 0 30px rgba(125, 211, 252, 0.35), 0 0 60px rgba(167, 139, 250, 0.18);
+  --glow-secondary: 0 0 24px rgba(167, 139, 250, 0.4);
+  --shadow-glow: 0 0 40px rgba(125, 211, 252, 0.25);
+
+  --gradient-hero: linear-gradient(135deg, #7dd3fc 0%, #a78bfa 55%, #c084fc 100%);
+
+  --font-display: var(--font-sans);
+}
+
+
+/* --------------------------------------------
+   2. pastel-dream — light watercolor pastels (mint /
+      lavender / peach), gentle. Mockup #10.
+   -------------------------------------------- */
+[data-preset="pastel-dream"] {
+  --bg-primary: #f7f4ff;
+  --bg-secondary: #fdf6ff;
+  --bg-tertiary: #f0fbf6;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(247, 244, 255, 0.92);
+
+  --surface-glass: rgba(255, 255, 255, 0.55);
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-bg-hover: rgba(255, 255, 255, 0.7);
+  --glass-bg-active: rgba(196, 181, 253, 0.18);
+  --glass-border: rgba(167, 139, 250, 0.18);
+  --glass-border-hover: rgba(167, 139, 250, 0.35);
+  --glass-border-glow: rgba(134, 239, 172, 0.4);
+  --glass-blur: blur(22px) saturate(140%);
+  --glass-blur-heavy: blur(40px) saturate(160%);
+  --border-subtle: rgba(167, 139, 250, 0.14);
+
+  --brand-primary: #a78bfa;
+  --brand-primary-rgb: 167, 139, 250;
+  --brand-secondary: #86efac;
+  --brand-secondary-rgb: 134, 239, 172;
+  --brand-accent: #fdba74;
+  --brand-accent-rgb: 253, 186, 116;
+
+  --text-primary: #2a2541;
+  --text-secondary: #5b5379;
+  --text-tertiary: #8b83a8;
+  --text-muted: #b6afca;
+
+  --glow-primary: 0 0 28px rgba(167, 139, 250, 0.28), 0 0 56px rgba(134, 239, 172, 0.18);
+  --glow-secondary: 0 0 24px rgba(253, 186, 116, 0.28);
+  --shadow-sm: 0 2px 8px rgba(167, 139, 250, 0.12);
+  --shadow-md: 0 6px 18px rgba(167, 139, 250, 0.14);
+  --shadow-lg: 0 14px 36px rgba(167, 139, 250, 0.18);
+  --shadow-xl: 0 24px 60px rgba(167, 139, 250, 0.22);
+  --shadow-glow: 0 0 36px rgba(134, 239, 172, 0.3);
+
+  --gradient-hero: linear-gradient(135deg, #c4b5fd 0%, #a7f3d0 50%, #fed7aa 100%);
+
+  --font-display: var(--font-sans);
+}
+
+
+/* --------------------------------------------
+   3. mission-control — light, sunrise gradient
+      (coral → peach → sky). Mockup #13.
+   -------------------------------------------- */
+[data-preset="mission-control"] {
+  --bg-primary: #fff8f3;
+  --bg-secondary: #fff1e8;
+  --bg-tertiary: #ffe8dd;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(255, 248, 243, 0.94);
+
+  --surface-glass: rgba(255, 255, 255, 0.62);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg-hover: rgba(255, 255, 255, 0.78);
+  --glass-bg-active: rgba(251, 146, 60, 0.14);
+  --glass-border: rgba(251, 146, 60, 0.2);
+  --glass-border-hover: rgba(251, 146, 60, 0.38);
+  --glass-border-glow: rgba(56, 189, 248, 0.4);
+  --glass-blur: blur(20px) saturate(150%);
+  --glass-blur-heavy: blur(36px) saturate(170%);
+  --border-subtle: rgba(251, 146, 60, 0.16);
+
+  --brand-primary: #fb7185;
+  --brand-primary-rgb: 251, 113, 133;
+  --brand-secondary: #fb923c;
+  --brand-secondary-rgb: 251, 146, 60;
+  --brand-accent: #38bdf8;
+  --brand-accent-rgb: 56, 189, 248;
+
+  --text-primary: #2b1c14;
+  --text-secondary: #6b4a3a;
+  --text-tertiary: #9a7560;
+  --text-muted: #c2a08c;
+
+  --glow-primary: 0 0 28px rgba(251, 113, 133, 0.32), 0 0 56px rgba(251, 146, 60, 0.2);
+  --glow-secondary: 0 0 24px rgba(56, 189, 248, 0.3);
+  --shadow-sm: 0 2px 8px rgba(251, 146, 60, 0.12);
+  --shadow-md: 0 6px 18px rgba(251, 146, 60, 0.14);
+  --shadow-lg: 0 14px 36px rgba(251, 113, 133, 0.18);
+  --shadow-xl: 0 24px 60px rgba(251, 113, 133, 0.22);
+  --shadow-glow: 0 0 36px rgba(251, 146, 60, 0.32);
+
+  --gradient-hero: linear-gradient(135deg, #fb7185 0%, #fb923c 45%, #fde68a 70%, #38bdf8 100%);
+
+  --font-display: var(--font-sans);
+}
+
+
+/* --------------------------------------------
+   4. cyber-console — deep navy, electric purple,
+      sharp edges, low blur. Mockup #11.
+   -------------------------------------------- */
+[data-preset="cyber-console"] {
+  --bg-primary: #0a0e2e;
+  --bg-secondary: #0f1438;
+  --bg-tertiary: #161c4a;
+  --bg-elevated: #1f2660;
+  --bg-overlay: rgba(10, 14, 46, 0.96);
+
+  --surface-glass: rgba(168, 85, 247, 0.06);
+  --glass-bg: rgba(168, 85, 247, 0.05);
+  --glass-bg-hover: rgba(168, 85, 247, 0.12);
+  --glass-bg-active: rgba(168, 85, 247, 0.2);
+  --glass-border: rgba(168, 85, 247, 0.3);
+  --glass-border-hover: rgba(168, 85, 247, 0.55);
+  --glass-border-glow: rgba(168, 85, 247, 0.7);
+  --glass-blur: blur(6px) saturate(140%);
+  --glass-blur-heavy: blur(12px) saturate(160%);
+  --border-subtle: rgba(168, 85, 247, 0.22);
+
+  --brand-primary: #a855f7;
+  --brand-primary-rgb: 168, 85, 247;
+  --brand-secondary: #ec4899;
+  --brand-secondary-rgb: 236, 72, 153;
+  --brand-accent: #22d3ee;
+  --brand-accent-rgb: 34, 211, 238;
+
+  --text-primary: #f5f3ff;
+  --text-secondary: #c4b5fd;
+  --text-tertiary: #8b7fc8;
+  --text-muted: #5b4f8e;
+
+  --glow-primary: 0 0 24px rgba(168, 85, 247, 0.6), 0 0 48px rgba(168, 85, 247, 0.3);
+  --glow-secondary: 0 0 20px rgba(236, 72, 153, 0.5);
+  --shadow-glow: 0 0 30px rgba(168, 85, 247, 0.45);
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+
+  --gradient-hero: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #22d3ee 100%);
+
+  --font-display: var(--font-mono);
+}
+
+
+/* --------------------------------------------
+   5. cosmic — deep purple-violet bg, gold accents,
+      ornate. Mockup #3. Caveat for wordmark.
+   -------------------------------------------- */
+[data-preset="cosmic"] {
+  --bg-primary: #1a0b2e;
+  --bg-secondary: #221140;
+  --bg-tertiary: #2c1855;
+  --bg-elevated: #3a216f;
+  --bg-overlay: rgba(26, 11, 46, 0.95);
+
+  --surface-glass: rgba(244, 196, 48, 0.05);
+  --glass-bg: rgba(244, 196, 48, 0.04);
+  --glass-bg-hover: rgba(244, 196, 48, 0.09);
+  --glass-bg-active: rgba(244, 196, 48, 0.15);
+  --glass-border: rgba(244, 196, 48, 0.22);
+  --glass-border-hover: rgba(244, 196, 48, 0.45);
+  --glass-border-glow: rgba(244, 196, 48, 0.6);
+  --glass-blur: blur(24px) saturate(180%);
+  --glass-blur-heavy: blur(40px) saturate(200%);
+  --border-subtle: rgba(244, 196, 48, 0.16);
+
+  --brand-primary: #f4c430;
+  --brand-primary-rgb: 244, 196, 48;
+  --brand-secondary: #c084fc;
+  --brand-secondary-rgb: 192, 132, 252;
+  --brand-accent: #f472b6;
+  --brand-accent-rgb: 244, 114, 182;
+
+  --text-primary: #f8f1d9;
+  --text-secondary: #d4c2a0;
+  --text-tertiary: #9c8a6e;
+  --text-muted: #6e5f4a;
+
+  --glow-primary: 0 0 30px rgba(244, 196, 48, 0.4), 0 0 60px rgba(192, 132, 252, 0.2);
+  --glow-secondary: 0 0 24px rgba(192, 132, 252, 0.4);
+  --shadow-glow: 0 0 40px rgba(244, 196, 48, 0.3);
+
+  --gradient-hero: linear-gradient(135deg, #f4c430 0%, #f472b6 50%, #c084fc 100%);
+
+  --font-display: 'Caveat', 'SF Pro Display', -apple-system, cursive;
+}
+
+
+/* --------------------------------------------
+   6. light-prism — clean white, pastel shadows,
+      indigo primary. Mockups #2, #4, #6, #12.
+   -------------------------------------------- */
+[data-preset="light-prism"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(255, 255, 255, 0.95);
+
+  --surface-glass: rgba(255, 255, 255, 0.72);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-hover: rgba(99, 102, 241, 0.06);
+  --glass-bg-active: rgba(99, 102, 241, 0.12);
+  --glass-border: rgba(99, 102, 241, 0.14);
+  --glass-border-hover: rgba(99, 102, 241, 0.3);
+  --glass-border-glow: rgba(99, 102, 241, 0.4);
+  --glass-blur: blur(18px) saturate(140%);
+  --glass-blur-heavy: blur(32px) saturate(160%);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+
+  --brand-primary: #6366f1;
+  --brand-primary-rgb: 99, 102, 241;
+  --brand-secondary: #8b5cf6;
+  --brand-secondary-rgb: 139, 92, 246;
+  --brand-accent: #06b6d4;
+  --brand-accent-rgb: 6, 182, 212;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --text-muted: #cbd5e1;
+
+  --glow-primary: 0 0 28px rgba(99, 102, 241, 0.22), 0 0 56px rgba(139, 92, 246, 0.12);
+  --glow-secondary: 0 0 22px rgba(6, 182, 212, 0.25);
+  --shadow-sm: 0 2px 6px rgba(99, 102, 241, 0.08);
+  --shadow-md: 0 6px 16px rgba(99, 102, 241, 0.1);
+  --shadow-lg: 0 14px 32px rgba(99, 102, 241, 0.14);
+  --shadow-xl: 0 24px 56px rgba(99, 102, 241, 0.18);
+  --shadow-glow: 0 0 32px rgba(99, 102, 241, 0.22);
+
+  --gradient-hero: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+
+  --font-display: var(--font-sans);
+}
+
+
+/* --------------------------------------------
+   7. forest-terminal — green-black bg, phosphor
+      green, monospace, CRT scanline. Mockup #14.
+   -------------------------------------------- */
+[data-preset="forest-terminal"] {
+  --bg-primary: #0a1f0a;
+  --bg-secondary: #0e2a10;
+  --bg-tertiary: #133816;
+  --bg-elevated: #1a4720;
+  --bg-overlay: rgba(10, 31, 10, 0.96);
+
+  --surface-glass: rgba(74, 222, 128, 0.04);
+  --glass-bg: rgba(74, 222, 128, 0.04);
+  --glass-bg-hover: rgba(74, 222, 128, 0.1);
+  --glass-bg-active: rgba(74, 222, 128, 0.18);
+  --glass-border: rgba(74, 222, 128, 0.25);
+  --glass-border-hover: rgba(74, 222, 128, 0.5);
+  --glass-border-glow: rgba(74, 222, 128, 0.7);
+  --glass-blur: blur(2px) saturate(120%);
+  --glass-blur-heavy: blur(6px) saturate(140%);
+  --border-subtle: rgba(74, 222, 128, 0.18);
+
+  --brand-primary: #4ade80;
+  --brand-primary-rgb: 74, 222, 128;
+  --brand-secondary: #22c55e;
+  --brand-secondary-rgb: 34, 197, 94;
+  --brand-accent: #a3e635;
+  --brand-accent-rgb: 163, 230, 53;
+
+  --text-primary: #d4fcd4;
+  --text-secondary: #86efac;
+  --text-tertiary: #4ade80;
+  --text-muted: #22c55e;
+
+  --glow-primary: 0 0 12px rgba(74, 222, 128, 0.7), 0 0 28px rgba(74, 222, 128, 0.35);
+  --glow-secondary: 0 0 12px rgba(163, 230, 53, 0.6);
+  --shadow-glow: 0 0 24px rgba(74, 222, 128, 0.5);
+
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 4px;
+
+  --font-sans: 'Courier New', 'JetBrains Mono', monospace;
+  --font-display: 'Courier New', monospace;
+}
+
+
+/* --------------------------------------------
+   8. obsidian-ritual — pure black, antique gold,
+      ornate borders. Experimental. mockups (5).png.
+   -------------------------------------------- */
+[data-preset="obsidian-ritual"] {
+  --bg-primary: #000000;
+  --bg-secondary: #050505;
+  --bg-tertiary: #0c0a06;
+  --bg-elevated: #14110a;
+  --bg-overlay: rgba(0, 0, 0, 0.97);
+
+  --surface-glass: rgba(212, 175, 55, 0.04);
+  --glass-bg: rgba(212, 175, 55, 0.03);
+  --glass-bg-hover: rgba(212, 175, 55, 0.08);
+  --glass-bg-active: rgba(212, 175, 55, 0.14);
+  --glass-border: rgba(212, 175, 55, 0.3);
+  --glass-border-hover: rgba(212, 175, 55, 0.55);
+  --glass-border-glow: rgba(212, 175, 55, 0.7);
+  --glass-blur: blur(20px) saturate(160%);
+  --glass-blur-heavy: blur(36px) saturate(180%);
+  --border-subtle: rgba(212, 175, 55, 0.2);
+
+  --brand-primary: #d4af37;
+  --brand-primary-rgb: 212, 175, 55;
+  --brand-secondary: #b8860b;
+  --brand-secondary-rgb: 184, 134, 11;
+  --brand-accent: #8b6914;
+  --brand-accent-rgb: 139, 105, 20;
+
+  --text-primary: #f5e6c4;
+  --text-secondary: #c9a961;
+  --text-tertiary: #8b7142;
+  --text-muted: #5a4a2c;
+
+  --glow-primary: 0 0 24px rgba(212, 175, 55, 0.5), 0 0 56px rgba(212, 175, 55, 0.22);
+  --glow-secondary: 0 0 20px rgba(184, 134, 11, 0.5);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 28px 64px rgba(0, 0, 0, 0.85);
+  --shadow-glow: 0 0 32px rgba(212, 175, 55, 0.4);
+
+  --gradient-hero: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #8b6914 100%);
+
+  --font-display: var(--font-sans);
+}

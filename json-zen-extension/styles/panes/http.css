@@ -1,0 +1,1008 @@
+/* ============================================
+   JSON Zen — HTTP Client Pane (v2.0 overhaul)
+   ============================================
+   Scope: #tab-http only. Mission-control vibe:
+   command bar at top, sub-tab pills, dense
+   sections in cards, recessed response drawer.
+   All visual tokens come from presets.css so
+   the pane breathes across all 8 looks.
+   ============================================ */
+
+
+/* --------------------------------------------
+   1. Pane shell
+   Replaces inline `style="flex:1;flex-direction:
+   column;overflow:hidden"` on #tab-http.
+   -------------------------------------------- */
+#tab-http.tab-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#tab-http.tab-content.hidden {
+  display: none;
+}
+
+
+/* --------------------------------------------
+   2. Command deck — request bar + tab pills
+   The cockpit. Lives at the top. Method chip
+   reads as a verb chip; URL field is the
+   star, Send button has presence.
+   -------------------------------------------- */
+.http-command-deck {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5) 0;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-secondary) 96%, transparent) 0%,
+      color-mix(in srgb, var(--bg-secondary) 84%, transparent) 100%);
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  box-shadow:
+    inset 0 -1px 0 color-mix(in srgb, var(--glass-border) 50%, transparent),
+    0 1px 0 rgba(255, 255, 255, 0.02);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  flex-shrink: 0;
+}
+
+
+/* --------------------------------------------
+   3. Request bar — [method][URL][send][save]
+   -------------------------------------------- */
+.http-request-bar {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-3);
+  min-height: 44px;
+}
+
+.http-method-select {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 auto;
+  min-width: 110px;
+  padding: 0 var(--space-8) 0 var(--space-5);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 13px;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--glass-border-hover) 70%, transparent);
+  background-color: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.18);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-smooth),
+    box-shadow var(--duration-fast) var(--ease-smooth),
+    color var(--duration-fast) var(--ease-smooth);
+}
+
+/* Color-coded options inside the open menu */
+.http-method-select option { color: var(--text-primary); background: var(--bg-elevated); }
+.http-method-select option[value="GET"] { color: #22c55e; }
+.http-method-select option[value="POST"] { color: #3b82f6; }
+.http-method-select option[value="PUT"] { color: #f59e0b; }
+.http-method-select option[value="PATCH"] { color: #8b5cf6; }
+.http-method-select option[value="DELETE"] { color: #ef4444; }
+
+/* Color-coded method chip — left accent stripe
+   tinted to the verb. Sits on the select via
+   inset box-shadow so we don't change DOM. */
+.http-method-select:has(option[value="GET"]:checked) {
+  color: #22c55e;
+  box-shadow:
+    inset 4px 0 0 #22c55e,
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px color-mix(in srgb, #22c55e 25%, transparent),
+    0 1px 6px color-mix(in srgb, #22c55e 18%, transparent);
+}
+.http-method-select:has(option[value="POST"]:checked) {
+  color: #3b82f6;
+  box-shadow:
+    inset 4px 0 0 #3b82f6,
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px color-mix(in srgb, #3b82f6 25%, transparent),
+    0 1px 6px color-mix(in srgb, #3b82f6 18%, transparent);
+}
+.http-method-select:has(option[value="PUT"]:checked) {
+  color: #f59e0b;
+  box-shadow:
+    inset 4px 0 0 #f59e0b,
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px color-mix(in srgb, #f59e0b 25%, transparent),
+    0 1px 6px color-mix(in srgb, #f59e0b 18%, transparent);
+}
+.http-method-select:has(option[value="PATCH"]:checked) {
+  color: #8b5cf6;
+  box-shadow:
+    inset 4px 0 0 #8b5cf6,
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px color-mix(in srgb, #8b5cf6 25%, transparent),
+    0 1px 6px color-mix(in srgb, #8b5cf6 18%, transparent);
+}
+.http-method-select:has(option[value="DELETE"]:checked) {
+  color: #ef4444;
+  box-shadow:
+    inset 4px 0 0 #ef4444,
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px color-mix(in srgb, #ef4444 25%, transparent),
+    0 1px 6px color-mix(in srgb, #ef4444 18%, transparent);
+}
+.http-method-select:has(option[value="HEAD"]:checked),
+.http-method-select:has(option[value="OPTIONS"]:checked) {
+  color: var(--text-secondary);
+  box-shadow:
+    inset 4px 0 0 var(--text-tertiary),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+.http-method-select:focus-visible {
+  outline: none;
+  border-color: var(--brand-primary);
+}
+
+
+/* URL field — flex-grow star of the show */
+.http-url-wrap {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.http-url-label {
+  position: absolute;
+  top: -7px;
+  left: var(--space-4);
+  padding: 0 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-secondary) 96%, transparent) 0%,
+      color-mix(in srgb, var(--bg-secondary) 96%, transparent) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.http-url-input {
+  flex: 1;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  padding: 0 var(--space-4);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-elevated) 88%, transparent),
+      color-mix(in srgb, var(--bg-elevated) 96%, transparent));
+  border: 1px solid color-mix(in srgb, var(--glass-border-hover) 65%, transparent);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition:
+    border-color var(--duration-fast) var(--ease-smooth),
+    box-shadow var(--duration-fast) var(--ease-smooth);
+}
+
+.http-url-input:hover {
+  border-color: var(--glass-border-hover);
+}
+
+.http-url-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 3px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+}
+
+.http-request-actions {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.http-send-btn {
+  min-width: 96px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 10px color-mix(in srgb, var(--brand-primary) 32%, transparent);
+}
+
+.http-send-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 4px 16px color-mix(in srgb, var(--brand-primary) 50%, transparent);
+}
+
+.http-send-btn[disabled] {
+  filter: grayscale(0.3) brightness(0.85);
+  cursor: progress;
+}
+
+.http-save-btn {
+  width: 36px;
+  height: auto;
+  align-self: stretch;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--glass-border-hover) 65%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-elevated) 90%, transparent),
+      color-mix(in srgb, var(--bg-elevated) 96%, transparent));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.http-save-btn:hover {
+  color: var(--brand-primary);
+  border-color: color-mix(in srgb, var(--brand-primary) 50%, transparent);
+  background: var(--glass-bg-hover);
+}
+
+
+/* --------------------------------------------
+   4. Sub-tab pills (Params / Headers / Body /
+   Auth / Trace) — pill-style underline tabs
+   with an active glow.
+   -------------------------------------------- */
+.http-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0;
+  margin-top: var(--space-2);
+}
+
+.http-tabs-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 3px;
+  background: color-mix(in srgb, var(--glass-bg) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.http-tab {
+  padding: 6px var(--space-5);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: calc(var(--radius-lg) - 3px);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition:
+    color var(--duration-fast) var(--ease-smooth),
+    background var(--duration-fast) var(--ease-smooth),
+    box-shadow var(--duration-fast) var(--ease-smooth);
+}
+
+.http-tab:hover {
+  color: var(--text-primary);
+  background: var(--glass-bg-hover);
+}
+
+.http-tab.active {
+  color: var(--text-primary);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--brand-primary) 22%, transparent),
+      color-mix(in srgb, var(--brand-primary) 8%, transparent));
+  border-color: color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px color-mix(in srgb, var(--brand-primary) 18%, transparent),
+    0 0 14px color-mix(in srgb, var(--brand-primary) 22%, transparent);
+}
+
+.http-history-btn {
+  flex-shrink: 0;
+}
+
+
+/* --------------------------------------------
+   5. Workbench — split between section + response
+   The active sub-tab content lives top, response
+   panel docks underneath.
+   -------------------------------------------- */
+.http-workbench {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  overflow: hidden;
+}
+
+.http-workbench-main {
+  flex: 1 1 50%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-secondary) 70%, transparent) 0%,
+      color-mix(in srgb, var(--bg-secondary) 88%, transparent) 100%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    var(--shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+/* --------------------------------------------
+   6. Sub-tab panes (Params/Headers/Body/Auth/Trace)
+   -------------------------------------------- */
+.http-pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.http-pane.hidden {
+  display: none;
+}
+
+.http-pane-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--glass-bg) 60%, transparent) 0%,
+      transparent 100%);
+  flex-shrink: 0;
+}
+
+.http-pane-header .panel-title {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.http-pane-copy {
+  margin: 2px 0 0;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--text-tertiary);
+}
+
+.http-pane-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+
+/* --------------------------------------------
+   7. Header / param row — the primary editing
+   widget for params + headers tabs.
+   IMPORTANT: structure is `.http-header-row >
+   .http-header-key + .http-header-value +
+   .remove-header-btn` because http-client.js
+   clones this exact template.
+   -------------------------------------------- */
+.http-headers-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.http-header-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px;
+  border: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--glass-bg) 70%, transparent);
+  transition:
+    border-color var(--duration-fast) var(--ease-smooth),
+    background var(--duration-fast) var(--ease-smooth);
+}
+
+.http-header-row:hover,
+.http-header-row:focus-within {
+  border-color: color-mix(in srgb, var(--brand-primary) 35%, var(--glass-border-hover) 65%);
+  background: var(--glass-bg-hover);
+}
+
+.http-header-row .http-header-key,
+.http-header-row .http-header-value {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  outline: none;
+  box-shadow: none;
+}
+
+.http-header-row .http-header-key {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.http-header-row .http-header-value {
+  color: var(--text-secondary);
+}
+
+.http-header-row .http-header-key:focus,
+.http-header-row .http-header-value:focus {
+  background: color-mix(in srgb, var(--bg-elevated) 60%, transparent);
+}
+
+.http-header-row .remove-header-btn,
+.http-header-row .remove-param-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.http-header-row .remove-header-btn:hover,
+.http-header-row .remove-param-btn:hover {
+  background: color-mix(in srgb, var(--brand-error) 14%, transparent);
+  border-color: color-mix(in srgb, var(--brand-error) 35%, transparent);
+  color: var(--brand-error);
+  transform: none;
+}
+
+
+/* --------------------------------------------
+   8. Body tab — mode selector + textarea
+   -------------------------------------------- */
+.http-body-modebar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 3px;
+  margin: var(--space-4) var(--space-5) 0;
+  background: color-mix(in srgb, var(--glass-bg) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  border-radius: var(--radius-lg);
+  align-self: flex-start;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.http-body-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px var(--space-4);
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: calc(var(--radius-lg) - 3px);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-smooth),
+    background var(--duration-fast) var(--ease-smooth),
+    border-color var(--duration-fast) var(--ease-smooth);
+}
+
+.http-body-mode:hover {
+  color: var(--text-primary);
+  background: var(--glass-bg-hover);
+}
+
+.http-body-mode input[type="radio"] {
+  width: 12px;
+  height: 12px;
+  accent-color: var(--brand-primary);
+  cursor: pointer;
+  margin: 0;
+}
+
+.http-body-mode:has(input[type="radio"]:checked) {
+  color: var(--text-primary);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--brand-primary) 18%, transparent),
+      color-mix(in srgb, var(--brand-primary) 6%, transparent));
+  border-color: color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 12px color-mix(in srgb, var(--brand-primary) 18%, transparent);
+}
+
+.http-body-textarea {
+  flex: 1;
+  min-height: 120px;
+  margin: var(--space-3) var(--space-5) var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-tertiary) 90%, transparent),
+      color-mix(in srgb, var(--bg-tertiary) 96%, transparent));
+  border: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  resize: none;
+  outline: none;
+  transition:
+    border-color var(--duration-fast) var(--ease-smooth),
+    box-shadow var(--duration-fast) var(--ease-smooth);
+}
+
+.http-body-textarea:focus {
+  border-color: var(--brand-primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 3px color-mix(in srgb, var(--brand-primary) 12%, transparent);
+}
+
+.http-body-textarea::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.85;
+}
+
+
+/* --------------------------------------------
+   9. Auth tab — section cards stacked vertically
+   -------------------------------------------- */
+.http-auth-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.http-auth-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 80%, transparent);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--glass-bg) 60%, transparent),
+      color-mix(in srgb, var(--bg-tertiary) 24%, transparent));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.http-auth-section .json-label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.http-auth-section .json-select,
+.http-auth-section .json-input {
+  font-size: 12.5px;
+}
+
+.http-auth-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.http-auth-fields:empty {
+  display: none;
+}
+
+.http-field-caption {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.http-inline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.http-inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.http-check-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.http-check-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.http-helper-copy {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text-tertiary);
+}
+
+.http-indent-copy {
+  padding-left: 28px;
+}
+
+.http-detected-auth {
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--bg-tertiary) 60%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--glass-border-hover) 50%, transparent);
+  border-radius: var(--radius-md);
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.http-token-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+
+/* --------------------------------------------
+   10. Trace tab — chrono / waterfall vibe
+   -------------------------------------------- */
+.http-trace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px dashed color-mix(in srgb, var(--glass-border) 60%, transparent);
+}
+
+.http-trace-header .panel-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.http-trace-header .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+  background: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  border-radius: var(--radius-full);
+}
+
+.http-trace-panel {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.http-trace-empty {
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+
+/* --------------------------------------------
+   11. Response panel — recessed result drawer
+   Slightly darker surface, prominent status,
+   muted meta, mono body in inset surface.
+   -------------------------------------------- */
+.http-response-panel {
+  flex: 1 1 50%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-tertiary) 90%, transparent) 0%,
+      color-mix(in srgb, var(--bg-tertiary) 96%, transparent) 100%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 0 24px color-mix(in srgb, var(--brand-primary) 4%, transparent);
+}
+
+.http-response-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--glass-bg) 60%, transparent) 0%,
+      transparent 100%);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.http-response-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.http-response-heading .panel-title {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.http-status-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 4px var(--space-3);
+  background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Status chip — JS overwrites .className to ''
+   AND sets style.background + style.color
+   inline. So target the ID directly so layout/
+   font/border survive the class wipe. */
+#httpStatus {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--glass-bg) 80%, transparent);
+  border-radius: var(--radius-full);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  white-space: nowrap;
+  min-width: 56px;
+  text-align: center;
+  justify-content: center;
+}
+
+.http-status-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.http-status-meta::before {
+  content: '·';
+  margin-right: var(--space-3);
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.http-status-bar #httpStatus + .http-status-meta::before {
+  content: '';
+  margin: 0;
+}
+
+.http-response-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.http-response-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.http-response-pre {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--text-primary);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-primary) 60%, transparent),
+      color-mix(in srgb, var(--bg-primary) 80%, transparent));
+  border: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 0 24px rgba(0, 0, 0, 0.18);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  outline: none;
+}
+
+
+/* --------------------------------------------
+   12. Compact density tweaks
+   -------------------------------------------- */
+html[data-shell-density="compact"] .http-command-deck {
+  padding: var(--space-3) var(--space-4) 0;
+  gap: var(--space-2);
+}
+
+html[data-shell-density="compact"] .http-request-bar {
+  min-height: 38px;
+}
+
+html[data-shell-density="compact"] .http-method-select {
+  min-width: 96px;
+  font-size: 12px;
+}
+
+html[data-shell-density="compact"] .http-workbench {
+  padding: var(--space-2) var(--space-4);
+  gap: var(--space-2);
+}
+
+html[data-shell-density="compact"] .http-pane-header {
+  padding: var(--space-3) var(--space-4);
+}
+
+html[data-shell-density="compact"] .http-pane-scroll {
+  padding: var(--space-3) var(--space-4);
+}
+
+html[data-shell-density="compact"] .http-auth-section {
+  padding: var(--space-3) var(--space-4);
+  gap: var(--space-2);
+}
+
+html[data-shell-density="compact"] .http-tab {
+  padding: 5px var(--space-4);
+  font-size: 11px;
+}
+
+
+/* --------------------------------------------
+   13. Preset-specific harmonies
+   forest-terminal + cyber-console: tighter
+   corners, mono uppercase eyebrows.
+   -------------------------------------------- */
+html[data-preset="forest-terminal"] .http-workbench-main,
+html[data-preset="forest-terminal"] .http-response-panel,
+html[data-preset="cyber-console"] .http-workbench-main,
+html[data-preset="cyber-console"] .http-response-panel {
+  border-radius: var(--radius-lg);
+}
+
+html[data-preset="forest-terminal"] .http-tab,
+html[data-preset="cyber-console"] .http-tab {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+html[data-preset="forest-terminal"] #httpStatus {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+/* Cosmic preset: warm display headings on the
+   pane titles — keep mono for data fields. */
+html[data-preset="cosmic"] .http-pane-header .panel-title,
+html[data-preset="cosmic"] .http-response-heading .panel-title {
+  font-family: var(--font-display);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* --------------------------------------------
+   14. Narrow-shell stacking
+   When the popup is narrow, let the request bar
+   wrap so the URL field doesn't squish.
+   -------------------------------------------- */
+html[data-shell-width="narrow"] .http-request-bar {
+  flex-wrap: wrap;
+}
+
+html[data-shell-width="narrow"] .http-url-wrap {
+  flex-basis: 100%;
+  order: 3;
+}
+
+html[data-shell-width="narrow"] .http-method-select {
+  order: 1;
+}
+
+html[data-shell-width="narrow"] .http-request-actions {
+  order: 2;
+  margin-left: auto;
+}

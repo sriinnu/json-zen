@@ -1,0 +1,664 @@
+/* ============================================
+   JSON Zen — JSON Editor Pane (v2.1 bento)
+   ============================================
+   Scope: #tab-json only. Renders the editor as
+   a bento-grid of glass cards inside the centre
+   column of the new app shell.
+
+   Honors mockup #1 (file-tabs strip + Caveat
+   eyebrows + Format/Minify/Validate pill row),
+   mockup #2 (file-tab strip + pill toolbar +
+   Input/Output card stack), mockup #5 (rounded
+   curved cards + floating bottom command bar).
+
+   Every colour goes through preset tokens so
+   all 8 looks stay coherent.
+   ============================================ */
+
+
+/* --------------------------------------------
+   1. Pane shell — column inside .app-main
+   -------------------------------------------- */
+#tab-json.tab-content {
+  /* JS sets display:flex/none inline via selectTab(); our flex-direction
+     and friends only kick in when the inline style is flex. */
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: 0;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+#tab-json.tab-content.hidden {
+  display: none;
+}
+
+
+/* --------------------------------------------
+   2. File-tabs strip (mockup #1, #2)
+   Visual-only for now. Looks like an editor's
+   open-buffers row. The "+" is decorative;
+   future me wires it.
+   -------------------------------------------- */
+.file-tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) 0;
+  flex-shrink: 0;
+}
+
+.file-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 6px var(--space-4) 6px var(--space-4);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-secondary) 70%, transparent),
+      color-mix(in srgb, var(--bg-secondary) 88%, transparent));
+  border: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  border-bottom: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+  position: relative;
+  top: 1px;
+}
+
+.file-tab:hover {
+  color: var(--text-primary);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-elevated) 70%, transparent),
+      color-mix(in srgb, var(--bg-secondary) 88%, transparent));
+}
+
+.file-tab.active {
+  color: var(--text-primary);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--brand-primary) 16%, transparent),
+      color-mix(in srgb, var(--bg-secondary) 92%, transparent));
+  border-color: color-mix(in srgb, var(--brand-primary) 40%, transparent);
+  border-bottom: none;
+  z-index: 1;
+}
+
+.file-tab-icon {
+  width: 12px;
+  height: 12px;
+  color: var(--brand-primary);
+}
+
+.file-tab-close {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.file-tab-close:hover {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--brand-error) 25%, transparent);
+}
+
+.file-tab-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px dashed color-mix(in srgb, var(--glass-border-hover) 60%, transparent);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+  margin-left: var(--space-2);
+}
+
+.file-tab-add:hover {
+  color: var(--brand-primary);
+  border-color: color-mix(in srgb, var(--brand-primary) 60%, transparent);
+  background: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+}
+
+.file-tab-meta {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-right: var(--space-2);
+}
+
+
+/* --------------------------------------------
+   3. Editor card stack — bento Input | Output
+   -------------------------------------------- */
+.json-stage {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-5);
+  padding: 0 var(--space-4) calc(var(--space-12) + 28px);
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 980px) {
+  .json-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* --------------------------------------------
+   4. Workspace cards (bento)
+   -------------------------------------------- */
+.json-workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-secondary) 84%, transparent) 0%,
+      color-mix(in srgb, var(--bg-secondary) 70%, transparent) 100%);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 80%, transparent);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  transition:
+    border-color var(--duration-normal) var(--ease-smooth),
+    box-shadow var(--duration-normal) var(--ease-smooth);
+  box-shadow:
+    var(--shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  position: relative;
+}
+
+/* Soft brand-tint glow on the active card. */
+.json-workspace::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(360px 220px at 12% -10%,
+      color-mix(in srgb, var(--brand-primary) 14%, transparent),
+      transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+  z-index: 0;
+}
+
+.json-workspace:focus-within::before,
+.json-workspace--output::before {
+  opacity: 1;
+}
+
+.json-workspace:focus-within {
+  border-color: color-mix(in srgb, var(--brand-primary) 55%, var(--glass-border-hover) 45%);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 3px color-mix(in srgb, var(--brand-primary) 10%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.json-workspace--output {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-tertiary) 88%, transparent) 0%,
+      color-mix(in srgb, var(--bg-tertiary) 96%, transparent) 100%);
+}
+
+.json-workspace--output::before {
+  background:
+    radial-gradient(360px 220px at 88% -10%,
+      color-mix(in srgb, var(--brand-secondary) 16%, transparent),
+      transparent 70%);
+}
+
+.json-workspace > * { position: relative; z-index: 1; }
+
+
+/* --------------------------------------------
+   5. Workspace head — inline toolbar lives here
+   for the input card (mockup #2 toolbar-in-card).
+   -------------------------------------------- */
+.json-workspace-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--glass-bg) 60%, transparent) 0%,
+      transparent 100%);
+  flex-shrink: 0;
+  min-height: 56px;
+}
+
+.json-workspace-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.json-workspace-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+}
+
+.json-workspace-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.json-workspace-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.json-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  background: color-mix(in srgb, var(--glass-bg) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  border-radius: var(--radius-full);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+
+/* --------------------------------------------
+   6. Editor toolbar — single horizontal pill
+   row, grouped clusters. Sits inside the input
+   card under its head.
+   -------------------------------------------- */
+.json-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  margin: 0;
+  background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-border) 50%, transparent);
+  flex-shrink: 0;
+}
+
+.json-toolbar .toolbar-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 3px;
+  background: color-mix(in srgb, var(--glass-bg) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.json-toolbar .toolbar-cluster .btn {
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+  min-height: 28px;
+  padding: 4px var(--space-4);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.json-toolbar .toolbar-cluster .btn:hover {
+  background: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  color: var(--text-primary);
+  border-color: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+.json-toolbar .toolbar-cluster .btn.btn-primary {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  color: white;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 1px 8px color-mix(in srgb, var(--brand-primary) 38%, transparent);
+}
+
+.json-toolbar .toolbar-cluster .btn.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.json-toolbar .toolbar-cluster .dropdown-toggle svg:last-child { opacity: 0.55; }
+
+.json-toolbar .toolbar-spacer { flex: 1 1 auto; }
+
+.json-toolbar .toolbar-utilities {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.json-toolbar .toolbar-utilities .btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.json-toolbar .toolbar-utilities .btn:hover {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  border-color: color-mix(in srgb, var(--brand-primary) 25%, transparent);
+}
+
+.json-toolbar .toolbar-utilities .btn[data-utility="danger"]:hover {
+  color: var(--brand-error);
+  background: color-mix(in srgb, var(--brand-error) 14%, transparent);
+  border-color: color-mix(in srgb, var(--brand-error) 30%, transparent);
+}
+
+
+/* --------------------------------------------
+   7. Workspace body — the textarea / pre frame
+   -------------------------------------------- */
+.json-workspace-body {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.json-workspace-body > #input,
+.json-workspace-body > #output {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  margin: 0;
+  padding: var(--space-5) var(--space-6);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--editor-line-height);
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  outline: none;
+  resize: none;
+  tab-size: 2;
+  overflow: auto;
+}
+
+.json-workspace-body > #input:focus,
+.json-workspace-body > #output:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.json-workspace-body > #input::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.85;
+}
+
+
+/* --------------------------------------------
+   8. Path explorer — chip trail above output
+   -------------------------------------------- */
+#pathExplorerBar {
+  /* JS toggles between display:none and display:flex inline. */
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--glass-bg-hover) 60%, transparent) 0%,
+      transparent 100%);
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-border) 60%, transparent);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+#pathExplorerBar::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--brand-primary);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--brand-primary) 60%, transparent);
+  flex-shrink: 0;
+}
+
+#breadcrumbs {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 0;
+}
+
+#pathExplorerBar .icon-btn {
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-tertiary);
+}
+
+#pathExplorerBar .icon-btn:hover {
+  background: var(--glass-bg-hover);
+  border-color: color-mix(in srgb, var(--glass-border) 60%, transparent);
+  color: var(--text-primary);
+  transform: none;
+}
+
+
+/* --------------------------------------------
+   9. Tree panel — folded next to output
+   -------------------------------------------- */
+#treePanel {
+  /* JS toggles display inline. */
+  width: 200px;
+  flex-shrink: 0;
+  border-right: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  background: color-mix(in srgb, var(--bg-tertiary) 85%, transparent);
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: var(--space-3);
+}
+
+
+/* --------------------------------------------
+   10. Query palette — slash-command overlay
+   -------------------------------------------- */
+#queryBar {
+  /* JS toggles display:none / display:flex inline. */
+  position: absolute;
+  bottom: var(--space-5);
+  left: var(--space-5);
+  right: var(--space-5);
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--bg-elevated) 92%, transparent) 0%,
+      color-mix(in srgb, var(--bg-elevated) 96%, transparent) 100%);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 35%, var(--glass-border) 65%);
+  border-radius: var(--radius-2xl);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 4px color-mix(in srgb, var(--brand-primary) 8%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  z-index: var(--z-elevated);
+  animation: jsonQueryBarRise var(--duration-normal) var(--ease-spring);
+}
+
+@keyframes jsonQueryBarRise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.query-prompt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  color: var(--brand-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+#queryBar #queryInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+}
+
+#queryBar #queryInput:focus {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#queryBar #queryInput::placeholder { color: var(--text-muted); }
+
+#queryBar .btn { flex-shrink: 0; }
+
+#queryBar #queryClose {
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-tertiary);
+}
+
+#queryBar #queryClose:hover {
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+  transform: none;
+}
+
+
+/* --------------------------------------------
+   11. Compact density tweaks
+   -------------------------------------------- */
+html[data-shell-density="compact"] .json-toolbar {
+  padding: var(--space-2) var(--space-3);
+  gap: var(--space-2);
+}
+
+html[data-shell-density="compact"] .json-workspace-head {
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+}
+
+html[data-shell-density="compact"] .json-workspace-name { font-size: 18px; }
+
+html[data-shell-density="compact"] .json-workspace-body > #input,
+html[data-shell-density="compact"] .json-workspace-body > #output {
+  padding: var(--space-4) var(--space-5);
+}
+
+html[data-shell-density="compact"] .json-stage {
+  padding: 0 var(--space-3) calc(var(--space-10) + 24px);
+  gap: var(--space-3);
+}
+
+html[data-shell-density="compact"] .file-tabs {
+  padding: var(--space-2) var(--space-3) 0;
+}
+
+
+/* --------------------------------------------
+   12. Forest-terminal & cyber-console respect
+   Squarer corners; tighten the warmth.
+   -------------------------------------------- */
+html[data-preset="forest-terminal"] .json-workspace-name,
+html[data-preset="cyber-console"] .json-workspace-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+html[data-preset="forest-terminal"] .json-workspace,
+html[data-preset="cyber-console"] .json-workspace {
+  border-radius: var(--radius-lg);
+}
+
+html[data-preset="forest-terminal"] .file-tab,
+html[data-preset="cyber-console"] .file-tab {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}

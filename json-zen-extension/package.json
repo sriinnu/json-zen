@@ -1,7 +1,7 @@
 {
   "name": "json-zen",
-  "version": "1.2.0",
-  "description": "Format, prettify, minify, validate, and fix JSON data - Beautiful glassmorphism JSON toolkit with 6 themes",
+  "version": "2.0.0",
+  "description": "The ultimate JSON toolkit with HTTP client, diff engine, and bulk processor - 10 beautiful themes with glassmorphism UI",
   "author": "Srinivas Pendela",
   "license": "MIT",
   "repository": {
@@ -14,6 +14,9 @@
     "validator",
     "prettify",
     "minify",
+    "http-client",
+    "diff",
+    "bulk",
     "chrome-extension",
     "browser-extension",
     "glassmorphism"

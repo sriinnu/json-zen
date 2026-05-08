@@ -1,7 +1,7 @@
 {
   "name": "json-zen",
-  "version": "1.1.0",
-  "description": "A beautiful cross-platform JSON toolkit with glassmorphism UI - Format, validate, fix, convert, and transform JSON data",
+  "version": "2.0.0",
+  "description": "The ultimate JSON toolkit - format, validate, fix, convert, transform, diff, and test APIs with a glassmorphism UI and 10 themes",
   "author": "Srinivas Pendela",
   "license": "MIT",
   "repository": {
@@ -32,6 +32,6 @@
   },
   "scripts": {
     "build": "echo 'No build step required - load json-zen-extension/ as unpacked extension'",
-    "zip": "cd json-zen-extension && zip -r ../json-zen-v1.1.0.zip . -x '*.DS_Store'"
+    "zip": "cd json-zen-extension && zip -r ../json-zen-v$npm_package_version.zip . -x '*.DS_Store' -x '__MACOSX/*'"
   }
 }
