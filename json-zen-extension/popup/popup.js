@@ -39,10 +39,6 @@ const App = {
     DiffEngine.init();
     BulkProcessor.init();
 
-    // Welcome toast
-    setTimeout(() => {
-      ToastManager.show('JSON Zen v2.0 - Enhanced with HTTP Client & Diff', 'info', { duration: 3000 });
-    }, 500);
   },
 
   // Cache DOM elements
