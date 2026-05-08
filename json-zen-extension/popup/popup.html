@@ -22,47 +22,7 @@
       <div class="brand-lockup">
         <div class="logo">
         <div class="logo-icon brand-mark" style="background:transparent;padding:0;">
-          <svg width="32" height="32" viewBox="0 0 128 128" class="brand-mark-svg">
-            <defs>
-              <linearGradient id="logoBrace" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:var(--brand-primary)"/>
-                <stop offset="100%" style="stop-color:var(--brand-secondary)"/>
-              </linearGradient>
-              <linearGradient id="logoZen" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:var(--brand-accent)"/>
-                <stop offset="100%" style="stop-color:var(--brand-primary)"/>
-              </linearGradient>
-              <filter id="logoGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="2" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            <!-- Zen Circle -->
-            <circle cx="64" cy="64" r="28" fill="none" stroke="url(#logoZen)" stroke-width="3" stroke-linecap="round" filter="url(#logoGlow)"/>
-            <!-- Left Brace -->
-            <path d="M44 44 C40 44,38 48,38 52 L38 56 C38 60,36 62,32 64 L32 66 C36 68,38 70,38 74 L38 78 C38 82,40 86,44 86" 
-                  fill="none" stroke="url(#logoBrace)" stroke-width="4" stroke-linecap="round" filter="url(#logoGlow)"/>
-            <!-- Right Brace -->
-            <path d="M84 44 C88 44,90 48,90 52 L90 56 C90 60,92 62,96 64 L96 66 C92 68,90 70,90 74 L90 78 C90 82,88 86,84 86" 
-                  fill="none" stroke="url(#logoBrace)" stroke-width="4" stroke-linecap="round" filter="url(#logoGlow)"/>
-            <!-- Data Nodes -->
-            <circle cx="56" cy="56" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
-            <circle cx="64" cy="48" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
-            <circle cx="72" cy="56" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
-            <circle cx="58" cy="74" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
-            <circle cx="70" cy="74" r="2.5" fill="url(#logoBrace)" filter="url(#logoGlow)"/>
-            <!-- Connection Lines -->
-            <g stroke="url(#logoBrace)" stroke-width="1" opacity="0.4">
-              <line x1="56" y1="56" x2="64" y2="48"/>
-              <line x1="64" y1="48" x2="72" y2="56"/>
-              <line x1="56" y1="56" x2="58" y2="74"/>
-              <line x1="72" y1="56" x2="70" y2="74"/>
-              <line x1="58" y1="74" x2="70" y2="74"/>
-            </g>
-          </svg>
+          <img src="../icons/icon128.png" width="32" height="32" alt="JSON Zen" class="brand-mark-svg">
         </div>
           <div class="brand-copy">
             <span class="brand-title">JSON Zen</span>
