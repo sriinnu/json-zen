@@ -128,3 +128,16 @@ coverage/
 .claude/
 .chitragupta/
 memory/
+.codex
+.secret-allowlist
+
+# =====================
+# Local working notes (not for repo)
+# =====================
+V2-TRANSFORMATION.md
+VISUAL-EVOLUTION.md
+
+# =====================
+# Design references (kept local)
+# =====================
+mockups/
